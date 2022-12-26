@@ -1,0 +1,38 @@
+{
+  "name": "unity-paleto-bay-hospital",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "author": "Antoine Kingue <contact@antoinek.fr>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node dist/index",
+    "dev": "nodemon --exec ts-node src/index",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix"
+  },
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "days": "^1.1.1",
+    "discord-webhook-node": "^1.1.8",
+    "discord.js": "^14.7.1",
+    "dotenv-flow": "^3.2.0",
+    "fs": "^0.0.1-security",
+    "mongoose": "^6.8.1",
+    "node-schedule": "^2.1.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "@typescript-eslint/eslint-plugin": "^5.47.1",
+    "@typescript-eslint/parser": "^5.47.1",
+    "eslint": "^8.30.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  }
+}
