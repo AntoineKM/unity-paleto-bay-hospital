@@ -8,7 +8,7 @@ const LogPlugin: DiscordPlugin = (client) => {
     if (message.author?.bot) return;
     Log.warn(
       `**${message.guild?.name}**`,
-      `message supprimé par **${message.author?.username}#${message.author?.discriminator}** dans <#${message.channel.id}> "${message.cleanContent}"`
+      `message de **${message.author?.username}#${message.author?.discriminator}** dans <#${message.channel.id}> supprimé:\n${message.cleanContent}`
     );
   });
 
