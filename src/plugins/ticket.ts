@@ -1,4 +1,4 @@
-import { Events, TextChannel } from "discord.js";
+import { Events, GuildMember, TextChannel } from "discord.js";
 import CHANNELS from "../constants/channels";
 import TicketController from "../controllers/ticket";
 import { DiscordPlugin } from "../types/plugin";
@@ -22,6 +22,7 @@ const TicketPlugin: DiscordPlugin = (client) => {
     if (!interaction.isButton()) return;
     if (!interaction.customId.startsWith("ticket_")) return;
     if (!interaction.guild) return;
+    if (!interaction.member || !interaction.member.user) return;
 
     await interaction.deferReply();
 
@@ -36,7 +37,7 @@ const TicketPlugin: DiscordPlugin = (client) => {
 
     await TicketController.createTicket(
       interaction.guild,
-      interaction.user,
+      interaction.member as GuildMember,
       // remove the prefix before the first "_" from the interaction.customId but do not split because after the first "_" there is the ticket type which can contain "_"
       interaction.customId.slice(
         interaction.customId.indexOf("_") + 1
@@ -44,6 +45,19 @@ const TicketPlugin: DiscordPlugin = (client) => {
     );
 
     await interaction.deleteReply();
+  });
+
+  client.on(Events.GuildMemberRemove, async (member) => {
+    const ticketsChannels = await TicketController.getUserTicketsChannels(
+      member.guild,
+      member.user
+    );
+
+    await Promise.all(
+      ticketsChannels.map(async (channel) => {
+        await TicketController.closeTicket(member.user, channel);
+      })
+    );
   });
 };
 

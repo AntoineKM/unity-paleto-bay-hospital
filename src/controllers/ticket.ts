@@ -4,11 +4,13 @@ import {
   ChannelType,
   Colors,
   Guild,
+  GuildMember,
   TextChannel,
   User,
 } from "discord.js";
 import APP from "../constants/app";
 import CHANNELS from "../constants/channels";
+import { TicketTypeData } from "../constants/ticket";
 import { TicketType } from "../types/ticket";
 import Log from "../utils/log";
 
@@ -101,7 +103,12 @@ class TicketController {
     }
   }
 
-  public static async createTicket(guild: Guild, user: User, type: TicketType) {
+  public static async createTicket(
+    guild: Guild,
+    member: GuildMember,
+    type: TicketType
+  ) {
+    const { user } = member;
     await guild.channels.fetch();
 
     const tickets = guild.channels.cache.filter(
@@ -128,7 +135,7 @@ class TicketController {
     }
 
     const channel = await guild.channels.create({
-      name: `${TicketTypeData[type].emoji}┊${user.username}`,
+      name: `${TicketTypeData[type].emoji}┊${member.nickname || user.username}`,
       topic: `Ticket ${TicketTypeData[type].name.toLowerCase()} de ${user}`,
       parent: TicketTypeData[type].parent || CHANNELS.TICKETS_AUTRES._ID,
       type: ChannelType.GuildText,
@@ -186,116 +193,23 @@ class TicketController {
     );
     await channel.delete();
   }
-}
 
-export const TicketTypeData: Record<
-  TicketType,
-  {
-    emoji: string;
-    name: string;
-    description: string;
-    instructions: string;
-    parent?: string;
+  public static async getUserTicketsChannels(
+    guild: Guild,
+    user: User
+  ): Promise<TextChannel[]> {
+    await guild.channels.fetch();
+    const tickets = guild.channels.cache.filter(
+      (channel) =>
+        channel.type === ChannelType.GuildText &&
+        Object.values(TicketType).some((type) =>
+          channel.name.startsWith(`${TicketTypeData[type].emoji}┊`)
+        ) &&
+        channel.topic?.includes(user.id)
+    );
+
+    return tickets.map((channel) => channel as TextChannel);
   }
-> = {
-  [TicketType.Complaint]: {
-    emoji: "📢",
-    name: "Plainte",
-    description: "Plainte envers un de nos personnels soignant.",
-    instructions: "",
-  },
-  [TicketType.Partnership]: {
-    emoji: "🤝",
-    name: "Partenariat",
-    description: "Demande de partenariat avec notre hôpital.",
-    instructions: "",
-  },
-  [TicketType.Support]: {
-    emoji: "📞",
-    name: "Support",
-    description: "Questions simples ou besoin d'aide.",
-    instructions: "",
-  },
-  [TicketType.Recruitment]: {
-    emoji: "📥",
-    name: "Recrutement",
-    description:
-      "Une fois votre candidature acceptée, vous pourrez créer un ticket de recrutement si celui-ci n'est pas déjà ouvert.",
-    instructions: "",
-    parent: CHANNELS.TICKETS_RECRUTEMENTS._ID,
-  },
-  [TicketType.PPA]: {
-    emoji: "🔫",
-    name: "PPA",
-    description: `Examen psychologique réservé aux forces de l'ordre afin de pouvoir porter une arme. Assurez d'avoir fait votre demande de rôle dans le salon <#${CHANNELS.INFORMATIONS.DEMANDES_ROLES}>.`,
-    instructions: `》Si vous avez décidé de prendre rendez-vous avec un de nos spécialiste pour le test de psychologie c’est que vous êtes membre de la __**BCSO**__, ce test nous servira à voir si vous êtes apte ou non à disposer d’un port d'arme. 
-
-*__》Afin de créer votre dossier, merci de suivre les étapes suivantes: __*
-
-**__Dans un premier temps:__** 
-
-- Veuillez vous renommer [Matricule] Nom Prénom 
-- Veuillez faire une demande de rôle dans le channel correspondant: <#${CHANNELS.INFORMATIONS.DEMANDES_ROLES}>
-
-*__Ensuite, nous renseigner: __*
-
-- Votre brigade 
-- Votre matricule
-- Votre nom et prénom
-
-》Et enfin, veuillez indiquer vos disponibilités afin que nous puissions convenir d’un rendez-vous ? 
-
-_Exemple: 
-
-Lundi: ?h - ?h 
-Mardi: ?h - ?h 
-Mercredi: ?h - ?h
-Jeudi: ?h - ?h 
-Vendredi: ?h - ?h 
-Samedi: ?h - ?h 
-Dimanche: ?h - ?h_`,
-    parent: CHANNELS.TICKETS_PPA._ID,
-  },
-  [TicketType.Psychology]: {
-    emoji: "🧠",
-    name: "Psychologie",
-    description:
-      "Examen psychologique pour les personnes principalement en détresse ou en souffrance psychologique.",
-    instructions: "",
-    parent: CHANNELS.TICKETS_PSYCOLOGIE._ID,
-  },
-  [TicketType.Toxicology]: {
-    emoji: "💉",
-    name: "Toxicologie",
-    description:
-      "Examen toxicologique pour les personnes qui rencontrent des problèmes de toxicomanie.",
-    instructions: "",
-    parent: CHANNELS.TICKETS_TOXICOLOGIE._ID,
-  },
-  [TicketType.Surgery]: {
-    emoji: "🦾",
-    name: "Chirurgie",
-    description:
-      "Examen chirurgical pour les personnes qui rencontrent des problèmes de santé ou souhaitent subir une modification corporelle.",
-    instructions: "",
-    parent: CHANNELS.TICKETS_CHIRURGIE._ID,
-  },
-  [TicketType.Gynecology]: {
-    emoji: "🧠",
-    name: "Gynécologie",
-    description:
-      "Examen gynécologique principalement pour les femmes enceintes et les dépistages de MST.",
-    instructions: "",
-    parent: CHANNELS.TICKETS_GYNECOLOGIE._ID,
-  },
-  [TicketType.Radiography]: {
-    emoji: "🧠",
-    name: "Radiographie",
-    description:
-      "Examen radiologique principalement pour les personnes sentant des douleurs internes.",
-    instructions: "",
-    parent: CHANNELS.TICKETS_RADIOGRAPHIE._ID,
-  },
-};
+}
 
 export default TicketController;
