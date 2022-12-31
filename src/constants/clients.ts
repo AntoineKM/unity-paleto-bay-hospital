@@ -1,0 +1,5 @@
+const CLIENTS = {
+  UNITYRP_GTA_RP_BOT: "730065308236120175",
+};
+
+export default CLIENTS;
