@@ -17,13 +17,6 @@ const MemberCountPlugin: DiscordPlugin = (client) => {
         CHANNELS.COUNT_EMS
       )) as VoiceChannel;
 
-      console.log(
-        "updating count",
-        !!membersCountchannel,
-        !!playersCountchannel,
-        !!emsCountchannel
-      );
-
       if (!membersCountchannel || !playersCountchannel || !emsCountchannel) {
         return;
       }
@@ -31,7 +24,6 @@ const MemberCountPlugin: DiscordPlugin = (client) => {
       CountController.updateMembersCountChannel(guild, membersCountchannel);
       CountController.updatePlayersCountChannel(guild, playersCountchannel);
       CountController.updateEMSCountChannel(guild, emsCountchannel);
-      console.log("updated count");
     });
   });
 };

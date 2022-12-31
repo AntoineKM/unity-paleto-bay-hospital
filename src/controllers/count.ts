@@ -65,7 +65,6 @@ class CountController {
         channel.name.replace(/\(([^)]+)\)/, `(${memberCount})`)
       );
     }
-    console.log("updated members count");
   }
 
   public static async updatePlayersCountChannel(
@@ -76,7 +75,6 @@ class CountController {
     const bot = await guild.members.fetch(CLIENTS.UNITYRP_GTA_RP_BOT);
     const playersCount = (await this.getPlayersCount(bot)) || "-";
     const maxPlayersCount = (await this.getMaxPlayersCount(bot)) || "-";
-    console.log("@updatePlayersCountChannel", playersCount, maxPlayersCount);
     // if channel name doest not contain "(" or ")", we add it
     if (!channel.name.includes("(") || !channel.name.includes(")")) {
       await channel.setName(
@@ -90,7 +88,6 @@ class CountController {
         )
       );
     }
-    console.log("updated players count");
   }
 
   public static async updateEMSCountChannel(
@@ -108,7 +105,6 @@ class CountController {
         channel.name.replace(/\(([^)]+)\)/, `(${emsCount}/${maxEmsCount})`)
       );
     }
-    console.log("updated ems count");
   }
 }
 
