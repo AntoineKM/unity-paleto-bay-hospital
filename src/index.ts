@@ -28,6 +28,7 @@ const main = async () => {
     GatewayIntentBits.DirectMessageReactions,
     GatewayIntentBits.DirectMessageTyping,
     GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildPresences,
   ];
 
   const client: ClientWithCommands = new Client({
