@@ -5,15 +5,16 @@ import CountController from "../controllers/count";
 import { DiscordPlugin } from "../types/plugin";
 
 const MemberCountPlugin: DiscordPlugin = (client) => {
-  schedule.scheduleJob("* * * * *", async () => {
+  // every 10 minutes
+  schedule.scheduleJob("*/10 * * * *", () => {
     client.guilds.cache.forEach(async (guild) => {
-      const membersCountchannel = (await guild.channels.cache.get(
+      const membersCountchannel = (await guild.channels.fetch(
         CHANNELS.COUNT_MEMBERS
       )) as VoiceChannel;
-      const playersCountchannel = (await guild.channels.cache.get(
+      const playersCountchannel = (await guild.channels.fetch(
         CHANNELS.COUNT_PLAYERS
       )) as VoiceChannel;
-      const emsCountchannel = (await guild.channels.cache.get(
+      const emsCountchannel = (await guild.channels.fetch(
         CHANNELS.COUNT_EMS
       )) as VoiceChannel;
 

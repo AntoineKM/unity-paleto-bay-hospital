@@ -55,15 +55,20 @@ class CountController {
     guild: Guild,
     channel: VoiceChannel
   ): Promise<void> {
-    // channel name gonna be "<custom name> (<member count>)"
     const memberCount = await this.getMembersCount(guild);
-    // if channel name doest not contain "(" or ")", we add it
     if (!channel.name.includes("(") || !channel.name.includes(")")) {
       await channel.setName(`${channel.name} (${memberCount})`);
     } else {
-      await channel.setName(
-        channel.name.replace(/\(([^)]+)\)/, `(${memberCount})`)
+      const channelName = channel.name;
+      const newChannelName = channelName.replace(
+        /\(([^)]+)\)/,
+        `(${memberCount})`
       );
+      if (channelName === newChannelName) {
+        return;
+      } else {
+        await channel.setName(newChannelName);
+      }
     }
   }
 
@@ -71,22 +76,24 @@ class CountController {
     guild: Guild,
     channel: VoiceChannel
   ): Promise<void> {
-    // channel name gonna be "<custom name> (<member count>/<max member count>)"
     const bot = await guild.members.fetch(CLIENTS.UNITYRP_GTA_RP_BOT);
     const playersCount = (await this.getPlayersCount(bot)) || "-";
     const maxPlayersCount = (await this.getMaxPlayersCount(bot)) || "-";
-    // if channel name doest not contain "(" or ")", we add it
     if (!channel.name.includes("(") || !channel.name.includes(")")) {
       await channel.setName(
         `${channel.name} (${playersCount}/${maxPlayersCount})`
       );
     } else {
-      await channel.setName(
-        channel.name.replace(
-          /\(([^)]+)\)/,
-          `(${playersCount}/${maxPlayersCount})`
-        )
+      const channelName = channel.name;
+      const newChannelName = channelName.replace(
+        /\(([^)]+)\)/,
+        `(${playersCount}/${maxPlayersCount})`
       );
+      if (channelName === newChannelName) {
+        return;
+      } else {
+        await channel.setName(newChannelName);
+      }
     }
   }
 
@@ -101,9 +108,16 @@ class CountController {
     if (!channel.name.includes("(") || !channel.name.includes(")")) {
       await channel.setName(`${channel.name} (${emsCount}/${maxEmsCount})`);
     } else {
-      await channel.setName(
-        channel.name.replace(/\(([^)]+)\)/, `(${emsCount}/${maxEmsCount})`)
+      const channelName = channel.name;
+      const newChannelName = channelName.replace(
+        /\(([^)]+)\)/,
+        `(${emsCount}/${maxEmsCount})`
       );
+      if (channelName === newChannelName) {
+        return;
+      } else {
+        await channel.setName(newChannelName);
+      }
     }
   }
 }
