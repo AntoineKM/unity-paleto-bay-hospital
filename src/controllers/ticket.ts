@@ -10,6 +10,7 @@ import {
 } from "discord.js";
 import APP from "../constants/app";
 import CHANNELS from "../constants/channels";
+import ROLES from "../constants/roles";
 import { TicketTypeData } from "../constants/ticket";
 import { TicketType } from "../types/ticket";
 import Log from "../utils/log";
@@ -110,6 +111,23 @@ class TicketController {
   ) {
     const { user } = member;
     await guild.channels.fetch();
+
+    await member.fetch();
+    if (
+      type === TicketType.Recruitment &&
+      !member.roles.cache.has(ROLES.CANDIDATURE_ACCEPTEE)
+    ) {
+      await user.send({
+        embeds: [
+          {
+            ...this.baseEmbed,
+            description:
+              "Votre candidature n'est pas encore acceptée, vous ne pouvez pas créer de ticket de recrutement.",
+          },
+        ],
+      });
+      return;
+    }
 
     const tickets = guild.channels.cache.filter(
       (channel) =>
