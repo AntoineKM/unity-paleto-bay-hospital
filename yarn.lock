@@ -1234,6 +1234,11 @@ cross-spawn@^7.0.2:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
+dayjs@^1.11.7:
+  version "1.11.7"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.7.tgz#4b296922642f70999544d1144a2c25730fce63e2"
+  integrity sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==
+
 days@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/days/-/days-1.1.1.tgz#b039d1e5ad5335ca689401855546f02d4cfcb362"
@@ -1901,10 +1906,10 @@ mongodb@4.12.1:
     "@aws-sdk/credential-providers" "^3.186.0"
     saslprep "^1.0.3"
 
-mongoose@^6.8.1:
-  version "6.8.1"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-6.8.1.tgz#7a5bf02241b88317ceca459beac9db5ff1ce8225"
-  integrity sha512-utr2hclZ+/QlO+JuVd33dxzvLKtByEhaLj8mEO+tqCm6pgOboKv+DWcvJDEcCMl4Rgd1ubgfYz4cZ9BWyHmC3Q==
+mongoose@^6.8.2:
+  version "6.8.2"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-6.8.2.tgz#5b11a3ca0f6955e65f8f1e2255dad213e122b4ea"
+  integrity sha512-cIato5N2w/QuJkkh0w4nyf7ty7DqmmP/W8/6PFSM0DrzbxIMlr6VN15LBIceTSJIxbznNl2Mlbh9Rm4sokMw+A==
   dependencies:
     bson "^4.7.0"
     kareem "2.5.0"
