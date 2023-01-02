@@ -1,0 +1,14 @@
+import ROLES from "./roles";
+
+const QUOTAS = {
+  [ROLES.CADRE_SANTE]: 10,
+  [ROLES.CHEF_DE_SERVICE]: 12,
+  [ROLES.MEDECIN_CHEF]: 12,
+  [ROLES.MEDECIN]: 15,
+  [ROLES.INTERNE]: 15,
+  [ROLES.INFIRMIER]: 15,
+  [ROLES.AMBULANCIER]: 20,
+  [ROLES.STAGIAIRE]: 20,
+};
+
+export default QUOTAS;
