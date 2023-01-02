@@ -1,10 +1,12 @@
 import fs from "fs";
 import path from "path";
-import { Client, GatewayIntentBits } from "discord.js";
+import { Client, Collection, GatewayIntentBits } from "discord.js";
 import dotenv from "dotenv-flow";
 import DiscordApplication from "./services/discord";
 import { ClientWithCommands } from "./types/command";
 import Log from "./utils/log";
+import mongoose from "mongoose";
+import { databaseUri } from "./services/mongodb";
 
 const main = async () => {
   dotenv.config({
@@ -36,6 +38,19 @@ const main = async () => {
   });
 
   try {
+    await mongoose.connect(databaseUri);
+    Log.ready("connected to mongodb");
+
+    client.commands = new Collection();
+    fs.readdirSync(path.join(__dirname, "commands"))
+      .filter((file) => file.endsWith(".ts") || file.endsWith(".js"))
+      .forEach((file) => {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const command = require(path.join(__dirname, "commands", file)).default;
+        client.commands?.set(command.data.name, command);
+        Log.ready(`loaded command ${file}`);
+      });
+
     fs.readdirSync(path.join(__dirname, "plugins"))
       .filter((file) => file.endsWith(".ts") || file.endsWith(".js"))
       .forEach((file) => {
