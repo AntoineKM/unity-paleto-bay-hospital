@@ -107,7 +107,7 @@ const LogPlugin: DiscordPlugin = (client) => {
   client.on(Events.InteractionCreate, (interaction) => {
     if (interaction.isCommand()) {
       Log.info(
-        `**${interaction.guild?.name}**`,
+        `**${interaction.guild?.name ?? "DM"}**`,
         `member **${interaction.user.username}#${interaction.user.discriminator}** excuted the command ` +
           "``" +
           `/${interaction.commandName} ${interaction.options.data
