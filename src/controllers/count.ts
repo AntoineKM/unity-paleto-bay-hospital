@@ -1,6 +1,7 @@
 import { Guild, GuildMember, VoiceChannel } from "discord.js";
 import CLIENTS from "../constants/clients";
 import ROLES from "../constants/roles";
+import Worktime from "../models/Worktime";
 
 class CountController {
   public static async getMembersCount(guild: Guild): Promise<number> {
@@ -40,6 +41,12 @@ class CountController {
     const maxPlayersCount = name.split(" ")[2];
     if (!maxPlayersCount) return null;
     return parseInt(maxPlayersCount);
+  }
+
+  public static async getEMSCount(): Promise<number | null> {
+    const worktimes = await Worktime.find({ endAt: null });
+    if (!worktimes) return null;
+    return worktimes.length;
   }
 
   public static async getMaxEMSCount(guild: Guild): Promise<number | null> {
@@ -102,7 +109,7 @@ class CountController {
     channel: VoiceChannel
   ): Promise<void> {
     // channel name gonna be "<custom name> (<member count>/<max member count>)"
-    const emsCount = "-";
+    const emsCount = (await this.getEMSCount()) || "-";
     const maxEmsCount = (await this.getMaxEMSCount(guild)) || "-";
     // if channel name doest not contain "(" or ")", we add it
     if (!channel.name.includes("(") || !channel.name.includes(")")) {
