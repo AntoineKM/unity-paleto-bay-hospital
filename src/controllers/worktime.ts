@@ -26,12 +26,20 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 class WorktimeController {
+  private static baseEmbed = {
+    title: "Pointeuse",
+    color: Colors.White,
+    footer: {
+      text: APP.NAME,
+      icon_url: APP.LOGO,
+    },
+  };
+
   public static async initialize(channel: Channel): Promise<void> {
     if (channel?.type !== ChannelType.GuildText) return;
 
     const instructionEmbed = {
-      color: Colors.White,
-      title: "Pointeuse",
+      ...this.baseEmbed,
       description:
         "Pointage des heures des membres de l'équipe.\n\n" +
         "**Prise de service**\n" +
@@ -42,7 +50,6 @@ class WorktimeController {
         "Veillez à bien vous connecter à un salon vocal **Fréquence** pour que votre prise de service soit bien prise en compte.",
       footer: {
         text: `Merci à vous et bon courage - ${APP.NAME}`,
-        icon_url: APP.LOGO,
       },
     };
 
@@ -91,13 +98,19 @@ class WorktimeController {
     });
 
     if (currentWorktime) {
-      user.send(
-        `❌ - Vous avez déjà commencé votre service à ${dayjs(
-          currentWorktime.startAt
-        )
-          .tz(APP.TIMEZONE)
-          .format("HH:mm")}`
-      );
+      user.send({
+        embeds: [
+          {
+            ...this.baseEmbed,
+            color: Colors.Red,
+            description: `Vous avez déjà commencé votre service à ${dayjs(
+              currentWorktime.startAt
+            )
+              .tz(APP.TIMEZONE)
+              .format("HH:mm")}`,
+          },
+        ],
+      });
       return;
     } else {
       await Worktime.create({
@@ -105,11 +118,17 @@ class WorktimeController {
         userId: user.id,
       });
 
-      user.send(
-        `✅ - Votre prise de service a été validée à ${dayjs()
-          .tz(APP.TIMEZONE)
-          .format("HH:mm")}`
-      );
+      user.send({
+        embeds: [
+          {
+            ...this.baseEmbed,
+            color: Colors.Green,
+            description: `Votre prise de service a été validée à ${dayjs()
+              .tz(APP.TIMEZONE)
+              .format("HH:mm")}`,
+          },
+        ],
+      });
       Log.info(
         `✅ - Prise de service validée à ${dayjs()
           .tz(APP.TIMEZONE)
@@ -125,9 +144,15 @@ class WorktimeController {
     });
 
     if (!currentWorktime) {
-      await user.send(
-        "❌ - Vous n'avez pas commencé votre service aujourd'hui"
-      );
+      await user.send({
+        embeds: [
+          {
+            ...this.baseEmbed,
+            color: Colors.Red,
+            description: "Vous n'avez pas commencé votre service aujourd'hui",
+          },
+        ],
+      });
       return;
     } else {
       currentWorktime.endAt = new Date();
@@ -153,22 +178,28 @@ class WorktimeController {
         ? (totalWorktimeInHours / QUOTAS[degree.id]) * 100
         : 0;
 
-      user.send(
-        `✅ - Votre fin de service a été validée à ${dayjs()
-          .tz(APP.TIMEZONE)
-          .format("HH:mm")} - Vous avez passé ${pad(
-          Math.floor(totalWorktime / 1000 / 60 / 60),
-          2
-        )}h${pad(
-          Math.floor((totalWorktime / 1000 / 60) % 60),
-          2
-        )} à travailler cette semaine - ${
-          // percentage of total work based on totalWorktime and QUOTAS[getUserStatus(user)],
-          degree
-            ? progressIndicator(percentage)
-            : "Vous n'avez pas de rôle d'employé, pensez à le demander."
-        }`
-      );
+      user.send({
+        embeds: [
+          {
+            ...this.baseEmbed,
+            color: Colors.Green,
+            description: `Votre fin de service a été validée à ${dayjs()
+              .tz(APP.TIMEZONE)
+              .format("HH:mm")}\n\n**Temps de travail cette semaine:** ${pad(
+              Math.floor(totalWorktime / 1000 / 60 / 60),
+              2
+            )}h${pad(
+              Math.floor((totalWorktime / 1000 / 60) % 60),
+              2
+            )}\n**Progression:** ${
+              degree
+                ? progressIndicator(percentage)
+                : "Vous n'avez pas de rôle d'employé, pensez à le demander."
+            }`,
+          },
+        ],
+      });
+
       Log.info(
         `✅ - Fin de service validée à ${dayjs()
           .tz(APP.TIMEZONE)
@@ -199,7 +230,15 @@ class WorktimeController {
         endAt: null,
       });
 
-      await target.send("❌ - Votre prise de service a été annulée.");
+      await target.send({
+        embeds: [
+          {
+            ...this.baseEmbed,
+            color: Colors.Red,
+            description: "Votre prise de service a été annulée.",
+          },
+        ],
+      });
 
       if (sender) {
         Log.info(
@@ -378,8 +417,8 @@ class WorktimeController {
     );
 
     const leaderboardEmbed = {
-      color: Colors.White,
-      title: "Leaderboard",
+      ...this.baseEmbed,
+      title: "Classement",
       description:
         `Voici le classement des membres de l'équipe pour la semaine du ${dayjs()
           .subtract(1, "week")
@@ -396,10 +435,6 @@ class WorktimeController {
               )}\` - <@${userId}>`
           )
           .join("\n"),
-      footer: {
-        text: APP.NAME,
-        icon_url: APP.LOGO,
-      },
     };
 
     return leaderboardEmbed;
