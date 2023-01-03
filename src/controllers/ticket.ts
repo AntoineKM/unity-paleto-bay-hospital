@@ -121,6 +121,7 @@ class TicketController {
         embeds: [
           {
             ...this.baseEmbed,
+            color: Colors.Red,
             description:
               "Votre candidature n'est pas encore acceptée, vous ne pouvez pas créer de ticket de recrutement.",
           },
@@ -143,6 +144,7 @@ class TicketController {
         embeds: [
           {
             ...this.baseEmbed,
+            color: Colors.Red,
             description: `Vous avez déjà un ticket ${TicketTypeData[
               type
             ].name.toLowerCase()} ouvert dans le salon ${channel}.`,
