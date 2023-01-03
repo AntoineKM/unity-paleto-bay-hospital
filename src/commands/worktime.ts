@@ -1,9 +1,13 @@
 import { PermissionFlagsBits, SlashCommandBuilder } from "discord.js";
 import MESSAGES from "../constants/messages";
+import QUOTAS from "../constants/quotas";
 import ROLES from "../constants/roles";
 import WorktimeController from "../controllers/worktime";
+import Worktime from "../models/Worktime";
 
 import { DiscordCommand } from "../types/command";
+import pad from "../utils/pad";
+import progressIndicator from "../utils/progressIndicator";
 
 const WorktimeCommand: DiscordCommand = {
   data: new SlashCommandBuilder()
@@ -99,6 +103,60 @@ const WorktimeCommand: DiscordCommand = {
               await interaction.reply({
                 content: MESSAGES.ERROR.COMMAND_NO_TARGET,
               });
+            }
+          }
+          break;
+        case "info":
+          if (!interaction.member.roles.cache.has(ROLES.EMERGENCY)) {
+            await interaction.reply({
+              content: MESSAGES.ERROR.COMMAND_NO_PERMISSION,
+            });
+          } else {
+            if (!target) {
+              const worktimes = await Worktime.find({
+                userId: interaction.user.id,
+              });
+
+              if (worktimes.length === 0) {
+                await interaction.reply(
+                  "Vous n'avez pas encore travaillé cette semaine."
+                );
+              } else {
+                // get the total worktime even if the worktime is in progress
+                const totalWorktime = worktimes.reduce(
+                  (total, worktime) =>
+                    total +
+                    (worktime.endAt
+                      ? worktime.endAt.getTime() - worktime.startAt.getTime()
+                      : Date.now() - worktime.startAt.getTime()),
+                  0
+                );
+
+                const degree = await WorktimeController.getDegree(
+                  interaction.user
+                );
+                // convert totalWorktime to hours
+                const totalWorktimeInHours = totalWorktime / 1000 / 60 / 60;
+                // percentage of the totalWorktimeInHours compared to the quota
+                const percentage = degree
+                  ? (totalWorktimeInHours / QUOTAS[degree.id]) * 100
+                  : 0;
+
+                await interaction.reply(
+                  `⏳ - Vous avez passé ${pad(
+                    Math.floor(totalWorktime / 1000 / 60 / 60),
+                    2
+                  )}h${pad(
+                    Math.floor((totalWorktime / 1000 / 60) % 60),
+                    2
+                  )}min à travailler cette semaine - ${
+                    // percentage of total work based on totalWorktime and QUOTAS[getUserStatus(user)],
+                    degree
+                      ? progressIndicator(percentage)
+                      : "Vous n'avez pas de rôle d'employé, pensez à le demander."
+                  }`
+                );
+              }
             }
           }
           break;
