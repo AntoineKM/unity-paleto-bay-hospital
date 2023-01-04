@@ -12,6 +12,10 @@ const AutoReactPlugin: DiscordPlugin = (client) => {
         message.react("893125779821576232");
       }
     }
+    if (message.channel.id === CHANNELS.INFORMATIONS_EMS.CLASSEMENT) {
+      // add reaction to message
+      message.react("👏");
+    }
   });
 };
 
