@@ -230,6 +230,16 @@ class TicketController {
 
     return tickets.map((channel) => channel as TextChannel);
   }
+
+  public static async isTicket(ticket: TextChannel): Promise<boolean> {
+    return ticket.type === ChannelType.GuildText &&
+      Object.values(TicketType).some((type) =>
+        ticket.name.startsWith(`${TicketTypeData[type].emoji}`)
+      ) &&
+      ticket.topic?.includes("Ticket")
+      ? true
+      : false;
+  }
 }
 
 export default TicketController;
