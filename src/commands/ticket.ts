@@ -80,6 +80,7 @@ const TicketCommand: DiscordCommand = {
                   interaction.channel as GuildTextBasedChannel,
                   prefix
                 );
+                await interaction.reply("✅ - Prefix du ticket mis à jour");
               } else {
                 interaction.reply(
                   MESSAGES.ERROR.COMMAND_NOT_AVAILABLE_IN_CHANNEL
