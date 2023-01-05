@@ -218,6 +218,17 @@ class TicketController {
     await channel.delete();
   }
 
+  public static async changePrefix(
+    channel: GuildTextBasedChannel,
+    prefix: string
+  ): Promise<void> {
+    const parts = channel.name.split("┊");
+    if (parts.length >= 2) {
+      const newName = `${parts[0]}┊${prefix} ${parts[1]}`;
+      await channel.setName(newName);
+    }
+  }
+
   public static async getUserTicketsChannels(
     guild: Guild,
     user: User
