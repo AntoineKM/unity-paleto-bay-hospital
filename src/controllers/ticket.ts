@@ -57,7 +57,7 @@ class TicketController {
           .join("\n\n"),
     };
 
-    const messages = await channel.messages.fetch({ limit: 1 });
+    const messages = await channel.messages.fetch();
 
     const messagesWithSameContent = messages.filter(
       (message) =>
