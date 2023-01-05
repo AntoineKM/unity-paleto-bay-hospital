@@ -5,6 +5,7 @@ import WorktimeController from "../controllers/worktime";
 import ROLES from "../constants/roles";
 import Log from "../utils/log";
 import CHANNELS from "../constants/channels";
+import { Colors } from "discord.js";
 
 const WorktimeReminderPlugin: DiscordPlugin = (client) => {
   schedule.scheduleJob("* * * * *", async () => {
@@ -23,9 +24,15 @@ const WorktimeReminderPlugin: DiscordPlugin = (client) => {
             Log.info(
               `Sent reminder to ${member.user.username}#${member.user.discriminator} for not starting worktime`
             );
-            await member.send(
-              `❌ - Vous semblez avoir oublié de pointer votre arrivée aujourd'hui (<#${CHANNELS.SERVICE.POINTEUSE}>).`
-            );
+            await member.send({
+              embeds: [
+                {
+                  ...WorktimeController.baseEmbed,
+                  color: Colors.Red,
+                  description: `Vous semblez avoir oublié de pointer votre arrivée aujourd'hui (<#${CHANNELS.SERVICE.POINTEUSE}>)`,
+                },
+              ],
+            });
           }
         }
       })

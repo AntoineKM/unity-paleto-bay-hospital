@@ -26,7 +26,7 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 class WorktimeController {
-  private static baseEmbed = {
+  public static baseEmbed = {
     title: "Pointeuse",
     color: Colors.White,
     footer: {
