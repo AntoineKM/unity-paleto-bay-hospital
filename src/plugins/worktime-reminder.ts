@@ -2,12 +2,12 @@ import schedule from "node-schedule";
 import { DiscordPlugin } from "../types/plugin";
 import Worktime from "../models/Worktime";
 import WorktimeController from "../controllers/worktime";
-import CHANNELS from "../constants/channels";
 import ROLES from "../constants/roles";
 import Log from "../utils/log";
+import CHANNELS from "../constants/channels";
 
 const WorktimeReminderPlugin: DiscordPlugin = (client) => {
-  schedule.scheduleJob("*/10 * * * *", async () => {
+  schedule.scheduleJob("* * * * *", async () => {
     const members = await WorktimeController.getMembersInWorkVoiceChannel(
       client
     );

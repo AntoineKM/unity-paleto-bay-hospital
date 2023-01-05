@@ -304,21 +304,21 @@ class WorktimeController {
 
     await Promise.all(
       guilds.map(async (guild) => {
-        const channels = await guild.channels.fetch();
+        await guild.channels.fetch();
+        const channels = guild.channels.cache;
         if (!channels) return;
-        const workChannels = workChannelNames.map((name) =>
-          channels.find((c) => c && c.name.includes(name))
+        const workChannels = channels.filter(
+          (channel) =>
+            channel.type === ChannelType.GuildVoice &&
+            workChannelNames.some((name) => channel.name.includes(name))
         );
         if (!workChannels) return;
 
         await Promise.all(
           workChannels.map(async (channel) => {
-            if (!channel) return;
             const members = channel.members as Collection<string, GuildMember>;
-            // add each member to the results array and avoid "Property 'array' does not exist on type 'Collection<string, GuildMember>'
-            // because we can't use forEach on a Collection
             members.map((member) => {
-              results.push(member);
+              if (!results.includes(member)) results.push(member);
             });
           })
         );
