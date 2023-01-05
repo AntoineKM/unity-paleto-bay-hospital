@@ -8,7 +8,7 @@ import CHANNELS from "../constants/channels";
 import { Colors } from "discord.js";
 
 const WorktimeReminderPlugin: DiscordPlugin = (client) => {
-  schedule.scheduleJob("* * * * *", async () => {
+  schedule.scheduleJob("*/10 * * * *", async () => {
     const members = await WorktimeController.getMembersInWorkVoiceChannel(
       client
     );
