@@ -13,6 +13,7 @@ const WorktimeReminderPlugin: DiscordPlugin = (client) => {
     );
     await Promise.all(
       members.map(async (member) => {
+        await member.fetch();
         if (member.roles.cache.has(ROLES.EMERGENCY)) {
           const worktime = await Worktime.findOne({
             userId: member.user.id,
