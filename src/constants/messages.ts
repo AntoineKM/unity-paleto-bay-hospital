@@ -5,6 +5,8 @@ const MESSAGES = {
     COMMAND_NOT_AVAILABLE_IN_DM:
       "❌ - Cette commande n'est pas disponible en message privé.",
     COMMAND_NO_TARGET: "❌ - Vous devez spécifier un utilisateur cible.",
+    COMMAND_NOT_AVAILABLE_IN_CHANNEL:
+      "❌ - Cette commande n'est pas disponible dans ce salon.",
   },
 };
 

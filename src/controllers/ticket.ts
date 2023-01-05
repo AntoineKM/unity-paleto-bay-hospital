@@ -5,6 +5,7 @@ import {
   Colors,
   Guild,
   GuildMember,
+  GuildTextBasedChannel,
   TextChannel,
   User,
 } from "discord.js";
@@ -206,7 +207,10 @@ class TicketController {
     );
   }
 
-  public static async closeTicket(user: User, channel: TextChannel) {
+  public static async closeTicket(
+    user: User,
+    channel: TextChannel | GuildTextBasedChannel
+  ) {
     Log.info(
       `**${channel.guild.name}**`,
       `ticket ${channel.name} fermé par **${user.username}#${user.discriminator}**`

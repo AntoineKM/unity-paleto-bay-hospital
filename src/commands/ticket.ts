@@ -1,4 +1,8 @@
-import { ChannelType, SlashCommandBuilder } from "discord.js";
+import {
+  ChannelType,
+  GuildTextBasedChannel,
+  SlashCommandBuilder,
+} from "discord.js";
 import MESSAGES from "../constants/messages";
 import TicketController from "../controllers/ticket";
 import { DiscordCommand } from "../types/command";
@@ -32,15 +36,17 @@ const TicketCommand: DiscordCommand = {
             interaction.channel.type === ChannelType.GuildText &&
             (await TicketController.isTicket(interaction.channel))
           ) {
-            interaction.reply("Fermeture du ticket dans 5 secondes");
+            interaction.reply("✅ - Fermeture du ticket dans 5 secondes");
             setTimeout(async () => {
-              if (interaction.channel) {
-                await interaction.channel.delete();
-              }
+              await TicketController.closeTicket(
+                interaction.user,
+                interaction.channel as GuildTextBasedChannel
+              );
             }, 5000);
+          } else {
+            interaction.reply(MESSAGES.ERROR.COMMAND_NOT_AVAILABLE_IN_CHANNEL);
           }
           return;
-          break;
       }
     }
 
