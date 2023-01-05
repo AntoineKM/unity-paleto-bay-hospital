@@ -72,6 +72,7 @@ Dimanche: ?h - ?h_`,
 - Votre brigade 
 - Votre matricule
 - Votre nom et prénom
+- Votre numéro de téléphone
 
 》Et enfin, veuillez indiquer vos disponibilités afin que nous puissions convenir d’un rendez-vous ? 
 
