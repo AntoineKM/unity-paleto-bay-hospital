@@ -39,17 +39,17 @@ const LogPlugin: DiscordPlugin = (client) => {
     if (oldState.channelId === null) {
       Log.info(
         `**${newState.guild.name}**`,
-        `**${newState.member?.user.username}#${newState.member?.user.discriminator}** a rejoint le salon vocal **${newState.channel?.name}**`
+        `**${newState.member?.user.username}#${newState.member?.user.discriminator}** a rejoint le salon vocal <#${newState.channelId}>`
       );
     } else if (newState.channelId === null) {
       Log.info(
         `**${oldState.guild.name}**`,
-        `**${oldState.member?.user.username}#${oldState.member?.user.discriminator}** a quitté le salon vocal **${oldState.channel?.name}**`
+        `**${oldState.member?.user.username}#${oldState.member?.user.discriminator}** a quitté le salon vocal <#${oldState.channelId}>`
       );
     } else {
       Log.info(
         `**${newState.guild.name}**`,
-        `**${newState.member?.user.username}#${newState.member?.user.discriminator}** est passé du salon vocal **${oldState.channel?.name}** au salon vocal **${newState.channel?.name}**`
+        `**${newState.member?.user.username}#${newState.member?.user.discriminator}** est passé du salon vocal <#${oldState.channelId}> au salon vocal <#${newState.channelId}>`
       );
     }
   });
