@@ -426,7 +426,7 @@ class WorktimeController {
         [...sortedWorktimeMap.entries()]
           .map(
             ([userId, totalWorktime], index) =>
-              `\`${index + 1}. ${pad(
+              `\`${pad(index + 1, 2)}. ${pad(
                 Math.floor(totalWorktime / 1000 / 60 / 60),
                 2
               )}h${pad(
