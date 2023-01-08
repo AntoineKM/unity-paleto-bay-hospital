@@ -45,7 +45,7 @@ class CountController {
 
   public static async getEMSCount(): Promise<number | null> {
     const worktimes = await Worktime.find({ endAt: null });
-    if (!worktimes) return null;
+    if (!worktimes) return 0;
     return worktimes.length;
   }
 
