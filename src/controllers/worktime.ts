@@ -268,7 +268,9 @@ class WorktimeController {
     const channels = await guild.channels.fetch();
     if (!channels) return false;
     const workChannels = workChannelNames.map((name) =>
-      channels.find((c) => c && c.name.includes(name))
+      channels.find(
+        (c) => c && c.name.includes(name) && c.type === ChannelType.GuildVoice
+      )
     );
     if (!workChannels) return false;
 
