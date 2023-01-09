@@ -6,6 +6,7 @@ import {
   Client,
   Collection,
   Colors,
+  GuildChannel,
   GuildMember,
   Role,
   User,
@@ -267,11 +268,15 @@ class WorktimeController {
     const { guild } = member;
     const channels = await guild.channels.fetch();
     if (!channels) return false;
-    const workChannels = workChannelNames.map((name) =>
-      channels.find(
-        (c) => c && c.name.includes(name) && c.type === ChannelType.GuildVoice
-      )
-    );
+    const workChannels = channels.filter((c) => {
+      if (!c) return false;
+      if (c.type !== ChannelType.GuildVoice) return false;
+      if (workChannelNames.map((n) => c.name.includes(n)).includes(true)) {
+        return true;
+      }
+      return false;
+    }) as Collection<string, GuildChannel>;
+
     if (!workChannels) return false;
 
     const results = await Promise.all(
