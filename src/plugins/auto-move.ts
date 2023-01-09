@@ -21,7 +21,20 @@ const AutoMovePlugin: DiscordPlugin = (client) => {
     const secretariatEmergencyMembers = secretariatChannel.members.filter(
       (member) => member.roles.cache.has(ROLES.EMERGENCY)
     );
-    if (secretariatEmergencyMembers.size > 0) return;
+
+    const sandyshoreChannel = (await client.channels.fetch(
+      CHANNELS.SERVICE.SANDYSHORE
+    )) as VoiceChannel;
+    if (!sandyshoreChannel) return;
+    const sandyshoreEmergencyMembers = sandyshoreChannel.members.filter(
+      (member) => member.roles.cache.has(ROLES.EMERGENCY)
+    );
+
+    if (
+      secretariatEmergencyMembers.size > 0 &&
+      sandyshoreEmergencyMembers.size > 0
+    )
+      return;
 
     // check if someone is in a channel with channel name that include "ғʀᴇ́ᴏ̨ᴜᴇɴᴄᴇ" or "ʜᴀᴜᴛᴇ ᴀʟᴛɪᴛᴜᴅᴇ"
     const channels = await newState.guild.channels.fetch();
@@ -42,11 +55,20 @@ const AutoMovePlugin: DiscordPlugin = (client) => {
     );
 
     if (availableMembers.length === 0) return;
-
     const firstAvailableMember = availableMembers[0];
     if (!firstAvailableMember) return;
-
-    firstAvailableMember.voice.setChannel(secretariatChannel);
+    if (secretariatEmergencyMembers.size < 1) {
+      await firstAvailableMember.voice.setChannel(secretariatChannel);
+      return;
+    }
+    if (
+      sandyshoreEmergencyMembers.size < 1 &&
+      secretariatEmergencyMembers.size > 0 &&
+      availableMembers.length >= 2
+    ) {
+      await firstAvailableMember.voice.setChannel(sandyshoreChannel);
+      return;
+    }
   });
 };
 
