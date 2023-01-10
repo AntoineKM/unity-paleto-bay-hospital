@@ -14,4 +14,17 @@ const ROLES = {
   CANDIDATURE_ACCEPTEE: "885267674437918770",
 };
 
+export const ROLES_PREFIX: { [key in keyof typeof ROLES]?: string } = {
+  DIRECTEUR: "DIR",
+  CO_DIRECTEUR: "Co-DIR",
+  CADRE_SANTE: "Cadre-Santé",
+  CHEF_DE_SERVICE: "Chef-Service",
+  MEDECIN_CHEF: "Med-Chef",
+  MEDECIN: "Med",
+  INTERNE: "Int",
+  INFIRMIER: "Inf",
+  AMBULANCIER: "Amb",
+  STAGIAIRE: "STG",
+};
+
 export default ROLES;
