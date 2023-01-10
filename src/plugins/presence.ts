@@ -8,6 +8,7 @@ const PresencePlugin: DiscordPlugin = async (client) => {
   schedule.scheduleJob("*/15 * * * * *", async () => {
     const count = (await CountController.getEMSCount()) || 0;
     await client.user?.setPresence({
+      status: count > 0 ? "online" : "idle",
       activities: [
         {
           name: `${count > 0 ? count : "aucun"} ems en service`,
