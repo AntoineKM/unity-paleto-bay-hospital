@@ -446,6 +446,71 @@ class WorktimeController {
 
     return leaderboardEmbed;
   }
+
+  public static async getInformationEmbed(
+    user: User,
+    me = false
+  ): Promise<APIEmbed> {
+    const worktimes = await Worktime.find({
+      userId: user.id,
+    });
+
+    if (!worktimes || worktimes.length === 0) {
+      return {
+        ...this.baseEmbed,
+        color: worktimes.length > 0 ? this.baseEmbed.color : Colors.Red,
+        title: `${this.baseEmbed.title} - Informations`,
+        description: `${me ? "Vous" : `<@${user.id}>`} n'${
+          me ? "avez" : "a"
+        } pas encore pris de service.`,
+      };
+    }
+
+    const totalWorktime = worktimes.reduce(
+      (total, worktime) =>
+        total +
+        (worktime.endAt
+          ? worktime.endAt.getTime() - worktime.startAt.getTime()
+          : Date.now() - worktime.startAt.getTime()),
+      0
+    );
+    const lastStartWorktime = worktimes[worktimes.length - 1].startAt;
+    const lastEndWorktime = worktimes[worktimes.length - 1].endAt;
+    const currentlyWorking = !worktimes[worktimes.length - 1].endAt;
+
+    const degree = await WorktimeController.getDegree(user);
+    const totalWorktimeInHours = totalWorktime / 1000 / 60 / 60;
+    const percentage = degree
+      ? (totalWorktimeInHours / QUOTAS[degree.id]) * 100
+      : 0;
+
+    const informationEmbed = {
+      ...this.baseEmbed,
+      color: worktimes.length > 0 ? this.baseEmbed.color : Colors.Red,
+      title: `${this.baseEmbed.title} - Informations`,
+      description: `Voici les informations concernant ${
+        me ? "votre profil" : `<@${user.id}>`
+      }\n\n**Dernière prise de service**\n${dayjs(lastStartWorktime).format(
+        "DD/MM/YYYY à HH:mm"
+      )}\n\n**Dernière fin de service**\n${
+        currentlyWorking
+          ? "En cours"
+          : dayjs(lastEndWorktime).format("DD/MM/YYYY à HH:mm")
+      }\n\n**Temps de travail cette semaine**\n${pad(
+        Math.floor(totalWorktime / 1000 / 60 / 60),
+        2
+      )}h${pad(
+        Math.floor((totalWorktime / 1000 / 60) % 60),
+        2
+      )}\n\n**Progression**\n${
+        degree
+          ? progressIndicator(percentage)
+          : "Vous n'avez pas de rôle d'employé, pensez à le demander."
+      }`,
+    };
+
+    return informationEmbed;
+  }
 }
 
 export default WorktimeController;
