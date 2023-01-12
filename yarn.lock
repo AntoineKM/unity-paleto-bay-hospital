@@ -1822,7 +1822,7 @@ lodash.snakecase@^4.1.1:
   resolved "https://registry.yarnpkg.com/lodash.snakecase/-/lodash.snakecase-4.1.1.tgz#39d714a35357147837aefd64b5dcbb16becd8f8d"
   integrity sha512-QZ1d4xoBHYUeuouhEq3lk3Uq7ldgyFXGBhg04+oRLnIz8o9T65Eh+8YdroUwn846zchkA9yDsDl5CVVaV2nqYw==
 
-lodash@^4.17.21:
+lodash@^4.17.15, lodash@^4.17.21:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -2212,6 +2212,13 @@ sift@16.0.1:
   version "16.0.1"
   resolved "https://registry.yarnpkg.com/sift/-/sift-16.0.1.tgz#e9c2ccc72191585008cf3e36fc447b2d2633a053"
   integrity sha512-Wv6BjQ5zbhW7VFefWusVP33T/EM0vYikCaQ2qR8yULbsilAT8/wQaXvuQ3ptGLpoKx+lihJE3y2UTgKDyyNHZQ==
+
+simple-duration@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/simple-duration/-/simple-duration-1.1.0.tgz#cd351702205612021c13e857237210f3f961ce0a"
+  integrity sha512-fl1o+RDPcLhmEGXJtS9KucByLWS8e51TcbpAb9nV5/GMEbnMcuj9GlQSaP71rZZiEphJKeO2156qLIyW3ObKWw==
+  dependencies:
+    lodash "^4.17.15"
 
 simple-update-notifier@^1.0.7:
   version "1.1.0"
