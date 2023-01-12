@@ -23,6 +23,9 @@ import QUOTAS from "../constants/quotas";
 import progressIndicator from "../utils/progressIndicator";
 import pad from "../utils/pad";
 import * as sd from "simple-duration";
+import CHANNELS from "../constants/channels";
+import { getTextChannel } from "../utils/discord";
+import ReportController from "./report";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -217,6 +220,50 @@ class WorktimeController {
             : "Vous n'avez pas de rôle d'employé, pensez à le demander."
         }`
       );
+
+      // check if the current worktime is less than 30 minutes
+      if (
+        currentWorktime.endAt.getTime() - currentWorktime.startAt.getTime() <
+        30 * 60 * 1000
+      ) {
+        const reportChannel = await getTextChannel(
+          user.client,
+          CHANNELS.DIRECTION.RAPPORTS
+        );
+
+        reportChannel.send({
+          embeds: [
+            {
+              ...ReportController.baseEmbed,
+              description: `${user} vient de faire un service de ${Math.floor(
+                (currentWorktime.endAt.getTime() -
+                  currentWorktime.startAt.getTime()) /
+                  1000 /
+                  60
+              )} minutes voulez vous lui supprimer ?`,
+            },
+          ],
+          components: [
+            {
+              type: 1,
+              components: [
+                {
+                  type: 2,
+                  style: ButtonStyle.Danger,
+                  label: "Oui",
+                  custom_id: `worktime_delete:${user.id}:${currentWorktime.id}`,
+                },
+                {
+                  type: 2,
+                  style: ButtonStyle.Secondary,
+                  label: "Non",
+                  custom_id: "report_cancel",
+                },
+              ],
+            },
+          ],
+        });
+      }
     }
   }
 
@@ -282,6 +329,45 @@ class WorktimeController {
 
   public static async remove(target: User, duration: string): Promise<void> {
     await this.add(target, `-${duration}`);
+  }
+
+  public static async delete(target: User, worktimeId: string): Promise<void> {
+    const worktime = await Worktime.findOne({
+      _id: worktimeId,
+    });
+
+    if (worktime) {
+      // await Worktime.deleteOne({
+      //   userId: target.id,
+      //   id: worktimeId,
+      // });
+
+      target.send({
+        embeds: [
+          {
+            ...this.baseEmbed,
+            color: Colors.Red,
+            description:
+              `Le service du ${dayjs(worktime.startAt)
+                .tz(APP.TIMEZONE)
+                .format(
+                  "DD/MM/YYYY à HH:mm"
+                )} a été supprimé.\n\nSi vous pensez que c'est une erreur veuillez contacter la direction.\n\n` +
+              (await (
+                await this.getInformationEmbed(target, true)
+              ).description),
+          },
+        ],
+      });
+
+      Log.info(
+        `✅ - Le service du ${dayjs(worktime.startAt)
+          .tz(APP.TIMEZONE)
+          .format("DD/MM/YYYY à HH:mm")} de **${target.username}#${
+          target.discriminator
+        }** a été supprimé.`
+      );
+    }
   }
 
   public static async isInWorkVoiceChannel(
