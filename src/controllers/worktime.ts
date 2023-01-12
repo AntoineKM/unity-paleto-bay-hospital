@@ -22,6 +22,7 @@ import ROLES from "../constants/roles";
 import QUOTAS from "../constants/quotas";
 import progressIndicator from "../utils/progressIndicator";
 import pad from "../utils/pad";
+import * as sd from "simple-duration";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -262,6 +263,27 @@ class WorktimeController {
     }
   }
 
+  public static async add(target: User, duration: string): Promise<void> {
+    const durationInSeconds = sd.parse(duration);
+    if (!durationInSeconds) return;
+
+    await Worktime.create({
+      userId: target.id,
+      startAt: new Date(Date.now() - durationInSeconds * 1000),
+      endAt: new Date(),
+    });
+
+    Log.info(
+      `✅ - ${duration} ${
+        durationInSeconds >= 0 ? "ajouté" : "retiré"
+      } au temps de travail de **${target.username}#${target.discriminator}**.`
+    );
+  }
+
+  public static async remove(target: User, duration: string): Promise<void> {
+    await this.add(target, `-${duration}`);
+  }
+
   public static async isInWorkVoiceChannel(
     member: GuildMember
   ): Promise<boolean> {
@@ -423,7 +445,37 @@ class WorktimeController {
       [...worktimeMap.entries()].sort((a, b) => b[1] - a[1])
     );
 
-    const leaderboardEmbed = {
+    const statsWorktimesCount = worktimes.length;
+    const statsWorktimesDuration = [...worktimeMap.values()].reduce(
+      (a, b) => a + b,
+      0
+    );
+    const statsWorktimesDurationHours = Math.floor(
+      statsWorktimesDuration / 1000 / 60 / 60
+    );
+    const statsWorktimesDurationMinutes = Math.floor(
+      (statsWorktimesDuration / 1000 / 60) % 60
+    );
+
+    // Create an array with the same length as the number of hours in a week
+    const peopleCountPerHour = new Array(168).fill(0);
+
+    // Fill the array with the number of people that were working at each hour
+    worktimes.forEach((worktime) => {
+      const startHour = dayjs(worktime.startAt).hour();
+      const endHour = worktime.endAt
+        ? dayjs(worktime.endAt).hour()
+        : dayjs().hour();
+      for (let i = startHour; i < endHour; i++) {
+        peopleCountPerHour[i]++;
+      }
+    });
+
+    // Calculate the average people count per hour
+    const averagePeopleCountPerHour =
+      peopleCountPerHour.reduce((sum, count) => sum + count, 0) / 168;
+
+    const leaderboardEmbed: APIEmbed = {
       ...this.baseEmbed,
       title: "Classement",
       description:
@@ -441,7 +493,43 @@ class WorktimeController {
                 2
               )}\` - <@${userId}>`
           )
-          .join("\n"),
+          .join("\n") +
+        "\n\n**Statistiques**",
+      fields: [
+        {
+          name: "Nombre de prises de services",
+          value: `${statsWorktimesCount}`,
+          inline: true,
+        },
+        {
+          name: "Moyenne d'EMS par heure",
+          inline: true,
+          value: `${averagePeopleCountPerHour.toFixed(2)}`,
+        },
+        {
+          name: "\u200b",
+          value: "\u200b",
+        },
+        {
+          name: "Temps total de travail",
+          inline: true,
+          value: `${pad(
+            Math.floor(statsWorktimesDuration / 1000 / 60 / 60),
+            2
+          )}h${pad(Math.floor((statsWorktimesDuration / 1000 / 60) % 60), 2)}`,
+        },
+        {
+          name: "Temps moyen de travail",
+          inline: true,
+          value: `${pad(
+            Math.floor(statsWorktimesDurationHours / statsWorktimesCount),
+            2
+          )}h${pad(
+            Math.floor(statsWorktimesDurationMinutes / statsWorktimesCount),
+            2
+          )}`,
+        },
+      ],
     };
 
     return leaderboardEmbed;
@@ -484,7 +572,7 @@ class WorktimeController {
       ? (totalWorktimeInHours / QUOTAS[degree.id]) * 100
       : 0;
 
-    const informationEmbed = {
+    const informationEmbed: APIEmbed = {
       ...this.baseEmbed,
       color: worktimes.length > 0 ? this.baseEmbed.color : Colors.Red,
       title: `${this.baseEmbed.title} - Informations`,
