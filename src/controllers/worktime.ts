@@ -16,6 +16,7 @@ import Worktime from "../models/Worktime";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import fr from "dayjs/locale/fr";
 import Log from "../utils/log";
 import { workChannelNames } from "../constants/worktime";
 import ROLES from "../constants/roles";
@@ -26,9 +27,11 @@ import * as sd from "simple-duration";
 import CHANNELS from "../constants/channels";
 import { getTextChannel } from "../utils/discord";
 import ReportController from "./report";
+import capitalize from "../utils/capitalize";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
+dayjs.locale(fr);
 
 class WorktimeController {
   public static baseEmbed = {
@@ -531,35 +534,55 @@ class WorktimeController {
       [...worktimeMap.entries()].sort((a, b) => b[1] - a[1])
     );
 
+    // calculate additional statistics
     const statsWorktimesCount = worktimes.length;
     const statsWorktimesDuration = [...worktimeMap.values()].reduce(
       (a, b) => a + b,
       0
     );
-    const statsWorktimesDurationHours = Math.floor(
-      statsWorktimesDuration / 1000 / 60 / 60
-    );
-    const statsWorktimesDurationMinutes = Math.floor(
-      (statsWorktimesDuration / 1000 / 60) % 60
-    );
 
-    // Create an array with the same length as the number of hours in a week
-    const peopleCountPerHour = new Array(168).fill(0);
-
-    // Fill the array with the number of people that were working at each hour
-    worktimes.forEach((worktime) => {
-      const startHour = dayjs(worktime.startAt).hour();
-      const endHour = worktime.endAt
-        ? dayjs(worktime.endAt).hour()
-        : dayjs().hour();
-      for (let i = startHour; i < endHour; i++) {
-        peopleCountPerHour[i]++;
-      }
+    // create a map of the number of users working at each hour
+    const hourMap = new Map<string, number>();
+    endWorktimes.forEach((worktime) => {
+      const hour = dayjs(worktime.startAt).format("HH");
+      hourMap.set(hour, (hourMap.get(hour) || 0) + 1);
     });
 
-    // Calculate the average people count per hour
-    const averagePeopleCountPerHour =
-      peopleCountPerHour.reduce((sum, count) => sum + count, 0) / 168;
+    // find the busiest and quietest hour
+    const statsBusiestHour = `${pad(
+      Number([...hourMap.entries()].sort((a, b) => b[1] - a[1])[0][0]),
+      2
+    )}h${pad(
+      Number([...hourMap.entries()].sort((a, b) => b[1] - a[1])[0][1]),
+      2
+    )}`;
+    const statsQuietestHour = `${pad(
+      Number([...hourMap.entries()].sort((a, b) => a[1] - b[1])[0][0]),
+      2
+    )}h${pad(
+      Number([...hourMap.entries()].sort((a, b) => a[1] - b[1])[0][1]),
+      2
+    )}`;
+
+    // create a map of the number of users working on each day
+    const dayMap = new Map<string, number>();
+    endWorktimes.forEach((worktime) => {
+      const day = dayjs(worktime.startAt).format("YYYY-MM-DD");
+      dayMap.set(day, (dayMap.get(day) || 0) + 1);
+    });
+
+    // find the busiest and quietest day
+    const statsBusiestDay = dayjs(
+      [...dayMap.entries()].sort((a, b) => b[1] - a[1])[0][0]
+    ).format("dddd");
+    const statsQuietestDay = dayjs(
+      [...dayMap.entries()].sort((a, b) => a[1] - b[1])[0][0]
+    ).format("dddd");
+
+    const totalUsers = new Set(worktimes.map((worktime) => worktime.userId))
+      .size;
+    const totalHour = 24 * 7; //24 hours per day * 7 days per week
+    const statsAverageUserCountPerHour = totalUsers / totalHour;
 
     const leaderboardEmbed: APIEmbed = {
       ...this.baseEmbed,
@@ -588,15 +611,6 @@ class WorktimeController {
           inline: true,
         },
         {
-          name: "Moyenne d'EMS par heure",
-          inline: true,
-          value: `${averagePeopleCountPerHour.toFixed(2)}`,
-        },
-        {
-          name: "\u200b",
-          value: "\u200b",
-        },
-        {
           name: "Temps total de travail",
           inline: true,
           value: `${pad(
@@ -605,15 +619,29 @@ class WorktimeController {
           )}h${pad(Math.floor((statsWorktimesDuration / 1000 / 60) % 60), 2)}`,
         },
         {
-          name: "Temps moyen de travail",
+          name: "Moyenne d'EMS par heure",
           inline: true,
-          value: `${pad(
-            Math.floor(statsWorktimesDurationHours / statsWorktimesCount),
-            2
-          )}h${pad(
-            Math.floor(statsWorktimesDurationMinutes / statsWorktimesCount),
-            2
-          )}`,
+          value: `${statsAverageUserCountPerHour.toFixed(2)}`,
+        },
+        {
+          name: "Heure d'affluence",
+          value: statsBusiestHour,
+          inline: true,
+        },
+        {
+          name: "Heure de carence",
+          value: statsQuietestHour,
+          inline: true,
+        },
+        {
+          name: "Jour d'affluence",
+          value: capitalize(statsBusiestDay),
+          inline: true,
+        },
+        {
+          name: "Jour de carence",
+          value: capitalize(statsQuietestDay),
+          inline: true,
         },
       ],
     };
