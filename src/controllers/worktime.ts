@@ -505,16 +505,24 @@ class WorktimeController {
   }
 
   public static async getLeaderboardEmbed(): Promise<APIEmbed> {
+    const now = new Date();
+    const nowTimestamp = now.getTime();
+
     // get all worktimes
     const worktimes = await Worktime.find();
 
     // set endAt to now if it's null
     const endWorktimes = worktimes.map((worktime) => {
       if (!worktime.endAt) {
-        worktime.endAt = new Date();
+        worktime.endAt = now;
       }
       return worktime;
     });
+
+    const firstWorktime = worktimes.sort(
+      (a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime()
+    )[0];
+    const firstWorktimeTimestamp = new Date(firstWorktime.startAt).getTime();
 
     // create a map with the total worktime of each user
     const worktimeMap = new Map<string, number>();
@@ -579,10 +587,11 @@ class WorktimeController {
       [...dayMap.entries()].sort((a, b) => a[1] - b[1])[0][0]
     ).format("dddd");
 
+    const totalHours =
+      (nowTimestamp - firstWorktimeTimestamp) / (1000 * 60 * 60);
     const totalUsers = new Set(worktimes.map((worktime) => worktime.userId))
       .size;
-    const totalHour = 24 * 7; //24 hours per day * 7 days per week
-    const statsAverageUserCountPerHour = totalUsers / totalHour;
+    const statsAverageUserCountPerHour = totalUsers / totalHours;
 
     const leaderboardEmbed: APIEmbed = {
       ...this.baseEmbed,
