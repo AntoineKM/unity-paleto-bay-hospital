@@ -552,8 +552,13 @@ class WorktimeController {
     // create a map of the number of users working at each hour
     const hourMap = new Map<string, number>();
     endWorktimes.forEach((worktime) => {
-      const hour = dayjs(worktime.startAt).format("HH");
-      hourMap.set(hour, (hourMap.get(hour) || 0) + 1);
+      const startHour = dayjs(worktime.startAt).hour();
+      const endHour = worktime.endAt
+        ? dayjs(worktime.endAt).hour()
+        : dayjs().hour();
+      for (let i = startHour; i < endHour; i++) {
+        hourMap.set(i.toString(), (hourMap.get(i.toString()) || 0) + 1);
+      }
     });
 
     // find the busiest and quietest hour
@@ -589,8 +594,7 @@ class WorktimeController {
 
     const totalHours =
       (nowTimestamp - firstWorktimeTimestamp) / (1000 * 60 * 60);
-    const totalUsers = new Set(worktimes.map((worktime) => worktime.userId))
-      .size;
+    const totalUsers = sortedWorktimeMap.size;
     const statsAverageUserCountPerHour = totalUsers / totalHours;
 
     const leaderboardEmbed: APIEmbed = {
