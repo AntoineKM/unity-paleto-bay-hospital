@@ -594,8 +594,8 @@ class WorktimeController {
 
     const totalHours =
       (nowTimestamp - firstWorktimeTimestamp) / (1000 * 60 * 60);
-    const totalUsers = sortedWorktimeMap.size;
-    const statsAverageUserCountPerHour = totalUsers / totalHours;
+    const totalUsers = [...sortedWorktimeMap.keys()].length;
+    const statsAverageUserCountPerHour = totalHours / totalUsers;
 
     const leaderboardEmbed: APIEmbed = {
       ...this.baseEmbed,
