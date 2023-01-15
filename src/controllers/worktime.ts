@@ -562,35 +562,39 @@ class WorktimeController {
     });
 
     // find the busiest and quietest hour
-    const statsBusiestHour = `${pad(
-      Number([...hourMap.entries()].sort((a, b) => b[1] - a[1])[0][0]),
-      2
-    )}h${pad(
-      Number([...hourMap.entries()].sort((a, b) => b[1] - a[1])[0][1]),
-      2
-    )}`;
-    const statsQuietestHour = `${pad(
-      Number([...hourMap.entries()].sort((a, b) => a[1] - b[1])[0][0]),
-      2
-    )}h${pad(
-      Number([...hourMap.entries()].sort((a, b) => a[1] - b[1])[0][1]),
-      2
-    )}`;
+    const statsBusiestHour = dayjs(
+      `1970-01-01T${
+        [...hourMap.entries()].sort((a, b) => b[1] - a[1])[0][0]
+      }:00.000`
+    )
+      .tz(APP.TIMEZONE)
+      .format("HH:mm");
+    const statsQuietestHour = dayjs(
+      `1970-01-01T${
+        [...hourMap.entries()].sort((a, b) => a[1] - b[1])[0][0]
+      }:00.000`
+    )
+      .tz(APP.TIMEZONE)
+      .format("HH:mm");
 
     // create a map of the number of users working on each day
     const dayMap = new Map<string, number>();
     endWorktimes.forEach((worktime) => {
-      const day = dayjs(worktime.startAt).format("YYYY-MM-DD");
+      const day = dayjs(worktime.startAt).tz(APP.TIMEZONE).format("YYYY-MM-DD");
       dayMap.set(day, (dayMap.get(day) || 0) + 1);
     });
 
     // find the busiest and quietest day
     const statsBusiestDay = dayjs(
       [...dayMap.entries()].sort((a, b) => b[1] - a[1])[0][0]
-    ).format("dddd");
+    )
+      .tz(APP.TIMEZONE)
+      .format("dddd");
     const statsQuietestDay = dayjs(
       [...dayMap.entries()].sort((a, b) => a[1] - b[1])[0][0]
-    ).format("dddd");
+    )
+      .tz(APP.TIMEZONE)
+      .format("dddd");
 
     const totalHours =
       (nowTimestamp - firstWorktimeTimestamp) / (1000 * 60 * 60);
