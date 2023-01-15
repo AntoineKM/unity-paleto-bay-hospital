@@ -28,6 +28,8 @@ import CHANNELS from "../constants/channels";
 import { getTextChannel } from "../utils/discord";
 import ReportController from "./report";
 import capitalize from "../utils/capitalize";
+import ChartJsImage from "chartjs-to-image";
+import { ChartOptions, ChartData } from "chart.js";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -601,6 +603,96 @@ class WorktimeController {
     const totalUsers = [...sortedWorktimeMap.keys()].length;
     const statsAverageUserCountPerHour = totalHours / totalUsers;
 
+    const dayAndHourMap = new Map<string, number>();
+    endWorktimes.forEach((worktime) => {
+      for (
+        let i =
+          Math.floor(new Date(worktime.startAt).getTime() / (3600 * 1000)) *
+          3600 *
+          1000;
+        i <= new Date(worktime.endAt as Date).getTime();
+        i += 3600 * 1000
+      ) {
+        const dayAndHour = dayjs(i).tz(APP.TIMEZONE).format("DD/MM/YYYY HH");
+        dayAndHourMap.set(dayAndHour, (dayAndHourMap.get(dayAndHour) || 0) + 1);
+      }
+    });
+
+    const chart = new ChartJsImage();
+    const labels: string[] = [];
+    for (
+      let i = Math.floor(firstWorktimeTimestamp / (3600 * 1000)) * 3600 * 1000;
+      i <= nowTimestamp;
+      i += 3600 * 1000
+    ) {
+      labels.push(dayjs(i).tz(APP.TIMEZONE).format("DD/MM/YYYY HH"));
+    }
+    const chartData: ChartData = {
+      // 7 days and 24 hours
+      labels,
+      datasets: [
+        {
+          label: "EMS par heure",
+          data: labels.map((label) => {
+            return dayAndHourMap.get(label) || 0;
+          }),
+          borderColor: "rgb(88, 101, 242)",
+          tension: 0.8,
+          fill: false,
+          pointRadius: 0,
+          backgroundColor: "rgba(88, 101, 242, 0.2)",
+        },
+        {
+          label: "Moyenne d'EMS par heure",
+          data: labels.map(() => statsAverageUserCountPerHour),
+          borderColor: "rgb(235, 69, 158)",
+          pointRadius: 0,
+        },
+      ],
+    };
+    const chartOptions: ChartOptions = {
+      color: "white",
+      borderColor: "white",
+      // disable legend and enable title
+      plugins: {
+        legend: {
+          display: false,
+        },
+        title: {
+          display: true,
+          text: "EMS par heure",
+          color: "white",
+        },
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: "white",
+          },
+          grid: {
+            color: "rgba(255, 255, 255, 0.1)",
+          },
+        },
+        x: {
+          ticks: {
+            color: "white",
+          },
+          grid: {
+            color: "rgba(255, 255, 255, 0.1)",
+          },
+        },
+      },
+    };
+    const chartConfig = {
+      type: "line",
+      data: chartData,
+      options: chartOptions,
+    };
+    chart.setConfig(chartConfig);
+    chart.setBackgroundColor("rgb(47, 49, 54)");
+    chart.setChartJsVersion("4");
+
     const leaderboardEmbed: APIEmbed = {
       ...this.baseEmbed,
       title: "Classement",
@@ -661,6 +753,9 @@ class WorktimeController {
           inline: true,
         },
       ],
+      image: {
+        url: await chart.getShortUrl(),
+      },
     };
 
     return leaderboardEmbed;
