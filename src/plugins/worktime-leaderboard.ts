@@ -7,7 +7,7 @@ import Worktime from "../models/Worktime";
 
 const WorktimeLeadboardPlugin: DiscordPlugin = (client) => {
   // every friday at midday
-  schedule.scheduleJob("0 12 * * 5", async () => {
+  schedule.scheduleJob("0 12 * * 0", async () => {
     // send the leaderboard embed to CHANNELS.ONRUNTIME.TEAM.INFORMATION.LEADERBOARD
     const channel = client.channels.cache.get(
       CHANNELS.INFORMATIONS_EMS.CLASSEMENT
