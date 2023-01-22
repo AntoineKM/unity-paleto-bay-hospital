@@ -383,7 +383,11 @@ class WorktimeController {
     if (!channels) return false;
     const workChannels = channels.filter((c) => {
       if (!c) return false;
-      if (c.type !== ChannelType.GuildVoice) return false;
+      if (
+        c.type !== ChannelType.GuildVoice &&
+        c.type !== ChannelType.GuildStageVoice
+      )
+        return false;
       if (workChannelNames.map((n) => c.name.includes(n)).includes(true)) {
         return true;
       }
@@ -429,7 +433,8 @@ class WorktimeController {
         if (!channels) return;
         const workChannels = channels.filter(
           (channel) =>
-            channel.type === ChannelType.GuildVoice &&
+            (channel.type === ChannelType.GuildVoice ||
+              channel.type === ChannelType.GuildStageVoice) &&
             workChannelNames.some((name) => channel.name.includes(name))
         );
         if (!workChannels) return;
