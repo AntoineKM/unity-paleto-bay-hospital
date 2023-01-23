@@ -63,7 +63,7 @@ const WorktimeCommand: DiscordCommand = {
       }, 5000);
       return;
     } else {
-      interaction.member.fetch();
+      await interaction.member.fetch();
       switch (command) {
         case "leaderboard":
           // check if user has the role ROLES.EMERGENCY
