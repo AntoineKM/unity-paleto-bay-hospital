@@ -37,8 +37,9 @@ export const TicketTypeData: Record<
     instructions: `》Félicitation vous avez passé la première étape du recrutement pour rejoindre nos équipes, avez-vous pu prendre connaissance des différents règlements ainsi que du code pénal? Si la réponse est négative, je vous prie de consulter ces différents documents. 
 
 - Règlement des EMS: https://docs.google.com/document/d/1nG8UtU5WimvKvB85KSoUCel-Nvo70-UpyM5BOO_zGYI/edit?usp=sharing
-- Règlement de la ville Unity: https://docs.google.com/document/d/1y2MusPhXNmzqbABOVHBAMyIXbhMudF2pbo4dre8ICm4/edit?usp=sharing
+- Règlement de la ville Unity: https://docs.google.com/document/d/1V_Lh7Nd4kmFmHGlRSmOOsK1weNYGhCKOTd_q4snvQzk/edit?usp=sharing
 - Code pénal: https://wiki.unityrp.io/books/le-gouvernement/page/code-penal-los-santos
+- Formation: https://youtube.com/playlist?list=PLsVujxf7yJmTr-MACHiIADTaj58ULTmTe
 
 *__Ensuite, veuillez nous renseigner: __*
 - Votre nom et prénom (IG)
