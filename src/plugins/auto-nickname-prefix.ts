@@ -1,6 +1,7 @@
 import { Events } from "discord.js";
 import ROLES, { ROLES_PREFIX } from "../constants/roles";
 import { DiscordPlugin } from "../types/plugin";
+import reduceString from "../utils/reduceString";
 
 const AutoNicknamePrefix: DiscordPlugin = (client) => {
   client.on(Events.GuildMemberUpdate, async (oldMember, newMember) => {
@@ -27,10 +28,10 @@ const AutoNicknamePrefix: DiscordPlugin = (client) => {
     if (!rolePrefix) return;
     const name = newMember.nickname || newMember.user.username;
     if (!name.includes("[") && !name.includes("]")) {
-      await newMember.setNickname(`[${rolePrefix}] ${name}`);
+      await newMember.setNickname(reduceString(`[${rolePrefix}] ${name}`, 30));
     } else {
       const newName = name.replace(/\[.*\]/, `[${rolePrefix}]`);
-      await newMember.setNickname(newName);
+      await newMember.setNickname(reduceString(newName, 30));
     }
   });
 };
