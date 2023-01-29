@@ -358,7 +358,7 @@ class WorktimeController {
                 (worktime.endAt.getTime() - worktime.startAt.getTime()) /
                   1000 /
                   60
-              )}min) a été supprimé.\n\nSi vous pensez que c'est une erreur veuillez contacter la direction.\n\n` +
+              )} min) a été supprimé.\n\nSi vous pensez que c'est une erreur veuillez contacter la direction.\n\n` +
               (await (
                 await this.getInformationEmbed(target, true)
               ).description),
