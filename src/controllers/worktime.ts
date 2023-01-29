@@ -343,8 +343,7 @@ class WorktimeController {
 
     if (worktime && worktime.endAt) {
       await Worktime.deleteOne({
-        userId: target.id,
-        id: worktimeId,
+        _id: worktimeId,
       });
 
       target.send({
