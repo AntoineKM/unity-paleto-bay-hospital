@@ -47,7 +47,9 @@ const WorktimePlugin: DiscordPlugin = (client) => {
             interaction.member as GuildMember
           )
         ) {
-          await interaction.deferReply();
+          await interaction.deferReply({
+            ephemeral: true,
+          });
           await WorktimeController.start(interaction.member.user as User);
         } else {
           await interaction.reply(
@@ -61,12 +63,12 @@ const WorktimePlugin: DiscordPlugin = (client) => {
         }
         break;
       case "worktime_end":
-        await interaction.deferReply();
+        await interaction.deferReply({
+          ephemeral: true,
+        });
         await WorktimeController.end(interaction.member.user as User);
         break;
     }
-
-    await interaction.deleteReply();
   });
 };
 
