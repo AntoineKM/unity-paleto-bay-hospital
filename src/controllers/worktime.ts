@@ -342,10 +342,10 @@ class WorktimeController {
     });
 
     if (worktime && worktime.endAt) {
-      // await Worktime.deleteOne({
-      //   userId: target.id,
-      //   id: worktimeId,
-      // });
+      await Worktime.deleteOne({
+        userId: target.id,
+        id: worktimeId,
+      });
 
       target.send({
         embeds: [
@@ -355,13 +355,11 @@ class WorktimeController {
             description:
               `Le service du ${dayjs(worktime.startAt)
                 .tz(APP.TIMEZONE)
-                .format("DD/MM/YYYY à HH:mm")} (
-                  ${Math.floor(
-                    (worktime.endAt.getTime() - worktime.startAt.getTime()) /
-                      1000 /
-                      60
-                  )}min
-                ) a été supprimé.\n\nSi vous pensez que c'est une erreur veuillez contacter la direction.\n\n` +
+                .format("DD/MM/YYYY à HH:mm")} (${Math.floor(
+                (worktime.endAt.getTime() - worktime.startAt.getTime()) /
+                  1000 /
+                  60
+              )}min) a été supprimé.\n\nSi vous pensez que c'est une erreur veuillez contacter la direction.\n\n` +
               (await (
                 await this.getInformationEmbed(target, true)
               ).description),
