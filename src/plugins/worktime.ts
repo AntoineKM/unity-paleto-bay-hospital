@@ -1,7 +1,9 @@
 import { Colors, Events, GuildMember, User } from "discord.js";
 import CHANNELS from "../constants/channels";
+import MESSAGES from "../constants/messages";
 import WorktimeController from "../controllers/worktime";
 import { DiscordPlugin } from "../types/plugin";
+import { setTimeout as wait } from "node:timers/promises";
 
 const WorktimePlugin: DiscordPlugin = (client) => {
   client.on(Events.ClientReady, async () => {
@@ -47,26 +49,54 @@ const WorktimePlugin: DiscordPlugin = (client) => {
             interaction.member as GuildMember
           )
         ) {
-          await interaction.deferReply({
+          try {
+            await WorktimeController.start(interaction.member.user as User);
+            await interaction.deferReply();
+            await wait(250);
+            await interaction.deleteReply();
+          } catch (e) {
+            await interaction.reply({
+              embeds: [
+                {
+                  ...WorktimeController.baseEmbed,
+                  color: Colors.Red,
+                  description: MESSAGES.ERROR.DM_BLOCKED,
+                },
+              ],
+              ephemeral: true,
+            });
+          }
+        } else {
+          await interaction.reply({
+            embeds: [
+              {
+                ...WorktimeController.baseEmbed,
+                description: `Vous devez être connecté à un salon vocal **Fréquence** pour pouvoir pointer votre arrivée (<#${CHANNELS.SERVICE.PALETO_BAY_1}>).`,
+                color: Colors.Red,
+              },
+            ],
             ephemeral: true,
           });
-          await WorktimeController.start(interaction.member.user as User);
-        } else {
-          await interaction.reply(
-            "❌ - Vous devez être connecté à un salon vocal **Fréquence**"
-          );
-
-          setTimeout(async () => {
-            await interaction.deleteReply();
-          }, 5000);
-          return;
         }
         break;
       case "worktime_end":
-        await interaction.deferReply({
-          ephemeral: true,
-        });
-        await WorktimeController.end(interaction.member.user as User);
+        try {
+          await WorktimeController.end(interaction.member.user as User);
+          await interaction.deferReply();
+          await wait(250);
+          await interaction.deleteReply();
+        } catch (e) {
+          await interaction.reply({
+            embeds: [
+              {
+                ...WorktimeController.baseEmbed,
+                color: Colors.Red,
+                description: MESSAGES.ERROR.DM_BLOCKED,
+              },
+            ],
+            ephemeral: true,
+          });
+        }
         break;
     }
   });

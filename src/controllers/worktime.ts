@@ -60,6 +60,7 @@ class WorktimeController {
         "Veillez à bien vous connecter à un salon vocal **Fréquence** pour que votre prise de service soit bien prise en compte.",
       footer: {
         text: `Merci à vous et bon courage - ${APP.NAME}`,
+        icon_url: APP.LOGO,
       },
     };
 
@@ -108,19 +109,24 @@ class WorktimeController {
     });
 
     if (currentWorktime) {
-      user.send({
-        embeds: [
-          {
-            ...this.baseEmbed,
-            color: Colors.Red,
-            description: `Vous avez déjà commencé votre service à ${dayjs(
-              currentWorktime.startAt
-            )
-              .tz(APP.TIMEZONE)
-              .format("HH:mm")}`,
-          },
-        ],
-      });
+      try {
+        await user.send({
+          embeds: [
+            {
+              ...this.baseEmbed,
+              color: Colors.Red,
+              description: `Vous avez déjà commencé votre service à ${dayjs(
+                currentWorktime.startAt
+              )
+                .tz(APP.TIMEZONE)
+                .format("HH:mm")}`,
+            },
+          ],
+        });
+      } catch (e) {
+        Log.error(e);
+        throw new Error(e);
+      }
       return;
     } else {
       await Worktime.create({
@@ -128,17 +134,23 @@ class WorktimeController {
         userId: user.id,
       });
 
-      user.send({
-        embeds: [
-          {
-            ...this.baseEmbed,
-            color: Colors.Green,
-            description: `Votre prise de service a été validée à ${dayjs()
-              .tz(APP.TIMEZONE)
-              .format("HH:mm")}`,
-          },
-        ],
-      });
+      try {
+        await user.send({
+          embeds: [
+            {
+              ...this.baseEmbed,
+              color: Colors.Green,
+              description: `Votre prise de service a été validée à ${dayjs()
+                .tz(APP.TIMEZONE)
+                .format("HH:mm")}`,
+            },
+          ],
+        });
+      } catch (e) {
+        Log.error(e);
+        throw new Error(e);
+      }
+
       Log.info(
         `✅ - Prise de service validée à ${dayjs()
           .tz(APP.TIMEZONE)
@@ -154,15 +166,20 @@ class WorktimeController {
     });
 
     if (!currentWorktime) {
-      await user.send({
-        embeds: [
-          {
-            ...this.baseEmbed,
-            color: Colors.Red,
-            description: "Vous n'avez pas commencé votre service aujourd'hui",
-          },
-        ],
-      });
+      try {
+        await user.send({
+          embeds: [
+            {
+              ...this.baseEmbed,
+              color: Colors.Red,
+              description: "Vous n'avez pas commencé votre service aujourd'hui",
+            },
+          ],
+        });
+      } catch (e) {
+        Log.error(e);
+        throw new Error(e);
+      }
       return;
     } else {
       currentWorktime.endAt = new Date();
@@ -188,27 +205,32 @@ class WorktimeController {
         ? (totalWorktimeInHours / QUOTAS[degree.id]) * 100
         : 0;
 
-      user.send({
-        embeds: [
-          {
-            ...this.baseEmbed,
-            color: Colors.Green,
-            description: `Votre fin de service a été validée à ${dayjs()
-              .tz(APP.TIMEZONE)
-              .format("HH:mm")}\n\n**Temps de travail cette semaine:** ${pad(
-              Math.floor(totalWorktime / 1000 / 60 / 60),
-              2
-            )}h${pad(
-              Math.floor((totalWorktime / 1000 / 60) % 60),
-              2
-            )}\n**Progression:** ${
-              degree
-                ? progressIndicator(percentage)
-                : "Vous n'avez pas de rôle d'employé, pensez à le demander."
-            }`,
-          },
-        ],
-      });
+      try {
+        await user.send({
+          embeds: [
+            {
+              ...this.baseEmbed,
+              color: Colors.Green,
+              description: `Votre fin de service a été validée à ${dayjs()
+                .tz(APP.TIMEZONE)
+                .format("HH:mm")}\n\n**Temps de travail cette semaine:** ${pad(
+                Math.floor(totalWorktime / 1000 / 60 / 60),
+                2
+              )}h${pad(
+                Math.floor((totalWorktime / 1000 / 60) % 60),
+                2
+              )}\n**Progression:** ${
+                degree
+                  ? progressIndicator(percentage)
+                  : "Vous n'avez pas de rôle d'employé, pensez à le demander."
+              }`,
+            },
+          ],
+        });
+      } catch (e) {
+        Log.error(e);
+        throw new Error(e);
+      }
 
       Log.info(
         `✅ - Fin de service validée à ${dayjs()

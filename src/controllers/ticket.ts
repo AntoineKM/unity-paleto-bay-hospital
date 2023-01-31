@@ -17,7 +17,7 @@ import { TicketType } from "../types/ticket";
 import Log from "../utils/log";
 
 class TicketController {
-  private static baseEmbed = {
+  public static baseEmbed = {
     title: "Ticket",
     color: Colors.White,
     footer: {
@@ -118,17 +118,22 @@ class TicketController {
       type === TicketType.Recruitment &&
       !member.roles.cache.has(ROLES.CANDIDATURE_ACCEPTEE)
     ) {
-      await user.send({
-        embeds: [
-          {
-            ...this.baseEmbed,
-            color: Colors.Red,
-            description:
-              "Votre candidature n'est pas encore acceptée, vous ne pouvez pas créer de ticket de recrutement.",
-          },
-        ],
-      });
-      return;
+      try {
+        await user.send({
+          embeds: [
+            {
+              ...this.baseEmbed,
+              color: Colors.Red,
+              description:
+                "Votre candidature n'est pas encore acceptée, vous ne pouvez pas créer de ticket de recrutement.",
+            },
+          ],
+        });
+        return;
+      } catch (e) {
+        Log.error(e);
+        throw new Error(e);
+      }
     }
 
     const tickets = guild.channels.cache.filter(
@@ -141,18 +146,23 @@ class TicketController {
     if (tickets.size > 0) {
       // send a private message to the user
       const channel = tickets.first() as TextChannel;
-      await user.send({
-        embeds: [
-          {
-            ...this.baseEmbed,
-            color: Colors.Red,
-            description: `Vous avez déjà un ticket ${TicketTypeData[
-              type
-            ].name.toLowerCase()} ouvert dans le salon ${channel}.`,
-          },
-        ],
-      });
-      return;
+      try {
+        await user.send({
+          embeds: [
+            {
+              ...this.baseEmbed,
+              color: Colors.Red,
+              description: `Vous avez déjà un ticket ${TicketTypeData[
+                type
+              ].name.toLowerCase()} ouvert dans le salon ${channel}.`,
+            },
+          ],
+        });
+        return;
+      } catch (e) {
+        Log.error(e);
+        throw new Error(e);
+      }
     }
 
     const channel = await guild.channels.create({
@@ -182,7 +192,7 @@ class TicketController {
             {
               type: 2,
               style: ButtonStyle.Danger,
-              label: "❌ Fermer le ticket",
+              label: "🔒 Fermer le ticket",
               custom_id: "ticket_close",
             },
           ],
@@ -190,16 +200,21 @@ class TicketController {
       ],
     });
 
-    await user.send({
-      embeds: [
-        {
-          ...this.baseEmbed,
-          description: `Votre ticket ${TicketTypeData[
-            type
-          ].name.toLowerCase()} a été créé dans le salon ${channel}.`,
-        },
-      ],
-    });
+    try {
+      await user.send({
+        embeds: [
+          {
+            ...this.baseEmbed,
+            description: `Votre ticket ${TicketTypeData[
+              type
+            ].name.toLowerCase()} a été créé dans le salon ${channel}.`,
+          },
+        ],
+      });
+    } catch (e) {
+      Log.error(e);
+      throw new Error(e);
+    }
 
     Log.info(
       `**${guild.name}**`,
