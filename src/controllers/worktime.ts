@@ -30,7 +30,9 @@ import ReportController from "./report";
 import capitalize from "../utils/capitalize";
 import ChartJsImage from "chartjs-to-image";
 import { ChartOptions, ChartData } from "chart.js";
+import customParseFormat from "dayjs/plugin/customParseFormat";
 
+dayjs.extend(customParseFormat);
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.locale(fr);
@@ -117,9 +119,7 @@ class WorktimeController {
               color: Colors.Red,
               description: `Vous avez déjà commencé votre service à ${dayjs(
                 currentWorktime.startAt
-              )
-                .tz(APP.TIMEZONE)
-                .format("HH:mm")}`,
+              ).format("HH:mm")}`,
             },
           ],
         });
@@ -140,9 +140,9 @@ class WorktimeController {
             {
               ...this.baseEmbed,
               color: Colors.Green,
-              description: `Votre prise de service a été validée à ${dayjs()
-                .tz(APP.TIMEZONE)
-                .format("HH:mm")}`,
+              description: `Votre prise de service a été validée à ${dayjs().format(
+                "HH:mm"
+              )}`,
             },
           ],
         });
@@ -152,9 +152,9 @@ class WorktimeController {
       }
 
       Log.info(
-        `✅ - Prise de service validée à ${dayjs()
-          .tz(APP.TIMEZONE)
-          .format("HH:mm")} par **${user.username}#${user.discriminator}**`
+        `✅ - Prise de service validée à ${dayjs().format("HH:mm")} par **${
+          user.username
+        }#${user.discriminator}**`
       );
     }
   }
@@ -211,9 +211,9 @@ class WorktimeController {
             {
               ...this.baseEmbed,
               color: Colors.Green,
-              description: `Votre fin de service a été validée à ${dayjs()
-                .tz(APP.TIMEZONE)
-                .format("HH:mm")}\n\n**Temps de travail cette semaine:** ${pad(
+              description: `Votre fin de service a été validée à ${dayjs().format(
+                "HH:mm"
+              )}\n\n**Temps de travail cette semaine:** ${pad(
                 Math.floor(totalWorktime / 1000 / 60 / 60),
                 2
               )}h${pad(
@@ -233,14 +233,12 @@ class WorktimeController {
       }
 
       Log.info(
-        `✅ - Fin de service validée à ${dayjs()
-          .tz(APP.TIMEZONE)
-          .format("HH:mm")} par **${user.username}#${
-          user.discriminator
-        }** - ${pad(Math.floor(totalWorktime / 1000 / 60 / 60), 2)}h${pad(
-          Math.floor((totalWorktime / 1000 / 60) % 60),
+        `✅ - Fin de service validée à ${dayjs().format("HH:mm")} par **${
+          user.username
+        }#${user.discriminator}** - ${pad(
+          Math.floor(totalWorktime / 1000 / 60 / 60),
           2
-        )}min - ${
+        )}h${pad(Math.floor((totalWorktime / 1000 / 60) % 60), 2)}min - ${
           // percentage of total work based on totalWorktime and QUOTAS[getUserStatus(user)],
           degree
             ? progressIndicator(percentage)
@@ -374,9 +372,9 @@ class WorktimeController {
             ...this.baseEmbed,
             color: Colors.Red,
             description:
-              `Le service du ${dayjs(worktime.startAt)
-                .tz(APP.TIMEZONE)
-                .format("DD/MM/YYYY à HH:mm")} (${Math.floor(
+              `Le service du ${dayjs(worktime.startAt).format(
+                "DD/MM/YYYY à HH:mm"
+              )} (${Math.floor(
                 (worktime.endAt.getTime() - worktime.startAt.getTime()) /
                   1000 /
                   60
@@ -389,11 +387,9 @@ class WorktimeController {
       });
 
       Log.info(
-        `✅ - Le service du ${dayjs(worktime.startAt)
-          .tz(APP.TIMEZONE)
-          .format("DD/MM/YYYY à HH:mm")} de **${target.username}#${
-          target.discriminator
-        }** a été supprimé.`
+        `✅ - Le service du ${dayjs(worktime.startAt).format(
+          "DD/MM/YYYY à HH:mm"
+        )} de **${target.username}#${target.discriminator}** a été supprimé.`
       );
     }
   }
@@ -596,35 +592,27 @@ class WorktimeController {
       `1970-01-01T${
         [...hourMap.entries()].sort((a, b) => b[1] - a[1])[0][0]
       }:00.000`
-    )
-      .tz(APP.TIMEZONE)
-      .format("HH:mm");
+    ).format("HH:mm");
     const statsQuietestHour = dayjs(
       `1970-01-01T${
         [...hourMap.entries()].sort((a, b) => a[1] - b[1])[0][0]
       }:00.000`
-    )
-      .tz(APP.TIMEZONE)
-      .format("HH:mm");
+    ).format("HH:mm");
 
     // create a map of the number of users working on each day
     const dayMap = new Map<string, number>();
     endWorktimes.forEach((worktime) => {
-      const day = dayjs(worktime.startAt).tz(APP.TIMEZONE).format("YYYY-MM-DD");
+      const day = dayjs(worktime.startAt).format("YYYY-MM-DD");
       dayMap.set(day, (dayMap.get(day) || 0) + 1);
     });
 
     // find the busiest and quietest day
     const statsBusiestDay = dayjs(
       [...dayMap.entries()].sort((a, b) => b[1] - a[1])[0][0]
-    )
-      .tz(APP.TIMEZONE)
-      .format("dddd");
+    ).format("dddd");
     const statsQuietestDay = dayjs(
       [...dayMap.entries()].sort((a, b) => a[1] - b[1])[0][0]
-    )
-      .tz(APP.TIMEZONE)
-      .format("dddd");
+    ).format("dddd");
 
     const totalHours =
       (nowTimestamp - firstWorktimeTimestamp) / (1000 * 60 * 60);
@@ -641,7 +629,7 @@ class WorktimeController {
         i <= new Date(worktime.endAt as Date).getTime();
         i += 3600 * 1000
       ) {
-        const dayAndHour = dayjs(i).tz(APP.TIMEZONE).format("DD/MM/YYYY HH");
+        const dayAndHour = dayjs(i).format("DD/MM/YYYY HH");
         dayAndHourMap.set(dayAndHour, (dayAndHourMap.get(dayAndHour) || 0) + 1);
       }
     });
@@ -653,7 +641,7 @@ class WorktimeController {
       i <= nowTimestamp;
       i += 3600 * 1000
     ) {
-      labels.push(dayjs(i).tz(APP.TIMEZONE).format("DD/MM/YYYY HH"));
+      labels.push(dayjs(i).format("DD/MM/YYYY HH"));
     }
     const chartData: ChartData = {
       // 7 days and 24 hours
