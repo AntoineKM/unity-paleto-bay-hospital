@@ -20,25 +20,11 @@ const AutoMovePlugin: DiscordPlugin = (client) => {
     )) as VoiceChannel;
     if (!secretariatChannel) return;
 
-    const paletoChannels = client.channels.cache.filter(
+    const frequencyChannels = client.channels.cache.filter(
       (channel) =>
         channel.type === ChannelType.GuildVoice &&
-        channel.name.includes("ᴘᴀʟᴇᴛᴏ")
+        channel.name.includes("ғʀᴇ́ᴏ̨ᴜᴇɴᴄᴇ")
     ) as Collection<string, VoiceChannel>;
-    paletoChannels;
-
-    const sandyChannels = client.channels.cache.filter(
-      (channel) =>
-        channel.type === ChannelType.GuildVoice &&
-        channel.name.includes("sᴀɴᴅʏ")
-    ) as Collection<string, VoiceChannel>;
-    sandyChannels;
-
-    const southChannels = client.channels.cache.filter(
-      (channel) =>
-        channel.type === ChannelType.GuildVoice && channel.name.includes("sᴜᴅ")
-    ) as Collection<string, VoiceChannel>;
-    southChannels;
 
     const secretariatChannelMembers: Collection<string, GuildMember> =
       secretariatChannel.members.filter((member) => {
@@ -46,8 +32,8 @@ const AutoMovePlugin: DiscordPlugin = (client) => {
         return member.roles.cache.has(ROLES.EMERGENCY);
       });
 
-    const paletoChannelsMembers: Collection<string, GuildMember> =
-      paletoChannels
+    const frequencyChannelsMembers: Collection<string, GuildMember> =
+      frequencyChannels
         .map((channel) =>
           channel.members.filter((member) => {
             member.fetch();
@@ -59,61 +45,13 @@ const AutoMovePlugin: DiscordPlugin = (client) => {
           new Collection<string, GuildMember>()
         );
 
-    const sandyChannelsMembers: Collection<string, GuildMember> = sandyChannels
-      .map((channel) =>
-        channel.members.filter((member) => {
-          member.fetch();
-          return member.roles.cache.has(ROLES.EMERGENCY);
-        })
-      )
-      .reduce(
-        (acc, curr) => acc.concat(curr),
-        new Collection<string, GuildMember>()
-      );
-
-    const southChannelsMembers: Collection<string, GuildMember> = southChannels
-      .map((channel) =>
-        channel.members.filter((member) => {
-          member.fetch();
-          return member.roles.cache.has(ROLES.EMERGENCY);
-        })
-      )
-      .reduce(
-        (acc, curr) => acc.concat(curr),
-        new Collection<string, GuildMember>()
-      );
-
-    const frequencyChannelsMembers: Collection<string, GuildMember> =
-      paletoChannelsMembers
-        .concat(sandyChannelsMembers)
-        .concat(southChannelsMembers);
-
     if (frequencyChannelsMembers.size === 0) return;
-    if (
-      secretariatChannelMembers.size > 1 &&
-      paletoChannelsMembers.size > 1 &&
-      sandyChannelsMembers.size > 1
-    )
-      return;
+    if (secretariatChannelMembers.size > 1) return;
 
     if (secretariatChannelMembers.size === 0) {
       const candidate = frequencyChannelsMembers.first();
       if (!candidate) return;
       await candidate.voice.setChannel(secretariatChannel);
-      return;
-    }
-
-    if (paletoChannelsMembers.size === 0 && frequencyChannelsMembers.size > 0) {
-      const candidate = frequencyChannelsMembers.first();
-      if (!candidate) return;
-      await candidate.voice.setChannel(CHANNELS.SERVICE.PALETO_BAY_1);
-      return;
-    }
-
-    if (sandyChannelsMembers.size === 0 && frequencyChannelsMembers.size > 1) {
-      const candidate = frequencyChannelsMembers.first();
-      if (!candidate) return;
-      await candidate.voice.setChannel(CHANNELS.SERVICE.SANDY_SHORE_1);
       return;
     }
   });
