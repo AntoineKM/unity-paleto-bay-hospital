@@ -118,8 +118,8 @@ class TicketController {
       type === TicketType.Recruitment &&
       !member.roles.cache.has(ROLES.CANDIDATURE_ACCEPTEE)
     ) {
-      try {
-        await user.send({
+      user
+        .send({
           embeds: [
             {
               ...this.baseEmbed,
@@ -128,12 +128,9 @@ class TicketController {
                 "Votre candidature n'est pas encore acceptée, vous ne pouvez pas créer de ticket de recrutement.",
             },
           ],
-        });
-        return;
-      } catch (e) {
-        Log.error(e);
-        throw new Error(e);
-      }
+        })
+        .catch((e) => Log.error(user, e));
+      return;
     }
 
     const tickets = guild.channels.cache.filter(
@@ -146,8 +143,8 @@ class TicketController {
     if (tickets.size > 0) {
       // send a private message to the user
       const channel = tickets.first() as TextChannel;
-      try {
-        await user.send({
+      user
+        .send({
           embeds: [
             {
               ...this.baseEmbed,
@@ -157,12 +154,9 @@ class TicketController {
               ].name.toLowerCase()} ouvert dans le salon ${channel}.`,
             },
           ],
-        });
-        return;
-      } catch (e) {
-        Log.error(e);
-        throw new Error(e);
-      }
+        })
+        .catch((e) => Log.error(user, e));
+      return;
     }
 
     const channel = await guild.channels.create({
@@ -200,8 +194,8 @@ class TicketController {
       ],
     });
 
-    try {
-      await user.send({
+    user
+      .send({
         embeds: [
           {
             ...this.baseEmbed,
@@ -210,11 +204,8 @@ class TicketController {
             ].name.toLowerCase()} a été créé dans le salon ${channel}.`,
           },
         ],
-      });
-    } catch (e) {
-      Log.error(e);
-      throw new Error(e);
-    }
+      })
+      .catch((e) => Log.error(user, e));
 
     Log.info(
       `**${guild.name}**`,

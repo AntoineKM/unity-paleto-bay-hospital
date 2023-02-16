@@ -111,8 +111,8 @@ class WorktimeController {
     });
 
     if (currentWorktime) {
-      try {
-        await user.send({
+      user
+        .send({
           embeds: [
             {
               ...this.baseEmbed,
@@ -122,11 +122,8 @@ class WorktimeController {
               ).format("HH:mm")}`,
             },
           ],
-        });
-      } catch (e) {
-        Log.error(e);
-        throw new Error(e);
-      }
+        })
+        .catch((e) => Log.error(user, e));
       return;
     } else {
       await Worktime.create({
@@ -134,8 +131,8 @@ class WorktimeController {
         userId: user.id,
       });
 
-      try {
-        await user.send({
+      user
+        .send({
           embeds: [
             {
               ...this.baseEmbed,
@@ -145,11 +142,8 @@ class WorktimeController {
               )}`,
             },
           ],
-        });
-      } catch (e) {
-        Log.error(e);
-        throw new Error(e);
-      }
+        })
+        .catch((e) => Log.error(user, e));
 
       Log.info(
         `✅ - Prise de service validée à ${dayjs().format("HH:mm")} par **${
@@ -166,8 +160,8 @@ class WorktimeController {
     });
 
     if (!currentWorktime) {
-      try {
-        await user.send({
+      user
+        .send({
           embeds: [
             {
               ...this.baseEmbed,
@@ -175,11 +169,8 @@ class WorktimeController {
               description: "Vous n'avez pas commencé votre service aujourd'hui",
             },
           ],
-        });
-      } catch (e) {
-        Log.error(e);
-        throw new Error(e);
-      }
+        })
+        .catch((e) => Log.error(user, e));
       return;
     } else {
       currentWorktime.endAt = new Date();
@@ -204,9 +195,8 @@ class WorktimeController {
       const percentage = degree
         ? (totalWorktimeInHours / QUOTAS[degree.id]) * 100
         : 0;
-
-      try {
-        await user.send({
+      user
+        .send({
           embeds: [
             {
               ...this.baseEmbed,
@@ -226,11 +216,8 @@ class WorktimeController {
               }`,
             },
           ],
-        });
-      } catch (e) {
-        Log.error(e);
-        throw new Error(e);
-      }
+        })
+        .catch((e) => Log.error(user, e));
 
       Log.info(
         `✅ - Fin de service validée à ${dayjs().format("HH:mm")} par **${
@@ -304,23 +291,25 @@ class WorktimeController {
         endAt: null,
       });
 
-      await target.send({
-        embeds: [
-          {
-            ...this.baseEmbed,
-            color: Colors.Red,
-            description: "Votre prise de service a été annulée.",
-          },
-        ],
-      });
+      target
+        .send({
+          embeds: [
+            {
+              ...this.baseEmbed,
+              color: Colors.Red,
+              description: "Votre prise de service a été annulée.",
+            },
+          ],
+        })
+        .catch((e) => Log.error(target, e));
 
       if (sender) {
         Log.info(
           `✅ - La prise de service de **${target.username}#${target.discriminator}** a été annulée par **${sender.username}#${sender.discriminator}**.`
         );
-        await sender.send(
-          `✅ - La prise de service de ${target.username} a été annulée.`
-        );
+        sender
+          .send(`✅ - La prise de service de ${target.username} a été annulée.`)
+          .catch((e) => Log.error(sender, e));
       } else {
         Log.info(
           `✅ - La prise de service de **${target.username}#${target.discriminator}** a été annulée.`
@@ -328,9 +317,9 @@ class WorktimeController {
       }
     } else {
       if (sender) {
-        await sender.send(
-          `❌ - ${target.username} n'a pas de prise de service en cours.`
-        );
+        sender
+          .send(`❌ - ${target.username} n'a pas de prise de service en cours.`)
+          .catch((e) => Log.error(sender, e));
       }
     }
   }
@@ -366,25 +355,27 @@ class WorktimeController {
         _id: worktimeId,
       });
 
-      target.send({
-        embeds: [
-          {
-            ...this.baseEmbed,
-            color: Colors.Red,
-            description:
-              `Le service du ${dayjs(worktime.startAt).format(
-                "DD/MM/YYYY à HH:mm"
-              )} (${Math.floor(
-                (worktime.endAt.getTime() - worktime.startAt.getTime()) /
-                  1000 /
-                  60
-              )} min) a été supprimé.\n\nSi vous pensez que c'est une erreur veuillez contacter la direction.\n\n` +
-              (await (
-                await this.getInformationEmbed(target, true)
-              ).description),
-          },
-        ],
-      });
+      target
+        .send({
+          embeds: [
+            {
+              ...this.baseEmbed,
+              color: Colors.Red,
+              description:
+                `Le service du ${dayjs(worktime.startAt).format(
+                  "DD/MM/YYYY à HH:mm"
+                )} (${Math.floor(
+                  (worktime.endAt.getTime() - worktime.startAt.getTime()) /
+                    1000 /
+                    60
+                )} min) a été supprimé.\n\nSi vous pensez que c'est une erreur veuillez contacter la direction.\n\n` +
+                (await (
+                  await this.getInformationEmbed(target, true)
+                ).description),
+            },
+          ],
+        })
+        .catch((e) => Log.error(target, e));
 
       Log.info(
         `✅ - Le service du ${dayjs(worktime.startAt).format(

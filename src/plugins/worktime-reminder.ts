@@ -25,15 +25,17 @@ const WorktimeReminderPlugin: DiscordPlugin = (client) => {
               `Sent reminder to ${member.user.username}#${member.user.discriminator} for not starting worktime`
             );
             try {
-              await member.send({
-                embeds: [
-                  {
-                    ...WorktimeController.baseEmbed,
-                    color: Colors.Red,
-                    description: `Vous semblez avoir oublié de pointer votre arrivée aujourd'hui (<#${CHANNELS.SERVICE.POINTEUSE}>)`,
-                  },
-                ],
-              });
+              member
+                .send({
+                  embeds: [
+                    {
+                      ...WorktimeController.baseEmbed,
+                      color: Colors.Red,
+                      description: `Vous semblez avoir oublié de pointer votre arrivée aujourd'hui (<#${CHANNELS.SERVICE.POINTEUSE}>)`,
+                    },
+                  ],
+                })
+                .catch((e) => Log.error(member, e));
             } catch (e) {
               Log.error(e);
             }

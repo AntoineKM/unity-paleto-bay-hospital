@@ -109,14 +109,16 @@ const WarnCommand: DiscordCommand = {
           );
 
           // send a message to the target with the reason
-          await target.send({
-            embeds: [
-              {
-                ...WarnController.baseEmbed,
-                description: `Vous avez été averti pour la raison suivante: **${reason}**\n*Si vous pensez que c'est une erreur ou pour en savoir plus sur la raison, merci de contacter un membre de la direction.*`,
-              },
-            ],
-          });
+          target
+            .send({
+              embeds: [
+                {
+                  ...WarnController.baseEmbed,
+                  description: `Vous avez été averti pour la raison suivante: **${reason}**\n*Si vous pensez que c'est une erreur ou pour en savoir plus sur la raison, merci de contacter un membre de la direction.*`,
+                },
+              ],
+            })
+            .catch((e) => Log.error(target, e));
         }
       }
     }
