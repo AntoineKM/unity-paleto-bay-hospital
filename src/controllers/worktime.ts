@@ -240,7 +240,7 @@ class WorktimeController {
       ) {
         const reportChannel = await getTextChannel(
           user.client,
-          CHANNELS.DIRECTION.RAPPORTS
+          CHANNELS.DIRECTION.REPORTS
         );
 
         reportChannel.send({
