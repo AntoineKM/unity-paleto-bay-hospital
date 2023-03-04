@@ -15,19 +15,33 @@ export const TicketTypeData: Record<
     emoji: "📢",
     name: "Plainte",
     description: "Plainte envers un de nos personnels soignant.",
-    instructions: "",
+    instructions: `Merci de nous fournir les informations suivantes:
+- Votre nom et prénom (IG)
+- Nom ou prénom du personnel soignant concerné
+- Nature de la plainte
+- Éléments de preuve éventuels (screenshots, vidéos, etc.)
+- Autres informations pertinentes
+
+Nous nous engageons à enquêter sur votre plainte dans les plus brefs délais et à prendre les mesures appropriées si nécessaire.`,
   },
   [TicketType.Partnership]: {
     emoji: "🤝",
     name: "Partenariat",
     description: "Demande de partenariat avec notre hôpital.",
-    instructions: "",
+    instructions: `Merci de nous fournir les informations suivantes:
+- Nom de votre entreprise/organisation
+- Type de partenariat souhaité (événementiel, financier, etc.)
+- Description du partenariat
+- Autres informations pertinentes
+
+Nous étudierons votre demande et reviendrons vers vous dans les plus brefs délais.`,
   },
   [TicketType.Support]: {
     emoji: "📞",
     name: "Support",
     description: "Questions simples ou besoin d'aide.",
-    instructions: "",
+    instructions:
+      "Comment pouvons-nous vous aider ? N'hésitez pas à nous fournir toutes les informations nécessaires pour que nous puissions vous aider au mieux.",
   },
   [TicketType.Recruitment]: {
     emoji: "📥",
