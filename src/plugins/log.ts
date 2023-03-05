@@ -111,7 +111,7 @@ const LogPlugin: DiscordPlugin = (client) => {
         `member **${interaction.user.username}#${interaction.user.discriminator}** excuted the command ` +
           "``" +
           `/${interaction.commandName} ${interaction.options.data
-            .map((option) => option.value)
+            .map((option) => option.name + ":" + option.value)
             .join(" ")}` +
           "``"
       );
