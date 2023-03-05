@@ -25,7 +25,7 @@ import progressIndicator from "../utils/progressIndicator";
 import pad from "../utils/pad";
 import * as sd from "simple-duration";
 import CHANNELS from "../constants/channels";
-import { getTextChannel } from "../utils/discord";
+import { getMembersWithRole, getTextChannel } from "../utils/discord";
 import ReportController from "./report";
 import capitalize from "../utils/capitalize";
 import ChartJsImage from "chartjs-to-image";
@@ -831,6 +831,49 @@ class WorktimeController {
     };
 
     return informationEmbed;
+  }
+
+  // list of users absent for the last x days
+  public static async getAbsentees(
+    client: Client,
+    days = 2
+  ): Promise<GuildMember[] | null> {
+    const members = await getMembersWithRole(client, ROLES.EMERGENCY);
+
+    const interims = await getMembersWithRole(client, ROLES.INTERIMAIRE);
+
+    const membersWithoutInterims = members.filter((member) => {
+      return !interims.find((interim) => interim.id === member.id);
+    });
+
+    const absentees = await Promise.all(
+      membersWithoutInterims.map(async (member) => {
+        const lastWorktime = await Worktime.findOne({
+          userId: member.id,
+        }).sort({
+          startAt: -1,
+        });
+
+        if (!lastWorktime) {
+          return member;
+        }
+
+        const lastWorktimeDate = lastWorktime.startAt;
+        const lastWorktimeDaysAgo = dayjs().diff(lastWorktimeDate, "day");
+
+        if (lastWorktimeDaysAgo >= days) {
+          return member;
+        }
+
+        return null;
+      })
+    );
+
+    const result = absentees.filter(
+      (member) => member !== null
+    ) as GuildMember[];
+
+    return result;
   }
 }
 
