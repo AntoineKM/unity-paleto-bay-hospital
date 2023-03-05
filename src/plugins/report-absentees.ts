@@ -7,8 +7,8 @@ import schedule from "node-schedule";
 import WorktimeController from "../controllers/worktime";
 
 const ReportAbsenteesPlugin: DiscordPlugin = (client) => {
-  // schedule.scheduleJob("0 12 * * 2-7", async () => {
-  schedule.scheduleJob("* * * * *", async () => {
+  schedule.scheduleJob("0 12 * * 2-7", async () => {
+    // schedule.scheduleJob("* * * * *", async () => {
     const reportChannel = await getTextChannel(
       client,
       CHANNELS.DIRECTION.REPORTS
