@@ -16,11 +16,11 @@ const WarnCommand: DiscordCommand = {
         .addChoices(
           {
             value: "add",
-            name: "Ajouter un avertissement",
+            name: "Ajouter un avertissement à un membre",
           },
           {
             value: "remove",
-            name: "Retirer un avertissement",
+            name: "Réinitialiser les avertissements d'un membre",
           },
           {
             value: "list",
