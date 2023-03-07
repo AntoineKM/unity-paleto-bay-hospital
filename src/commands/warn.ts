@@ -32,7 +32,7 @@ const WarnCommand: DiscordCommand = {
       option
         .setName("target")
         .setDescription("Le membre à qui appliquer la commande")
-        .setRequired(true)
+        .setRequired(false)
     )
     .addStringOption((option) =>
       option
