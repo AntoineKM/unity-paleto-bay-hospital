@@ -41,9 +41,7 @@ class WarnController {
             ...this.baseEmbed,
             description: `**${target}** a reçu un avertissement et à maintenant **${
               warns.length
-            }** avertissement${warns.length > 1 ? "s" : ""}.\nRaison${
-              warns.length
-            }:\n ${warns
+            }** avertissement${warns.length > 1 ? "s" : ""}.\nRaison:\n ${warns
               .map((warn, i) => `${i + 1}. ${warn.reason}`)
               .join("\n")}`,
           },
