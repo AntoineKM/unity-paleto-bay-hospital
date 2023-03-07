@@ -140,18 +140,7 @@ const WarnCommand: DiscordCommand = {
               ],
             });
           } else {
-            if (target) {
-              await WarnController.list(interaction);
-            } else {
-              await interaction.reply({
-                embeds: [
-                  {
-                    ...WarnController.baseEmbed,
-                    description: MESSAGES.ERROR.COMMAND_NO_TARGET,
-                  },
-                ],
-              });
-            }
+            await WarnController.list(interaction);
           }
           break;
         }
