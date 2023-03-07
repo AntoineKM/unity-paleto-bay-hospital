@@ -1,15 +1,8 @@
-import {
-  SlashCommandBuilder,
-  ChannelType,
-  TextChannel,
-  PermissionFlagsBits,
-} from "discord.js";
-import CHANNELS from "../constants/channels";
+import { SlashCommandBuilder, PermissionFlagsBits } from "discord.js";
 import MESSAGES from "../constants/messages";
 import ROLES from "../constants/roles";
 import WarnController from "../controllers/warn";
 import { DiscordCommand } from "../types/command";
-import Log from "../utils/log";
 
 const WarnCommand: DiscordCommand = {
   data: new SlashCommandBuilder()
