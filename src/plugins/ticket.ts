@@ -4,7 +4,6 @@ import MESSAGES from "../constants/messages";
 import TicketController from "../controllers/ticket";
 import { DiscordPlugin } from "../types/plugin";
 import { TicketType } from "../types/ticket";
-import { setTimeout as wait } from "node:timers/promises";
 
 const TicketPlugin: DiscordPlugin = (client) => {
   client.on(Events.ClientReady, async () => {
@@ -37,7 +36,7 @@ const TicketPlugin: DiscordPlugin = (client) => {
     }
 
     try {
-      await TicketController.createTicket(
+      const embed = await TicketController.createTicket(
         interaction.guild,
         interaction.member as GuildMember,
         // remove the prefix before the first "_" from the interaction.customId but do not split because after the first "_" there is the ticket type which can contain "_"
@@ -45,9 +44,11 @@ const TicketPlugin: DiscordPlugin = (client) => {
           interaction.customId.indexOf("_") + 1
         ) as TicketType
       );
-      await interaction.deferReply();
-      await wait(250);
-      await interaction.deleteReply();
+
+      await interaction.reply({
+        embeds: [embed],
+        ephemeral: true,
+      });
     } catch (e) {
       await interaction.reply({
         embeds: [

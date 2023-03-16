@@ -1,4 +1,5 @@
 import {
+  APIEmbed,
   ButtonStyle,
   Channel,
   ChannelType,
@@ -109,7 +110,10 @@ class TicketController {
     guild: Guild,
     member: GuildMember,
     type: TicketType
-  ) {
+  ): Promise<APIEmbed> {
+    let embed: APIEmbed = {
+      ...this.baseEmbed,
+    };
     const { user } = member;
     await guild.channels.fetch();
 
@@ -118,19 +122,19 @@ class TicketController {
       type === TicketType.Recruitment &&
       !member.roles.cache.has(ROLES.CANDIDATURE_ACCEPTEE)
     ) {
+      embed = {
+        ...this.baseEmbed,
+        color: Colors.Red,
+        description:
+          "Votre candidature n'est pas encore acceptée, vous ne pouvez pas créer de ticket de recrutement.",
+      };
+
       user
         .send({
-          embeds: [
-            {
-              ...this.baseEmbed,
-              color: Colors.Red,
-              description:
-                "Votre candidature n'est pas encore acceptée, vous ne pouvez pas créer de ticket de recrutement.",
-            },
-          ],
+          embeds: [embed],
         })
         .catch((e) => Log.error(user, e));
-      return;
+      return embed;
     }
 
     const tickets = guild.channels.cache.filter(
@@ -143,20 +147,19 @@ class TicketController {
     if (tickets.size > 0) {
       // send a private message to the user
       const channel = tickets.first() as TextChannel;
+      embed = {
+        ...this.baseEmbed,
+        color: Colors.Red,
+        description: `Vous avez déjà un ticket ${TicketTypeData[
+          type
+        ].name.toLowerCase()} ouvert dans le salon ${channel}.`,
+      };
       user
         .send({
-          embeds: [
-            {
-              ...this.baseEmbed,
-              color: Colors.Red,
-              description: `Vous avez déjà un ticket ${TicketTypeData[
-                type
-              ].name.toLowerCase()} ouvert dans le salon ${channel}.`,
-            },
-          ],
+          embeds: [embed],
         })
         .catch((e) => Log.error(user, e));
-      return;
+      return embed;
     }
 
     const channel = await guild.channels.create({
@@ -194,16 +197,16 @@ class TicketController {
       ],
     });
 
+    embed = {
+      ...this.baseEmbed,
+      description: `Votre ticket ${TicketTypeData[
+        type
+      ].name.toLowerCase()} a été créé dans le salon ${channel}.`,
+    };
+
     user
       .send({
-        embeds: [
-          {
-            ...this.baseEmbed,
-            description: `Votre ticket ${TicketTypeData[
-              type
-            ].name.toLowerCase()} a été créé dans le salon ${channel}.`,
-          },
-        ],
+        embeds: [embed],
       })
       .catch((e) => Log.error(user, e));
 
@@ -211,6 +214,8 @@ class TicketController {
       `**${guild.name}**`,
       `ticket ${TicketTypeData[type].name.toLowerCase()} créé pour ${user}`
     );
+
+    return embed;
   }
 
   public static async closeTicket(

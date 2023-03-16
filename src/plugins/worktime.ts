@@ -3,7 +3,6 @@ import CHANNELS from "../constants/channels";
 import MESSAGES from "../constants/messages";
 import WorktimeController from "../controllers/worktime";
 import { DiscordPlugin } from "../types/plugin";
-import { setTimeout as wait } from "node:timers/promises";
 
 const WorktimePlugin: DiscordPlugin = (client) => {
   client.on(Events.ClientReady, async () => {
@@ -50,10 +49,13 @@ const WorktimePlugin: DiscordPlugin = (client) => {
           )
         ) {
           try {
-            await WorktimeController.start(interaction.member.user as User);
-            await interaction.deferReply();
-            await wait(250);
-            await interaction.deleteReply();
+            const embed = await WorktimeController.start(
+              interaction.member.user as User
+            );
+            await interaction.reply({
+              embeds: [embed],
+              ephemeral: true,
+            });
           } catch (e) {
             await interaction.reply({
               embeds: [
@@ -81,10 +83,13 @@ const WorktimePlugin: DiscordPlugin = (client) => {
         break;
       case "worktime_end":
         try {
-          await WorktimeController.end(interaction.member.user as User);
-          await interaction.deferReply();
-          await wait(250);
-          await interaction.deleteReply();
+          const embed = await WorktimeController.end(
+            interaction.member.user as User
+          );
+          await interaction.reply({
+            embeds: [embed],
+            ephemeral: true,
+          });
         } catch (e) {
           await interaction.reply({
             embeds: [

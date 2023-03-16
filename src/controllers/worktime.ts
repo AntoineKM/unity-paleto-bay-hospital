@@ -104,44 +104,47 @@ class WorktimeController {
     }
   }
 
-  public static async start(user: User): Promise<void> {
+  public static async start(user: User): Promise<APIEmbed> {
     const currentWorktime = await Worktime.findOne({
       userId: user.id,
       endAt: null,
     });
 
+    let embed: APIEmbed = {
+      ...this.baseEmbed,
+    };
+
     if (currentWorktime) {
+      embed = {
+        ...this.baseEmbed,
+        color: Colors.Red,
+        description: `Vous avez déjà commencé votre service à ${dayjs(
+          currentWorktime.startAt
+        ).format("HH:mm")}`,
+      };
+
       user
         .send({
-          embeds: [
-            {
-              ...this.baseEmbed,
-              color: Colors.Red,
-              description: `Vous avez déjà commencé votre service à ${dayjs(
-                currentWorktime.startAt
-              ).format("HH:mm")}`,
-            },
-          ],
+          embeds: [embed],
         })
         .catch((e) => Log.error(user, e));
-      return;
     } else {
       await Worktime.create({
         startAt: new Date(),
         userId: user.id,
       });
 
+      embed = {
+        ...this.baseEmbed,
+        color: Colors.Green,
+        description: `Votre prise de service a été validée à ${dayjs().format(
+          "HH:mm"
+        )}`,
+      };
+
       user
         .send({
-          embeds: [
-            {
-              ...this.baseEmbed,
-              color: Colors.Green,
-              description: `Votre prise de service a été validée à ${dayjs().format(
-                "HH:mm"
-              )}`,
-            },
-          ],
+          embeds: [embed],
         })
         .catch((e) => Log.error(user, e));
 
@@ -151,27 +154,31 @@ class WorktimeController {
         }#${user.discriminator}**`
       );
     }
+
+    return embed;
   }
 
-  public static async end(user: User): Promise<void> {
+  public static async end(user: User): Promise<APIEmbed> {
     const currentWorktime = await Worktime.findOne({
       userId: user.id,
       endAt: null,
     });
 
+    let embed: APIEmbed = {
+      ...this.baseEmbed,
+    };
+
     if (!currentWorktime) {
+      embed = {
+        ...this.baseEmbed,
+        color: Colors.Red,
+        description: "Vous n'avez pas commencé votre service aujourd'hui",
+      };
       user
         .send({
-          embeds: [
-            {
-              ...this.baseEmbed,
-              color: Colors.Red,
-              description: "Vous n'avez pas commencé votre service aujourd'hui",
-            },
-          ],
+          embeds: [embed],
         })
         .catch((e) => Log.error(user, e));
-      return;
     } else {
       currentWorktime.endAt = new Date();
       await currentWorktime.save();
@@ -195,27 +202,28 @@ class WorktimeController {
       const percentage = degree
         ? (totalWorktimeInHours / QUOTAS[degree.id]) * 100
         : 0;
+
+      embed = {
+        ...this.baseEmbed,
+        color: Colors.Green,
+        description: `Votre fin de service a été validée à ${dayjs().format(
+          "HH:mm"
+        )}\n\n**Temps de travail cette semaine:** ${pad(
+          Math.floor(totalWorktime / 1000 / 60 / 60),
+          2
+        )}h${pad(
+          Math.floor((totalWorktime / 1000 / 60) % 60),
+          2
+        )}\n**Progression:** ${
+          degree
+            ? progressIndicator(percentage)
+            : "Vous n'avez pas de rôle d'employé, pensez à le demander."
+        }`,
+      };
+
       user
         .send({
-          embeds: [
-            {
-              ...this.baseEmbed,
-              color: Colors.Green,
-              description: `Votre fin de service a été validée à ${dayjs().format(
-                "HH:mm"
-              )}\n\n**Temps de travail cette semaine:** ${pad(
-                Math.floor(totalWorktime / 1000 / 60 / 60),
-                2
-              )}h${pad(
-                Math.floor((totalWorktime / 1000 / 60) % 60),
-                2
-              )}\n**Progression:** ${
-                degree
-                  ? progressIndicator(percentage)
-                  : "Vous n'avez pas de rôle d'employé, pensez à le demander."
-              }`,
-            },
-          ],
+          embeds: [embed],
         })
         .catch((e) => Log.error(user, e));
 
@@ -277,6 +285,8 @@ class WorktimeController {
         });
       }
     }
+
+    return embed;
   }
 
   public static async cancel(target: User, sender?: User): Promise<void> {
