@@ -27,7 +27,6 @@ const TicketPlugin: DiscordPlugin = (client) => {
 
     if (interaction.customId === "ticket_close") {
       await interaction.deferReply();
-      await interaction.deleteReply();
       await TicketController.closeTicket(
         interaction.user,
         interaction.channel as TextChannel
