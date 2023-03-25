@@ -2,6 +2,7 @@ import { Colors, PermissionFlagsBits, SlashCommandBuilder } from "discord.js";
 import MESSAGES from "../constants/messages";
 import ROLES from "../constants/roles";
 import WorktimeController from "../controllers/worktime";
+import WorktimeIgnoreReminder from "../models/WortimeIgnore";
 
 import { DiscordCommand } from "../types/command";
 
@@ -34,6 +35,10 @@ const WorktimeCommand: DiscordCommand = {
           {
             name: "Retirer du temps de travail à un utilisateur",
             value: "remove",
+          },
+          {
+            name: "Ignorer les rappels",
+            value: "ignore",
           }
         )
     )
@@ -65,6 +70,45 @@ const WorktimeCommand: DiscordCommand = {
     } else {
       await interaction.member.fetch();
       switch (command) {
+        case "ignore": {
+          const hasIgnored = await WorktimeIgnoreReminder.findOne({
+            userId: interaction.user.id,
+          });
+
+          if (hasIgnored) {
+            await WorktimeIgnoreReminder.deleteOne({
+              userId: interaction.user.id,
+            });
+            await interaction.reply({
+              embeds: [
+                {
+                  title: "✅ - Rappels activés",
+                  description:
+                    "Vous recevrez à nouveau les rappels de prise de service.",
+                  color: Colors.Green,
+                },
+              ],
+              ephemeral: true,
+            });
+          } else {
+            await WorktimeIgnoreReminder.create({
+              userId: interaction.user.id,
+            });
+            await interaction.reply({
+              embeds: [
+                {
+                  title: "✅ - Rappels désactivés",
+                  description:
+                    "Vous ne recevrez plus les rappels de prise de service.",
+                  color: Colors.Green,
+                },
+              ],
+              ephemeral: true,
+            });
+          }
+          return;
+          break;
+        }
         case "leaderboard":
           // check if user has the role ROLES.EMERGENCY
           if (!interaction.member.roles.cache.has(ROLES.EMERGENCY)) {

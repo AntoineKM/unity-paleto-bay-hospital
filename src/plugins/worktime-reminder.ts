@@ -6,16 +6,22 @@ import ROLES from "../constants/roles";
 import Log from "../utils/log";
 import CHANNELS from "../constants/channels";
 import { Colors } from "discord.js";
+import WorktimeIgnoreReminder from "../models/WortimeIgnore";
 
 const WorktimeReminderPlugin: DiscordPlugin = (client) => {
   schedule.scheduleJob("*/10 * * * *", async () => {
     const members = await WorktimeController.getMembersInWorkVoiceChannel(
       client
     );
+    const worktimeReminderIgnoreList = await WorktimeIgnoreReminder.find();
     await Promise.all(
       members.map(async (member) => {
         await member.fetch();
-        if (member.roles.cache.has(ROLES.EMERGENCY)) {
+        // check if the member as emergency role and is not in the ignore list
+        if (
+          member.roles.cache.has(ROLES.EMERGENCY) &&
+          !worktimeReminderIgnoreList.find((m) => m.userId === member.user.id)
+        ) {
           const worktime = await Worktime.findOne({
             userId: member.user.id,
             endAt: null,
