@@ -62,7 +62,7 @@ const WorktimePlugin: DiscordPlugin = (client) => {
                 {
                   ...WorktimeController.baseEmbed,
                   color: Colors.Red,
-                  description: MESSAGES.ERROR.DM_BLOCKED,
+                  description: `${interaction.member}, ${MESSAGES.ERROR.DM_BLOCKED}`,
                 },
               ],
               ephemeral: true,
@@ -96,7 +96,7 @@ const WorktimePlugin: DiscordPlugin = (client) => {
               {
                 ...WorktimeController.baseEmbed,
                 color: Colors.Red,
-                description: MESSAGES.ERROR.DM_BLOCKED,
+                description: `${interaction.member}, ${MESSAGES.ERROR.DM_BLOCKED}`,
               },
             ],
             ephemeral: true,
