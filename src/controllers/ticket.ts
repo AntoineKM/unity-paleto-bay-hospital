@@ -136,6 +136,24 @@ class TicketController {
         .catch((e) => Log.error(user, e));
       return embed;
     }
+    if (
+      type === TicketType.HumanResources &&
+      !member.roles.cache.has(ROLES.EMERGENCY)
+    ) {
+      embed = {
+        ...this.baseEmbed,
+        color: Colors.Red,
+        description:
+          "Vous ne faite pas partie du personnel soignant, vous ne pouvez pas créer de ticket RH.",
+      };
+
+      user
+        .send({
+          embeds: [embed],
+        })
+        .catch((e) => Log.error(user, e));
+      return embed;
+    }
 
     const tickets = guild.channels.cache.filter(
       (channel) =>

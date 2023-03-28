@@ -166,4 +166,15 @@ Dimanche: ?h - ?h_`,
 - Vos disponibilités`,
     parent: CHANNELS.TICKETS_RADIOGRAPHIE._ID,
   },
+  [TicketType.HumanResources]: {
+    emoji: "📝",
+    name: "Ressources Humaines",
+    description: "Rendez-vous réservés aux personnels soignants.",
+    instructions: `》Nous avons bien pris note de votre demande de rendez-vous. Un membre de la direction ne manquera pas de vous contacter dans les plus brefs délais.
+
+*__En attendant merci de nous indiquer: __*
+- Objet du rendez-vous
+- Vos disponibilités`,
+    parent: CHANNELS.TICKETS_RESSOURCES_HUMAINES._ID,
+  },
 };
