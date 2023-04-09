@@ -177,4 +177,17 @@ Dimanche: ?h - ?h_`,
 - Vos disponibilités`,
     parent: CHANNELS.TICKETS_RESSOURCES_HUMAINES._ID,
   },
+  [TicketType.Events]: {
+    emoji: "🎉",
+    name: "Evénements",
+    description:
+      "Organisation d'événements ou mobilisation de personnel soignant.",
+    instructions: `》Nous avons bien pris note de votre demande de rendez-vous. Un membre de la direction ne manquera pas de vous contacter dans les plus brefs délais.
+
+*__En attendant merci de nous indiquer: __*
+- Objet de l'événement
+- Vos disponibilités
+- Une estimation du budget`,
+    parent: CHANNELS.TICKETS_AUTRES._ID,
+  },
 };
