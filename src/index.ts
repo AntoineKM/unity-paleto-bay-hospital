@@ -8,8 +8,10 @@ import mongoose from "mongoose";
 import { databaseUri } from "./services/mongodb";
 import dixt from "dixt";
 import dixtPluginLogs from "dixt-plugin-logs";
+import dixtPluginJoin from "dixt-plugin-join";
 import dixtPluginTwitch from "dixt-plugin-twitch";
 import dixtPluginTwitchOptions from "./options/twitch";
+import dixtPluginJoinOptions from "./options/join";
 
 const main = async () => {
   dotenv.config({
@@ -27,7 +29,11 @@ const main = async () => {
       name: "Paleto Bay Hospital",
       logo: "https://cdn.discordapp.com/avatars/1057033412977885265/5f743bd6c50f3fb03d08ffbf370e9c04.webp",
     },
-    plugins: [dixtPluginLogs, [dixtPluginTwitch, dixtPluginTwitchOptions]],
+    plugins: [
+      dixtPluginLogs,
+      [dixtPluginJoin, dixtPluginJoinOptions],
+      [dixtPluginTwitch, dixtPluginTwitchOptions],
+    ],
   });
 
   const client: ClientWithCommands = instance.client;

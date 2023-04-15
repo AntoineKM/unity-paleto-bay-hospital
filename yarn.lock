@@ -584,6 +584,15 @@ discord.js@^14.9.0:
     undici "^5.21.0"
     ws "^8.13.0"
 
+dixt-plugin-join@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/dixt-plugin-join/-/dixt-plugin-join-2.1.1.tgz#93056f9082d351fafc8c4ab015d25084e5856405"
+  integrity sha512-wh9c4hve01ksI/LNG3xpgCaNkTVGNPQiSrYdhiO9VzuDwx2Vs94i61unOFD7jPLKiOKdA2M2Y4gy+fOySbjnLA==
+  dependencies:
+    discord.js "^14.9.0"
+    dixt "2.1.0"
+    dotenv-flow "^3.2.0"
+
 dixt-plugin-logs@latest:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/dixt-plugin-logs/-/dixt-plugin-logs-2.1.0.tgz#32a19add52de7380731c343c111e60f9cf95eeb7"
