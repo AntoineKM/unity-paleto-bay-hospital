@@ -1,12 +1,15 @@
 import fs from "fs";
 import path from "path";
-import { Client, Collection, GatewayIntentBits } from "discord.js";
+import { Collection } from "discord.js";
 import dotenv from "dotenv-flow";
-import DiscordApplication from "./services/discord";
 import { ClientWithCommands } from "./types/command";
 import Log from "./utils/log";
 import mongoose from "mongoose";
 import { databaseUri } from "./services/mongodb";
+import dixt from "dixt";
+import dixtPluginLogs from "dixt-plugin-logs";
+import dixtPluginTwitch from "dixt-plugin-twitch";
+import dixtPluginTwitchOptions from "./options/twitch";
 
 const main = async () => {
   dotenv.config({
@@ -19,23 +22,15 @@ const main = async () => {
     .listDotenvFiles(".", process.env.NODE_ENV)
     .forEach((file) => Log.info(`loaded env from ${file}`));
 
-  const intents = [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMembers,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.GuildMessageReactions,
-    GatewayIntentBits.GuildMessageTyping,
-    GatewayIntentBits.GuildVoiceStates,
-    GatewayIntentBits.DirectMessages,
-    GatewayIntentBits.DirectMessageReactions,
-    GatewayIntentBits.DirectMessageTyping,
-    GatewayIntentBits.MessageContent,
-    GatewayIntentBits.GuildPresences,
-  ];
-
-  const client: ClientWithCommands = new Client({
-    intents,
+  const instance = new dixt({
+    application: {
+      name: "Paleto Bay Hospital",
+      logo: "https://cdn.discordapp.com/avatars/1057033412977885265/5f743bd6c50f3fb03d08ffbf370e9c04.webp",
+    },
+    plugins: [dixtPluginLogs, [dixtPluginTwitch, dixtPluginTwitchOptions]],
   });
+
+  const client: ClientWithCommands = instance.client;
 
   try {
     await mongoose.connect(databaseUri);
@@ -60,7 +55,7 @@ const main = async () => {
         Log.ready(`loaded plugin ${file}`);
       });
 
-    client.login(DiscordApplication.bot.token);
+    instance.start();
   } catch (error) {
     Log.error(error);
   }
