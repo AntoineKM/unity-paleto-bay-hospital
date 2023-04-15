@@ -594,7 +594,7 @@ dixt-plugin-logs@latest:
     dixt "2.1.0"
     dotenv-flow "^3.2.0"
 
-dixt-plugin-twitch@latest:
+dixt-plugin-twitch@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/dixt-plugin-twitch/-/dixt-plugin-twitch-1.1.1.tgz#dd569fe38455669a5fae13b6760deed6ac0dfb56"
   integrity sha512-VGqwq8lzvwclnzuvm8+DS55Ir1G7EdXz6VtuadfKu7JrPHN4VUOS+CXOK3nN+cjq8us954TRLP/nGVoZW5TZyA==
