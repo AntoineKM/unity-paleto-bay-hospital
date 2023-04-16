@@ -4,7 +4,7 @@ import CHANNELS from "../constants/channels";
 const dixtPluginJoinOptions: DixtPluginJoinOptions = {
   channel: CHANNELS.INFORMATIONS.ARRIVANTS,
   messages: {
-    join: "🛬 %member% viens d'arriver !",
+    join: "🛬 **%member%** viens d'arriver !",
   },
 };
 
