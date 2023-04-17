@@ -603,19 +603,31 @@ dixt-plugin-logs@latest:
     dixt "2.1.0"
     dotenv-flow "^3.2.0"
 
-dixt-plugin-twitch@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/dixt-plugin-twitch/-/dixt-plugin-twitch-1.1.3.tgz#27d562588a945eca522dedbeb5ef0c2c695327fc"
-  integrity sha512-1rvNjjloFkFjT6xrT0U7YYY+vbQI6oaxUJU22T+6uZDtJM25ZEyvtAySVLGXhrsbUYuYyU9Edh4ErUTY+hcV1Q==
+dixt-plugin-twitch@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/dixt-plugin-twitch/-/dixt-plugin-twitch-1.1.6.tgz#3ab40ce3f5a732057c08abfd73a81ff31275885e"
+  integrity sha512-+K2v0WiXoCvF0rqimyNp/VT4I6B7SvX1a6ymfrp6E4BkPRlht36Ix4AC8xS+VySRDYQ+YmTpsZbz6+XFGtAP0A==
   dependencies:
     discord.js "^14.9.0"
-    dixt "2.1.0"
+    dixt "2.1.2"
     dotenv-flow "^3.2.0"
 
 dixt@2.1.0, dixt@latest:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/dixt/-/dixt-2.1.0.tgz#f399abe0f9ec2aac8fdf4816af7e4a1af873c59a"
   integrity sha512-CO6GJROitcXzGzGAmnTxKVLuiSKBwgG/aZn0kJXbBBHSrv2rkN6K2zZ5fSSjOD1nYDtZSiC8fq4jg+oXK5mX+A==
+  dependencies:
+    chalk "~4.1.1"
+    discord.js "^14.9.0"
+    dotenv-flow "^3.2.0"
+    fs "0.0.1-security"
+    mongoose "^7.0.3"
+    path "^0.12.7"
+
+dixt@2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/dixt/-/dixt-2.1.2.tgz#dcf346a6e092d5940c0ccffa9b302392c7d9745e"
+  integrity sha512-ed6fBQ8/lunictaOA7N/z1QCK/yRa9Vl8FctuiZL6zOHsD6AKvRltewrZJ7PzcDBXSM8jWYkgKMXP4BpfTjUtA==
   dependencies:
     chalk "~4.1.1"
     discord.js "^14.9.0"
