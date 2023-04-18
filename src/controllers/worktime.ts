@@ -509,12 +509,20 @@ class WorktimeController {
             result = await guild.roles.fetch(ROLES.MEDECIN);
             return;
           }
+          if (roles.has(ROLES.ASSITANT_MEDECIN)) {
+            result = await guild.roles.fetch(ROLES.ASSITANT_MEDECIN);
+            return;
+          }
           if (roles.has(ROLES.INTERNE)) {
             result = await guild.roles.fetch(ROLES.INTERNE);
             return;
           }
           if (roles.has(ROLES.INFIRMIER)) {
             result = await guild.roles.fetch(ROLES.INFIRMIER);
+            return;
+          }
+          if (roles.has(ROLES.PRATICIEN)) {
+            result = await guild.roles.fetch(ROLES.PRATICIEN);
             return;
           }
           if (roles.has(ROLES.AMBULANCIER)) {
