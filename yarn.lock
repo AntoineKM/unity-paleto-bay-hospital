@@ -603,10 +603,10 @@ dixt-plugin-logs@latest:
     dixt "2.1.0"
     dotenv-flow "^3.2.0"
 
-dixt-plugin-twitch@^1.1.6:
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/dixt-plugin-twitch/-/dixt-plugin-twitch-1.1.6.tgz#3ab40ce3f5a732057c08abfd73a81ff31275885e"
-  integrity sha512-+K2v0WiXoCvF0rqimyNp/VT4I6B7SvX1a6ymfrp6E4BkPRlht36Ix4AC8xS+VySRDYQ+YmTpsZbz6+XFGtAP0A==
+dixt-plugin-twitch@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/dixt-plugin-twitch/-/dixt-plugin-twitch-1.1.7.tgz#06ff5d3a56010e011829248f7bc54dc46bfc322f"
+  integrity sha512-8F4yu46CUbmpB2vL103RwUvuac6+QAn8yG4swRGkLL38nRZZ04gkCvk8Q3AkN6oy3tPZ/JyRSsqa377FhkywHg==
   dependencies:
     discord.js "^14.9.0"
     dixt "2.1.2"

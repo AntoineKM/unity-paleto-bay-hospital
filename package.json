@@ -22,7 +22,7 @@
     "dixt": "latest",
     "dixt-plugin-join": "^2.1.1",
     "dixt-plugin-logs": "latest",
-    "dixt-plugin-twitch": "^1.1.6",
+    "dixt-plugin-twitch": "^1.1.7",
     "dotenv-flow": "^3.2.0",
     "fs": "^0.0.1-security",
     "mongoose": "^7.0.3",
