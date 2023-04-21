@@ -190,4 +190,11 @@ Dimanche: ?h - ?h_`,
 - Une estimation du budget`,
     parent: CHANNELS.TICKETS_AUTRES._ID,
   },
+  [TicketType.Suggestion]: {
+    emoji: "💡",
+    name: "Suggestion",
+    description: "Vous souhaiteriez nous faire part d'une suggestion ?",
+    instructions: `Comme son nom l'indique dans ce ticket vous pourrez nous faire part de vos idées/suggestions que nous pourrions possiblement mettre en place afin d'améliorer l'hôpital et son fonctionnement
+    N'hésitez pas, il n'y a pas de mauvaises idées, nous étudierons toutes les propositions.`,
+  },
 };

@@ -3,6 +3,7 @@ export enum TicketType {
   Support = "support_support",
   Complaint = "support_complaint",
   Partnership = "support_partnership",
+  Suggestion = "support_suggestion",
   PPA = "meeting_ppa",
   Psychology = "meeting_psychology",
   Toxicology = "meeting_toxicology",
