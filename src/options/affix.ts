@@ -22,8 +22,6 @@ const dixtPluginAffixOptions: DixtPluginAffixOptions = {
     [ROLES.EMS_OCEAN]: "EMS-OCEAN",
     [ROLES.LICENCIE]: "Licencié",
     [ROLES.DEMISSION]: "Dem",
-    [ROLES.BAR_MORTORCYCLES]: "Bar",
-    [ROLES.CUSTOM_MOTORCYCLES]: "Custom",
     [ROLES.HYDROCARBURE]: "Hydrocarbure",
   },
 };
