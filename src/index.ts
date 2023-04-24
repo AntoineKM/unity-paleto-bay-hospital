@@ -7,11 +7,13 @@ import Log from "./utils/log";
 import mongoose from "mongoose";
 import { databaseUri } from "./services/mongodb";
 import dixt from "dixt";
+import dixtPluginAffix from "dixt-plugin-affix";
 import dixtPluginLogs from "dixt-plugin-logs";
 import dixtPluginJoin from "dixt-plugin-join";
 import dixtPluginTwitch from "dixt-plugin-twitch";
 import dixtPluginTwitchOptions from "./options/twitch";
 import dixtPluginJoinOptions from "./options/join";
+import dixtPluginAffixOptions from "./options/affix";
 
 const main = async () => {
   dotenv.config({
@@ -31,6 +33,7 @@ const main = async () => {
     },
     plugins: [
       dixtPluginLogs,
+      [dixtPluginAffix, dixtPluginAffixOptions],
       [dixtPluginJoin, dixtPluginJoinOptions],
       [dixtPluginTwitch, dixtPluginTwitchOptions],
     ],
