@@ -23,6 +23,7 @@
     "dixt-plugin-affix": "^1.0.0",
     "dixt-plugin-join": "^2.1.1",
     "dixt-plugin-logs": "latest",
+    "dixt-plugin-react": "^2.1.2",
     "dixt-plugin-twitch": "^1.1.7",
     "dotenv-flow": "^3.2.0",
     "fs": "^0.0.1-security",
