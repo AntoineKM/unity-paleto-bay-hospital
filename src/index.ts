@@ -11,9 +11,11 @@ import dixtPluginAffix from "dixt-plugin-affix";
 import dixtPluginLogs from "dixt-plugin-logs";
 import dixtPluginJoin from "dixt-plugin-join";
 import dixtPluginTwitch from "dixt-plugin-twitch";
+import dixtPluginReact from "dixt-plugin-react";
 import dixtPluginTwitchOptions from "./options/twitch";
 import dixtPluginJoinOptions from "./options/join";
 import dixtPluginAffixOptions from "./options/affix";
+import dixtPluginReactOptions from "./options/react";
 
 const main = async () => {
   dotenv.config({
@@ -35,6 +37,7 @@ const main = async () => {
       dixtPluginLogs,
       [dixtPluginAffix, dixtPluginAffixOptions],
       [dixtPluginJoin, dixtPluginJoinOptions],
+      [dixtPluginReact, dixtPluginReactOptions],
       [dixtPluginTwitch, dixtPluginTwitchOptions],
     ],
   });
