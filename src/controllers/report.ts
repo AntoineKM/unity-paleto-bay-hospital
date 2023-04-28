@@ -1,4 +1,5 @@
 import { Colors } from "discord.js";
+
 import APP from "../constants/app";
 
 class ReportController {

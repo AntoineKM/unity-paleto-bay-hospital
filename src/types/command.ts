@@ -13,5 +13,5 @@ export type ClientWithCommands = Client<boolean> & {
 
 export type DiscordCommand = {
   data: Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
-  execute(interaction: ChatInputCommandInteraction<CacheType>): Promise<void>;
+  execute(_interaction: ChatInputCommandInteraction<CacheType>): Promise<void>;
 };

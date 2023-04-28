@@ -1,9 +1,10 @@
 import { ChannelType, TextChannel } from "discord.js";
 import schedule from "node-schedule";
-import { DiscordPlugin } from "../types/plugin";
+
 import CHANNELS from "../constants/channels";
 import WorktimeController from "../controllers/worktime";
 import Worktime from "../models/Worktime";
+import { DiscordPlugin } from "../types/plugin";
 
 const WorktimeLeadboardPlugin: DiscordPlugin = (client) => {
   // every friday at midday

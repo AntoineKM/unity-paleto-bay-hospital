@@ -1,9 +1,9 @@
 import { Colors, PermissionFlagsBits, SlashCommandBuilder } from "discord.js";
+
 import MESSAGES from "../constants/messages";
 import ROLES from "../constants/roles";
 import WorktimeController from "../controllers/worktime";
 import WorktimeIgnoreReminder from "../models/WortimeIgnore";
-
 import { DiscordCommand } from "../types/command";
 
 const WorktimeCommand: DiscordCommand = {

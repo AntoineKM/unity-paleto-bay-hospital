@@ -1,3 +1,10 @@
+import { ChartOptions, ChartData } from "chart.js";
+import ChartJsImage from "chartjs-to-image";
+import dayjs from "dayjs";
+import fr from "dayjs/locale/fr";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
 import {
   APIEmbed,
   ButtonStyle,
@@ -11,26 +18,22 @@ import {
   Role,
   User,
 } from "discord.js";
+import * as sd from "simple-duration";
+
+import ReportController from "./report";
 import APP from "../constants/app";
-import Worktime from "../models/Worktime";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
-import fr from "dayjs/locale/fr";
-import Log from "../utils/log";
 import { workChannelNames } from "../constants/worktime";
+import Worktime from "../models/Worktime";
+
+import capitalize from "../utils/capitalize";
+import { getMembersWithRole, getTextChannel } from "../utils/discord";
+import Log from "../utils/log";
 import ROLES from "../constants/roles";
 import QUOTAS from "../constants/quotas";
-import progressIndicator from "../utils/progressIndicator";
 import pad from "../utils/pad";
-import * as sd from "simple-duration";
+import progressIndicator from "../utils/progressIndicator";
+
 import CHANNELS from "../constants/channels";
-import { getMembersWithRole, getTextChannel } from "../utils/discord";
-import ReportController from "./report";
-import capitalize from "../utils/capitalize";
-import ChartJsImage from "chartjs-to-image";
-import { ChartOptions, ChartData } from "chart.js";
-import customParseFormat from "dayjs/plugin/customParseFormat";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
@@ -531,7 +534,6 @@ class WorktimeController {
           }
           if (roles.has(ROLES.STAGIAIRE)) {
             result = await guild.roles.fetch(ROLES.STAGIAIRE);
-            return;
           }
         }
       })

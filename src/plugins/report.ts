@@ -1,4 +1,5 @@
 import { Events } from "discord.js";
+
 import { DiscordPlugin } from "../types/plugin";
 
 const ReportPlugin: DiscordPlugin = (client) => {

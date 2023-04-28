@@ -1,21 +1,22 @@
-import fs from "fs";
-import path from "path";
 import { Collection } from "discord.js";
-import dotenv from "dotenv-flow";
-import { ClientWithCommands } from "./types/command";
-import Log from "./utils/log";
-import mongoose from "mongoose";
-import { databaseUri } from "./services/mongodb";
 import dixt from "dixt";
 import dixtPluginAffix from "dixt-plugin-affix";
-import dixtPluginLogs from "dixt-plugin-logs";
 import dixtPluginJoin from "dixt-plugin-join";
-import dixtPluginTwitch from "dixt-plugin-twitch";
+import dixtPluginLogs from "dixt-plugin-logs";
 import dixtPluginReact from "dixt-plugin-react";
-import dixtPluginTwitchOptions from "./options/twitch";
-import dixtPluginJoinOptions from "./options/join";
+import dixtPluginTwitch from "dixt-plugin-twitch";
+import dotenv from "dotenv-flow";
+import fs from "fs";
+import mongoose from "mongoose";
+import path from "path";
+
 import dixtPluginAffixOptions from "./options/affix";
+import dixtPluginJoinOptions from "./options/join";
 import dixtPluginReactOptions from "./options/react";
+import dixtPluginTwitchOptions from "./options/twitch";
+import { databaseUri } from "./services/mongodb";
+import { ClientWithCommands } from "./types/command";
+import Log from "./utils/log";
 
 const main = async () => {
   dotenv.config({

@@ -1,4 +1,5 @@
 import { Guild, GuildMember, VoiceChannel } from "discord.js";
+
 import CLIENTS from "../constants/clients";
 import ROLES from "../constants/roles";
 import Worktime from "../models/Worktime";
@@ -71,9 +72,7 @@ class CountController {
         /\(([^)]+)\)/,
         `(${memberCount})`
       );
-      if (channelName === newChannelName) {
-        return;
-      } else {
+      if (channelName !== newChannelName) {
         await channel.setName(newChannelName);
       }
     }
@@ -96,9 +95,7 @@ class CountController {
         /\(([^)]+)\)/,
         `(${playersCount}/${maxPlayersCount})`
       );
-      if (channelName === newChannelName) {
-        return;
-      } else {
+      if (channelName !== newChannelName) {
         await channel.setName(newChannelName);
       }
     }
@@ -120,9 +117,7 @@ class CountController {
         /\(([^)]+)\)/,
         `(${emsCount}/${maxEmsCount})`
       );
-      if (channelName === newChannelName) {
-        return;
-      } else {
+      if (channelName !== newChannelName) {
         await channel.setName(newChannelName);
       }
     }

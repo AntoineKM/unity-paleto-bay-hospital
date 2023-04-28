@@ -5,6 +5,7 @@ import {
   GuildMember,
   VoiceChannel,
 } from "discord.js";
+
 import CHANNELS from "../constants/channels";
 import ROLES from "../constants/roles";
 import { DiscordPlugin } from "../types/plugin";
@@ -52,7 +53,6 @@ const AutoMovePlugin: DiscordPlugin = (client) => {
       const candidate = frequencyChannelsMembers.first();
       if (!candidate) return;
       await candidate.voice.setChannel(secretariatChannel);
-      return;
     }
   });
 };

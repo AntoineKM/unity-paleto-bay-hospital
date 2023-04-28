@@ -1,6 +1,7 @@
 import { APIEmbed, Colors, SlashCommandBuilder } from "discord.js";
-import { ClientWithCommands, DiscordCommand } from "../types/command";
+
 import APP from "../constants/app";
+import { ClientWithCommands, DiscordCommand } from "../types/command";
 import capitalize from "../utils/capitalize";
 
 const HelpCommand: DiscordCommand = {

@@ -1,12 +1,13 @@
-import schedule from "node-schedule";
-import { DiscordPlugin } from "../types/plugin";
-import Worktime from "../models/Worktime";
-import WorktimeController from "../controllers/worktime";
-import ROLES from "../constants/roles";
-import Log from "../utils/log";
-import CHANNELS from "../constants/channels";
 import { Colors } from "discord.js";
+import schedule from "node-schedule";
+
+import CHANNELS from "../constants/channels";
+import ROLES from "../constants/roles";
+import WorktimeController from "../controllers/worktime";
+import Worktime from "../models/Worktime";
 import WorktimeIgnoreReminder from "../models/WortimeIgnore";
+import { DiscordPlugin } from "../types/plugin";
+import Log from "../utils/log";
 
 const WorktimeReminderPlugin: DiscordPlugin = (client) => {
   schedule.scheduleJob("*/10 * * * *", async () => {

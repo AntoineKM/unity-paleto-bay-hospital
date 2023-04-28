@@ -10,6 +10,7 @@ import {
   TextChannel,
   User,
 } from "discord.js";
+
 import APP from "../constants/app";
 import CHANNELS from "../constants/channels";
 import ROLES from "../constants/roles";
@@ -276,13 +277,13 @@ class TicketController {
   }
 
   public static async isTicket(ticket: TextChannel): Promise<boolean> {
-    return ticket.type === ChannelType.GuildText &&
+    return !!(
+      ticket.type === ChannelType.GuildText &&
       Object.values(TicketType).some((type) =>
         ticket.name.startsWith(`${TicketTypeData[type].emoji}`)
       ) &&
       ticket.topic?.includes("Ticket")
-      ? true
-      : false;
+    );
   }
 }
 

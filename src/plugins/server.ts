@@ -1,6 +1,7 @@
 import { Events } from "discord.js";
-import { DiscordPlugin } from "../types/plugin";
+
 import { ClientWithCommands } from "../types/command";
+import { DiscordPlugin } from "../types/plugin";
 
 const ServerPlugin: DiscordPlugin = (client) => {
   client.on(Events.InteractionCreate, async (interaction) => {

@@ -1,6 +1,8 @@
 import { APIEmbed, SlashCommandBuilder } from "discord.js";
+
 import APP from "../constants/app";
 import { Player } from "../types/server";
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const fetch = require("node-fetch");
 

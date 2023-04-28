@@ -1,3 +1,3 @@
 import { ClientWithCommands } from "./command";
 
-export type DiscordPlugin = (client: ClientWithCommands) => void;
+export type DiscordPlugin = (_client: ClientWithCommands) => void;

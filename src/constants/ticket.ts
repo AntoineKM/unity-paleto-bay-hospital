@@ -1,5 +1,5 @@
-import { TicketType } from "../types/ticket";
 import CHANNELS from "./channels";
+import { TicketType } from "../types/ticket";
 
 export const TicketTypeData: Record<
   TicketType,

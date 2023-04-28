@@ -1,4 +1,5 @@
 import { Events } from "discord.js";
+
 import CommandsController from "../controllers/commands";
 import { DiscordPlugin } from "../types/plugin";
 

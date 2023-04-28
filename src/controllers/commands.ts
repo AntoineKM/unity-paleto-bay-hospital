@@ -1,4 +1,5 @@
 import { REST, Routes } from "discord.js";
+
 import DiscordApplication from "../services/discord";
 import { ClientWithCommands } from "../types/command";
 import Log from "../utils/log";

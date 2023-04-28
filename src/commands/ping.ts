@@ -1,4 +1,5 @@
 import { SlashCommandBuilder } from "discord.js";
+
 import { DiscordCommand } from "../types/command";
 
 const PingCommand: DiscordCommand = {

@@ -1,7 +1,8 @@
 import { ActivityType } from "discord.js";
-import { DiscordPlugin } from "../types/plugin";
 import schedule from "node-schedule";
+
 import CountController from "../controllers/count";
+import { DiscordPlugin } from "../types/plugin";
 
 const PresencePlugin: DiscordPlugin = async (client) => {
   // every 15 seconds

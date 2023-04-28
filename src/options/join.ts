@@ -1,4 +1,5 @@
 import { DixtPluginJoinOptions } from "dixt-plugin-join";
+
 import CHANNELS from "../constants/channels";
 
 const dixtPluginJoinOptions: DixtPluginJoinOptions = {

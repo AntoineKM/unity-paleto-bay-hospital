@@ -1,4 +1,5 @@
 import { SlashCommandBuilder, PermissionFlagsBits } from "discord.js";
+
 import MESSAGES from "../constants/messages";
 import ROLES from "../constants/roles";
 import WarnController from "../controllers/warn";
@@ -50,7 +51,6 @@ const WarnCommand: DiscordCommand = {
         content: MESSAGES.ERROR.COMMAND_NOT_AVAILABLE_IN_DM,
         ephemeral: true,
       });
-      return;
     } else {
       switch (command) {
         case "add": {

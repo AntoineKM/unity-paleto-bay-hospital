@@ -1,10 +1,11 @@
 import { ButtonStyle } from "discord.js";
+import schedule from "node-schedule";
+
 import CHANNELS from "../constants/channels";
 import ReportController from "../controllers/report";
+import WorktimeController from "../controllers/worktime";
 import { DiscordPlugin } from "../types/plugin";
 import { getTextChannel } from "../utils/discord";
-import schedule from "node-schedule";
-import WorktimeController from "../controllers/worktime";
 
 const ReportAbsenteesPlugin: DiscordPlugin = (client) => {
   schedule.scheduleJob("0 12 * * 2-7", async () => {

@@ -1,6 +1,7 @@
 import { Events } from "discord.js";
-import { DiscordPlugin } from "../types/plugin";
+
 import WarnController from "../controllers/warn";
+import { DiscordPlugin } from "../types/plugin";
 
 const WarnPlugin: DiscordPlugin = (client) => {
   client.on(Events.InteractionCreate, async (interaction) => {
@@ -21,7 +22,6 @@ const WarnPlugin: DiscordPlugin = (client) => {
         await interaction.deleteReply();
         await interaction.message.delete();
       }, 5000);
-      return;
     }
   });
 };
