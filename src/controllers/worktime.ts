@@ -22,18 +22,16 @@ import * as sd from "simple-duration";
 
 import ReportController from "./report";
 import APP from "../constants/app";
+import CHANNELS from "../constants/channels";
+import QUOTAS from "../constants/quotas";
+import ROLES from "../constants/roles";
 import { workChannelNames } from "../constants/worktime";
 import Worktime from "../models/Worktime";
-
 import capitalize from "../utils/capitalize";
 import { getMembersWithRole, getTextChannel } from "../utils/discord";
 import Log from "../utils/log";
-import ROLES from "../constants/roles";
-import QUOTAS from "../constants/quotas";
 import pad from "../utils/pad";
 import progressIndicator from "../utils/progressIndicator";
-
-import CHANNELS from "../constants/channels";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
