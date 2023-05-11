@@ -5,8 +5,11 @@ import CHANNELS from "../constants/channels";
 const dixtPluginJoinOptions: DixtPluginJoinOptions = {
   channel: CHANNELS.INFORMATIONS.ARRIVANTS,
   messages: {
-    join: "🛬 **%member%** viens d'arriver !",
+    content: "🛬 **%member%** viens d'arriver !",
+    line2: "Bienvenue à l'hopital de Paleto Bay",
+    line3: "%memberCount% membres",
   },
+  background: "https://i.goopics.net/bhxys1.png",
 };
 
 export default dixtPluginJoinOptions;
