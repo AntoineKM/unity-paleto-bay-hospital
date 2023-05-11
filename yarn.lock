@@ -762,16 +762,17 @@ dixt-plugin-affix@^1.0.0:
     discord.js "^14.9.0"
     dixt "2.1.2"
 
-dixt-plugin-join@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/dixt-plugin-join/-/dixt-plugin-join-2.1.1.tgz#93056f9082d351fafc8c4ab015d25084e5856405"
-  integrity sha512-wh9c4hve01ksI/LNG3xpgCaNkTVGNPQiSrYdhiO9VzuDwx2Vs94i61unOFD7jPLKiOKdA2M2Y4gy+fOySbjnLA==
+dixt-plugin-join@^2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/dixt-plugin-join/-/dixt-plugin-join-2.1.5.tgz#f305494c19e05e0aa54e5da9c39b6197d008f6b5"
+  integrity sha512-zQ6fG/L2Q3/0vrLgT+pw5zwLFYCL/OvF+eG9QCZ13IuEzFW0H6b/tSQyGiB2InjkyvrxhXjfxOZznB/N3Vva6w==
   dependencies:
     discord.js "^14.9.0"
-    dixt "2.1.0"
+    dixt "2.1.4"
     dotenv-flow "^3.2.0"
+    urlcat "^3.1.0"
 
-dixt-plugin-logs@latest:
+dixt-plugin-logs@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/dixt-plugin-logs/-/dixt-plugin-logs-2.1.0.tgz#32a19add52de7380731c343c111e60f9cf95eeb7"
   integrity sha512-2PGGBe0NnIpUzecA1X6eIL7NlY2DbPfVDl2k9yyuoCAzJHb7LkSQN32cxAj/u7lcZrjz0CpBdHAnPDt0CDAlzg==
@@ -800,7 +801,7 @@ dixt-plugin-twitch@^1.1.7:
     dixt "2.1.2"
     dotenv-flow "^3.2.0"
 
-dixt@2.1.0, dixt@latest:
+dixt@2.1.0, dixt@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/dixt/-/dixt-2.1.0.tgz#f399abe0f9ec2aac8fdf4816af7e4a1af873c59a"
   integrity sha512-CO6GJROitcXzGzGAmnTxKVLuiSKBwgG/aZn0kJXbBBHSrv2rkN6K2zZ5fSSjOD1nYDtZSiC8fq4jg+oXK5mX+A==
@@ -821,6 +822,19 @@ dixt@2.1.2:
     discord.js "^14.9.0"
     dotenv-flow "^3.2.0"
     fs "0.0.1-security"
+    mongoose "^7.0.3"
+    path "^0.12.7"
+
+dixt@2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/dixt/-/dixt-2.1.4.tgz#642b45887d65035a2e261d8cd06a1d762bfabf3e"
+  integrity sha512-ad6v/dhZbjN8ZtDEr1vctBBafz6m3iKYSqPfD0OpN89jPHcIUi4SmAoAyqFgme1kp8R2HTMR1S2KoANr3Rdx2g==
+  dependencies:
+    chalk "~4.1.1"
+    discord.js "^14.9.0"
+    dotenv-flow "^3.2.0"
+    fs "0.0.1-security"
+    lodash "^4.17.21"
     mongoose "^7.0.3"
     path "^0.12.7"
 
@@ -2335,6 +2349,13 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
+qs@^6.9.4:
+  version "6.11.1"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.11.1.tgz#6c29dff97f0c0060765911ba65cbc9764186109f"
+  integrity sha512-0wsrzgTz/kAVIeuxSjnpGC56rzYtr6JT/2BwEvMaPhFIoYa1aGO8LbzuU1R0uUYQkLpWBTOj0l/CLAJB64J6nQ==
+  dependencies:
+    side-channel "^1.0.4"
+
 queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
@@ -2816,6 +2837,13 @@ uri-js@^4.2.2:
   integrity sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==
   dependencies:
     punycode "^2.1.0"
+
+urlcat@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/urlcat/-/urlcat-3.1.0.tgz#66ef2eafea2236b8765c40aa7536969c674e7738"
+  integrity sha512-qY6b94/aGMIHh70EEQ/4hfR2LUGZ+fPQNp64cf7yRX9kAp4XG2tx7LgYUU1Qkh17bFylME0u4n3lOezonougPw==
+  dependencies:
+    qs "^6.9.4"
 
 util-deprecate@^1.0.1:
   version "1.0.2"
