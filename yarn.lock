@@ -801,7 +801,7 @@ dixt-plugin-twitch@^1.1.7:
     dixt "2.1.2"
     dotenv-flow "^3.2.0"
 
-dixt@2.1.0, dixt@^2.1.0:
+dixt@2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/dixt/-/dixt-2.1.0.tgz#f399abe0f9ec2aac8fdf4816af7e4a1af873c59a"
   integrity sha512-CO6GJROitcXzGzGAmnTxKVLuiSKBwgG/aZn0kJXbBBHSrv2rkN6K2zZ5fSSjOD1nYDtZSiC8fq4jg+oXK5mX+A==
@@ -825,7 +825,7 @@ dixt@2.1.2:
     mongoose "^7.0.3"
     path "^0.12.7"
 
-dixt@2.1.4:
+dixt@2.1.4, dixt@^2.1.4:
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/dixt/-/dixt-2.1.4.tgz#642b45887d65035a2e261d8cd06a1d762bfabf3e"
   integrity sha512-ad6v/dhZbjN8ZtDEr1vctBBafz6m3iKYSqPfD0OpN89jPHcIUi4SmAoAyqFgme1kp8R2HTMR1S2KoANr3Rdx2g==
