@@ -762,10 +762,10 @@ dixt-plugin-affix@^1.0.0:
     discord.js "^14.9.0"
     dixt "2.1.2"
 
-dixt-plugin-join@^2.1.5:
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/dixt-plugin-join/-/dixt-plugin-join-2.1.5.tgz#f305494c19e05e0aa54e5da9c39b6197d008f6b5"
-  integrity sha512-zQ6fG/L2Q3/0vrLgT+pw5zwLFYCL/OvF+eG9QCZ13IuEzFW0H6b/tSQyGiB2InjkyvrxhXjfxOZznB/N3Vva6w==
+dixt-plugin-join@^2.1.6:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/dixt-plugin-join/-/dixt-plugin-join-2.1.6.tgz#e60ace9c5f4b2cb1ea71b3baefeca759afb1bc3a"
+  integrity sha512-kd7cUNXcQcq5QwvIA6GtOGcK6TZvnrX0kAm2DtGwua9IWV61adNqmI7AqFxKEVgLQZ/x8XHVha3FhslDFpRQ/Q==
   dependencies:
     discord.js "^14.9.0"
     dixt "2.1.4"
