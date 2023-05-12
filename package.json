@@ -20,7 +20,7 @@
     "discord-webhook-node": "^1.1.8",
     "discord.js": "^14.9.0",
     "dixt": "^2.1.0",
-    "dixt-plugin-affix": "^1.0.0",
+    "dixt-plugin-affix": "^1.0.3",
     "dixt-plugin-join": "^2.1.7",
     "dixt-plugin-logs": "^2.1.0",
     "dixt-plugin-react": "^2.1.4",
