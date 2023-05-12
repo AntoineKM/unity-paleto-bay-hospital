@@ -781,14 +781,14 @@ dixt-plugin-logs@^2.1.0:
     dixt "2.1.0"
     dotenv-flow "^3.2.0"
 
-dixt-plugin-react@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/dixt-plugin-react/-/dixt-plugin-react-2.1.2.tgz#fdad63e67ddbbde357fca9f22ba9f362c5de5dad"
-  integrity sha512-pkeDGY0bG42D79uPkeAMaAIOUvFW8s/yBgmif5O769MZ5Xq9HqHslxkILyb33098RoFoKHBUHp/xXtzHXKtYDA==
+dixt-plugin-react@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/dixt-plugin-react/-/dixt-plugin-react-2.1.4.tgz#9a4131a24d1f0ee03a07fae7378bd9c463829d41"
+  integrity sha512-tdKYmzvqDSRpEDWigJt5JpDaNEL10HJRYjFvSyehSEEkKtaHFEfM9s+Cpg3zKWLn2eAyQ7AILM1syD0/NQsN8A==
   dependencies:
     discord-webhook-node "^1.1.8"
     discord.js "^14.9.0"
-    dixt "2.1.2"
+    dixt "2.1.4"
     dotenv-flow "^3.2.0"
 
 dixt-plugin-twitch@^1.1.9:
