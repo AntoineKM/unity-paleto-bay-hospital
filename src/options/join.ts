@@ -9,7 +9,7 @@ const dixtPluginJoinOptions: DixtPluginJoinOptions = {
     line2: "Bienvenue à l'hopital de Paleto Bay",
     line3: "%memberCount% membres",
   },
-  background: "https://i.goopics.net/bhxys1.png",
+  background: "https://i.goopics.net/y5cqpl.png",
 };
 
 export default dixtPluginJoinOptions;
