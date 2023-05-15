@@ -15,7 +15,7 @@
   "dependencies": {
     "chalk": "^4.1.1",
     "chart.js": "^4.3.0",
-    "chartjs-to-image": "^1.1.0",
+    "chartjs-to-image": "^1.2.0",
     "dayjs": "^1.11.7",
     "discord-webhook-node": "^1.1.8",
     "discord.js": "^14.9.0",

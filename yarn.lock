@@ -562,10 +562,10 @@ chart.js@^4.3.0:
   dependencies:
     "@kurkle/color" "^0.3.0"
 
-chartjs-to-image@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/chartjs-to-image/-/chartjs-to-image-1.1.0.tgz#402ecfb86730c21322bc915252db455332b66bb5"
-  integrity sha512-F20qRkAZA42XOU0Ipc/hUVmk06cO59pueeqbVSlJKSvTlTKR67HV8DUuZupCCyusQ9VkXIoiwg39iYIjzI+RcQ==
+chartjs-to-image@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/chartjs-to-image/-/chartjs-to-image-1.2.0.tgz#de254432810120bf9b9d7d82461dd5bd92f0a6c7"
+  integrity sha512-pWwOQ0mNC+BbI5mim1drduL16i3JcGAevU8H/SsZkfiRMWIawSNxw8mzLUjl91wj6KxKOjUxedVSYgGIPWsJKw==
   dependencies:
     axios "^0.24.0"
     javascript-stringify "^2.1.0"
