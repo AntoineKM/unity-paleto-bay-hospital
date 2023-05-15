@@ -24,7 +24,7 @@
     "dixt-plugin-join": "^2.1.7",
     "dixt-plugin-logs": "^2.1.7",
     "dixt-plugin-react": "^2.1.5",
-    "dixt-plugin-twitch": "^1.1.9",
+    "dixt-plugin-twitch": "^1.1.10",
     "dotenv-flow": "^3.2.0",
     "fs": "^0.0.1-security",
     "mongoose": "^7.0.3",
