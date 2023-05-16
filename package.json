@@ -27,7 +27,7 @@
     "dixt-plugin-twitch": "^1.1.10",
     "dotenv-flow": "^3.2.0",
     "fs": "^0.0.1-security",
-    "mongoose": "^7.0.3",
+    "mongoose": "^7.1.1",
     "node-schedule": "^2.1.1",
     "path": "^0.12.7",
     "simple-duration": "^1.1.0"
