@@ -13,7 +13,7 @@
     "lint:fix": "eslint . --ext .ts --fix"
   },
   "dependencies": {
-    "chalk": "^4.1.1",
+    "chalk": "^5.0.0",
     "chart.js": "^4.3.0",
     "chartjs-to-image": "^1.1.0",
     "dayjs": "^1.11.7",
