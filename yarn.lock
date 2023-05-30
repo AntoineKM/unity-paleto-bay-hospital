@@ -809,13 +809,13 @@ dixt-plugin-logs@^2.1.7:
     p-queue "6.6.2"
 
 dixt-plugin-react@^2.1.5:
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/dixt-plugin-react/-/dixt-plugin-react-2.1.5.tgz#d69a632aef026bd2bc37d105b6f14e3757ed4ee5"
-  integrity sha512-7dwtlxih5LmAReYC49FZ/YC4CFXr7/iIdh5MFFjE32zz/X0EWs/V/FvYHNDswUh+nOQiCMsW3dcPw7q2yH4WtQ==
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/dixt-plugin-react/-/dixt-plugin-react-2.1.6.tgz#435bf5ce734042b958cc14476a06d31e947ca8fd"
+  integrity sha512-KSV+znJK8MwFyRmTwMR2cqKdSZukXN9Q/LD9D9iM8FkMW21cS+Vn/2mJVwXtBpOreEBLVA11NTzP5YGcWE0ePA==
   dependencies:
     discord-webhook-node "^1.1.8"
     discord.js "^14.9.0"
-    dixt "2.1.5"
+    dixt "2.1.6"
     dotenv-flow "^3.2.0"
 
 dixt-plugin-twitch@^1.1.10:
