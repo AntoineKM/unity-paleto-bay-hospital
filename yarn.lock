@@ -837,12 +837,12 @@ dixt-plugin-react@^2.1.5:
     dotenv-flow "^3.2.0"
 
 dixt-plugin-twitch@^1.1.10:
-  version "1.1.11"
-  resolved "https://registry.yarnpkg.com/dixt-plugin-twitch/-/dixt-plugin-twitch-1.1.11.tgz#a5d30023081860c14268d7d929343fc7ffc5add2"
-  integrity sha512-lB/O9A9Q7sAtvjnoL/hdshmr9M+fyW8a/uUYwpgbRlPM2+4hF8CJCqPH0H2trMKJgjtc/Cvm9J8IcCAKWFUnlA==
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/dixt-plugin-twitch/-/dixt-plugin-twitch-1.1.12.tgz#25cd8b7eec48c8e033511749d74990ca37612ed9"
+  integrity sha512-gOvgdx27NiQoGDP/XOAiZicsSidwdD0emq7lAMhfg0RxR1Eq7j7mZ3ypv+T7oXUiTEK8Q1IoB98VyRpG57CChw==
   dependencies:
     discord.js "^14.9.0"
-    dixt "2.1.6"
+    dixt "2.1.7"
     dotenv-flow "^3.2.0"
 
 dixt@2.1.6:
@@ -856,7 +856,7 @@ dixt@2.1.6:
     lodash "^4.17.21"
     mongoose "^7.0.3"
 
-dixt@^2.1.5:
+dixt@2.1.7, dixt@^2.1.5:
   version "2.1.7"
   resolved "https://registry.yarnpkg.com/dixt/-/dixt-2.1.7.tgz#5cc63c2f82d850d82a6b438eae7e9dd7c9868b0f"
   integrity sha512-EkMDmrkTqVAabDJdyJ7/pD6ScBSE0G5sBDwKDhXJY5VX3tNSayCY4Fri+2HfRE63OQYdm2zEeeZP1JQnu+RE2g==
