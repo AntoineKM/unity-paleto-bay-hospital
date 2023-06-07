@@ -1,12 +1,14 @@
 import {
   APIEmbed,
   ButtonStyle,
+  CategoryChannel,
   Channel,
   ChannelType,
   Colors,
   Guild,
   GuildMember,
   GuildTextBasedChannel,
+  PermissionFlagsBits,
   TextChannel,
   User,
 } from "discord.js";
@@ -181,17 +183,27 @@ class TicketController {
       return embed;
     }
 
+    const parent = TicketTypeData[type].parent || CHANNELS.TICKETS_AUTRES._ID;
+    const category = guild.channels.cache.get(parent) as CategoryChannel;
     const channel = await guild.channels.create({
       name: `${TicketTypeData[type].emoji}┊${member.nickname || user.username}`,
       topic: `Ticket ${TicketTypeData[type].name.toLowerCase()} de ${user}`,
-      parent: TicketTypeData[type].parent || CHANNELS.TICKETS_AUTRES._ID,
+      parent,
       type: ChannelType.GuildText,
-    });
-
-    // add the user to the channel
-    await channel.permissionOverwrites.create(user, {
-      ViewChannel: true,
-      SendMessages: true,
+      permissionOverwrites: [
+        {
+          id: user.id,
+          allow: [
+            PermissionFlagsBits.ViewChannel,
+            PermissionFlagsBits.SendMessages,
+          ],
+        },
+        ...category.permissionOverwrites.cache.map((overwrite) => ({
+          id: overwrite.id,
+          allow: overwrite.allow.toArray(),
+          deny: overwrite.deny.toArray(),
+        })),
+      ],
     });
 
     const instructionEmbed = {
