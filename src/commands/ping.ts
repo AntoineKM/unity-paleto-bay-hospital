@@ -1,4 +1,5 @@
 import { SlashCommandBuilder } from "discord.js";
+import { Log } from "dixt";
 
 import { DiscordCommand } from "../types/command";
 
@@ -6,8 +7,13 @@ const PingCommand: DiscordCommand = {
   data: new SlashCommandBuilder()
     .setName("ping")
     .setDescription("Répond pong!"),
-  async execute(interaction) {
-    await interaction.reply("Pong!");
+  execute(interaction) {
+    return interaction
+      .deferReply()
+      .then(() => {
+        interaction.editReply("Pong!");
+      })
+      .catch(Log.error);
   },
 };
 
