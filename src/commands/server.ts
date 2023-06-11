@@ -181,7 +181,7 @@ ${result.identifiers
             .map((resource: string) => `\`${resource}\``)
             .join(", ")}
 
-**Staff en ligne (${
+**Staff(s) en ligne (${
             data.Data.players.filter((player: any) =>
               player.name.includes("[A]")
             ).length
@@ -198,7 +198,24 @@ ${result.identifiers
                   .join("\n")
               : "Aucun"
           }
-          `,
+
+**Support(s) en ligne (${
+            data.Data.players.filter((player: any) =>
+              player.name.includes("[S]")
+            ).length
+          }):**\n ${
+            data.Data.players.filter((player: any) =>
+              player.name.includes("[S]")
+            ).length > 0
+              ? data.Data.players
+                  .filter((player: any) => player.name.includes("[S]"))
+                  .map(
+                    (player: any) =>
+                      `- ${player.name.replace("[S]", "").trim()}`
+                  )
+                  .join("\n")
+              : "Aucun"
+          }`,
           image: {
             url: data.Data.vars.banner_connecting,
           },
