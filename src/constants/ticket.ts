@@ -53,7 +53,7 @@ Nous étudierons votre demande et reviendrons vers vous dans les plus brefs dél
 - Règlement des EMS: https://docs.google.com/document/d/1nG8UtU5WimvKvB85KSoUCel-Nvo70-UpyM5BOO_zGYI/edit?usp=sharing
 - Règlement de la ville Unity: https://docs.google.com/document/d/1y2MusPhXNmzqbABOVHBAMyIXbhMudF2pbo4dre8ICm4/edit?usp=sharing
 - Code pénal: https://wiki.unityrp.io/books/le-gouvernement/page/code-penal-los-santos
-- Formation: https://youtube.com/playlist?list=PLsVujxf7yJmTr-MACHiIADTaj58ULTmTe
+- Formation EMS: https://youtube.com/playlist?list=PLsVujxf7yJmTr-MACHiIADTaj58ULTmTe
 
 *__Ensuite, veuillez nous renseigner: __*
 - Votre nom et prénom (IG)
@@ -67,7 +67,9 @@ Mercredi: ?h - ?h
 Jeudi: ?h - ?h 
 Vendredi: ?h - ?h 
 Samedi: ?h - ?h 
-Dimanche: ?h - ?h_`,
+Dimanche: ?h - ?h_
+
+Attention: *Si vous occupez actuellement un poste dans l'illégal veuillez nous le signaler au plus vite car un délai d'une semaine entre le moment ou vous quittez l'illégal et le moment ou vous pouvez intégrer nos équipes est obligatoire.*`,
     parent: CHANNELS.TICKETS_RECRUTEMENTS._ID,
   },
   [TicketType.PPA]: {
