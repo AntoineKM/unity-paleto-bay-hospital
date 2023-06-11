@@ -590,7 +590,7 @@ chalk@4.1.1:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
-chalk@^4.0.0, chalk@^4.1.1, chalk@~4.1.1:
+chalk@4.1.2, chalk@^4.0.0, chalk@^4.1.1:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"
   integrity sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
@@ -845,23 +845,23 @@ dixt-plugin-twitch@^1.1.10:
     dixt "2.1.7"
     dotenv-flow "^3.2.0"
 
-dixt@2.1.6:
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/dixt/-/dixt-2.1.6.tgz#d39d8813650130ca606ffe933fbe41b30dd81edc"
-  integrity sha512-JvVwsGi0gPK/kCg053tzxilXiMlsyKHVZnlb7ETIVuLC0ry55n78GMUVfD5iXouaHmVOuBmXTWVNRqYlj/E+/w==
-  dependencies:
-    chalk "~4.1.1"
-    discord.js "^14.9.0"
-    dotenv-flow "^3.2.0"
-    lodash "^4.17.21"
-    mongoose "^7.0.3"
-
-dixt@2.1.7, dixt@^2.1.5:
+dixt@2.1.7:
   version "2.1.7"
   resolved "https://registry.yarnpkg.com/dixt/-/dixt-2.1.7.tgz#5cc63c2f82d850d82a6b438eae7e9dd7c9868b0f"
   integrity sha512-EkMDmrkTqVAabDJdyJ7/pD6ScBSE0G5sBDwKDhXJY5VX3tNSayCY4Fri+2HfRE63OQYdm2zEeeZP1JQnu+RE2g==
   dependencies:
     chalk "4.1.1"
+    discord.js "^14.9.0"
+    dotenv-flow "^3.2.0"
+    lodash "^4.17.21"
+    mongoose "^7.0.3"
+
+dixt@^2.1.8:
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/dixt/-/dixt-2.1.8.tgz#5bd8ad461484eaf4ccdceef60dada997af9ff191"
+  integrity sha512-g1VsY5U0oKSIKZIRIJ8oewj3hEg441HiviEf9aaqyKucIye4MIPNFwxq0UGY6tDoRdLqctnfWueipgwVm8UraQ==
+  dependencies:
+    chalk "4.1.2"
     discord.js "^14.9.0"
     dotenv-flow "^3.2.0"
     lodash "^4.17.21"
