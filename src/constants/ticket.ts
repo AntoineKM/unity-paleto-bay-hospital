@@ -168,16 +168,18 @@ Dimanche: ?h - ?h_`,
 - Vos disponibilités`,
     parent: CHANNELS.TICKETS_RADIOGRAPHIE._ID,
   },
-  [TicketType.HumanResources]: {
-    emoji: "📝",
-    name: "Ressources Humaines",
-    description: "Rendez-vous réservés aux personnels soignants.",
+  [TicketType.Medical]: {
+    emoji: "🩺",
+    name: "Visite médicale",
+    description:
+      "Examen médical pour les personnes qui rencontrent des problèmes de santé.",
     instructions: `》Nous avons bien pris note de votre demande de rendez-vous. Un membre de la direction ne manquera pas de vous contacter dans les plus brefs délais.
 
 *__En attendant merci de nous indiquer: __*
+- Votre nom et prénom (IG)
 - Objet du rendez-vous
 - Vos disponibilités`,
-    parent: CHANNELS.TICKETS_RESSOURCES_HUMAINES._ID,
+    parent: CHANNELS.TICKETS_RADIOGRAPHIE._ID,
   },
   [TicketType.Events]: {
     emoji: "🎉",
@@ -198,5 +200,16 @@ Dimanche: ?h - ?h_`,
     description: "Vous souhaiteriez nous faire part d'une suggestion ?",
     instructions: `Comme son nom l'indique dans ce ticket vous pourrez nous faire part de vos idées/suggestions que nous pourrions possiblement mettre en place afin d'améliorer l'hôpital et son fonctionnement.
     N'hésitez pas, il n'y a pas de mauvaises idées, nous étudierons toutes les propositions.`,
+  },
+  [TicketType.HumanResources]: {
+    emoji: "📝",
+    name: "Ressources Humaines",
+    description: "Rendez-vous réservés aux personnels soignants.",
+    instructions: `》Nous avons bien pris note de votre demande de rendez-vous. Un membre de la direction ne manquera pas de vous contacter dans les plus brefs délais.
+
+*__En attendant merci de nous indiquer: __*
+- Objet du rendez-vous
+- Vos disponibilités`,
+    parent: CHANNELS.TICKETS_RESSOURCES_HUMAINES._ID,
   },
 };
