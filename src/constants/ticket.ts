@@ -50,7 +50,7 @@ Nous étudierons votre demande et reviendrons vers vous dans les plus brefs dél
       "Une fois votre candidature acceptée, vous pourrez créer un ticket de recrutement si celui-ci n'est pas déjà ouvert.",
     instructions: `》Félicitation vous avez passé la première étape du recrutement pour rejoindre nos équipes, avez-vous pu prendre connaissance des différents règlements ainsi que du code pénal? Si la réponse est négative, je vous prie de consulter ces différents documents. 
 
-- Règlement des EMS: https://docs.google.com/document/d/1nG8UtU5WimvKvB85KSoUCel-Nvo70-UpyM5BOO_zGYI/edit?usp=sharing
+- Règlement des EMS: https://docs.google.com/document/d/1V_Lh7Nd4kmFmHGlRSmOOsK1weNYGhCKOTd_q4snvQzk/edit?usp=sharing
 - Règlement de la ville Unity: https://docs.google.com/document/d/1y2MusPhXNmzqbABOVHBAMyIXbhMudF2pbo4dre8ICm4/edit?usp=sharing
 - Code pénal: https://wiki.unityrp.io/books/le-gouvernement/page/code-penal-los-santos
 - Formation EMS: https://youtube.com/playlist?list=PLsVujxf7yJmTr-MACHiIADTaj58ULTmTe
