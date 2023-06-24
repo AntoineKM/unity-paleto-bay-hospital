@@ -373,13 +373,14 @@ class WorktimeController {
               ...this.baseEmbed,
               color: Colors.Red,
               description:
-                `Le service du ${dayjs(worktime.startAt).format(
-                  "DD/MM/YYYY à HH:mm"
-                )} (${Math.floor(
-                  (worktime.endAt.getTime() - worktime.startAt.getTime()) /
-                    1000 /
-                    60
-                )} min) a été supprimé.\n\nSi vous pensez que c'est une erreur veuillez contacter la direction.\n\n` +
+                `Le service du <t:${Math.floor(
+                  worktime.startAt.getTime() / 1000
+                )}:f>
+                 (${Math.floor(
+                   (worktime.endAt.getTime() - worktime.startAt.getTime()) /
+                     1000 /
+                     60
+                 )} min) a été supprimé.\n\nSi vous pensez que c'est une erreur veuillez contacter la direction.\n\n` +
                 (await (
                   await this.getInformationEmbed(target, true)
                 ).description),
@@ -831,10 +832,10 @@ class WorktimeController {
         me ? "votre profil" : `<@${user.id}>`
       }\n\n**Dernière prise de service**\n<t:${Math.floor(
         lastStartWorktime.getTime() / 1000
-      )}:R>\n\n**Dernière fin de service**\n${
+      )}:f>\n\n**Dernière fin de service**\n${
         currentlyWorking
           ? "En cours"
-          : `<t:${Math.floor(lastEndWorktime.getTime() / 1000)}:R>`
+          : `<t:${Math.floor(lastEndWorktime.getTime() / 1000)}:f>`
       }\n\n**Temps de travail cette semaine**\n${pad(
         Math.floor(totalWorktime / 1000 / 60 / 60),
         2
