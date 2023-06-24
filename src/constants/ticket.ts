@@ -202,7 +202,7 @@ Dimanche: ?h - ?h_`,
     N'hésitez pas, il n'y a pas de mauvaises idées, nous étudierons toutes les propositions.`,
   },
   [TicketType.Internship]: {
-    emoji: "📝",
+    emoji: "🚑",
     name: "Stage",
     description:
       "Rendez-vous pour effectuer un stage inter-hôpitaux, réservé aux personnels soignants des hopitaux Pillbox et Océan.",
