@@ -234,7 +234,7 @@ Dimanche: ?h - ?h_
 
 Enfin, veuillez consulter le document suivant afin de prendre connaissance des règles et du déroulement à respecter durant votre stage:
 https://docs.google.com/document/d/1_kDci6culEZ5_TLFqoFNlMY_sqSD_4Sxzjk4DtPXBrs/edit?usp=sharing`,
-    parent: CHANNELS.TICKETS_RESSOURCES_HUMAINES._ID,
+    parent: CHANNELS.TICKETS_AUTRES._ID,
   },
   [TicketType.HumanResources]: {
     emoji: "📝",
