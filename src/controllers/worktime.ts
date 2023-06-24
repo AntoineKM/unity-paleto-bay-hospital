@@ -119,9 +119,9 @@ class WorktimeController {
       embed = {
         ...this.baseEmbed,
         color: Colors.Red,
-        description: `Vous avez déjà commencé votre service à ${dayjs(
-          currentWorktime.startAt
-        ).format("HH:mm")}`,
+        description: `Vous avez déjà commencé votre service à <t:${Math.floor(
+          currentWorktime.startAt.getTime() / 1000
+        )}:t>`,
       };
 
       user
@@ -138,9 +138,9 @@ class WorktimeController {
       embed = {
         ...this.baseEmbed,
         color: Colors.Green,
-        description: `Votre prise de service a été validée à ${dayjs().format(
-          "HH:mm"
-        )}`,
+        description: `Votre prise de service a été validée à <t:${Math.floor(
+          Date.now() / 1000
+        )}:t>`,
       };
 
       user
@@ -150,9 +150,9 @@ class WorktimeController {
         .catch((e) => Log.error(user, e));
 
       Log.info(
-        `✅ - Prise de service validée à ${dayjs().format("HH:mm")} par **${
-          user.username
-        }#${user.discriminator}**`
+        `✅ - Prise de service validée à <t:${Math.floor(
+          Date.now() / 1000
+        )}:t> par **${user.username}#${user.discriminator}**`
       );
     }
 
@@ -207,9 +207,9 @@ class WorktimeController {
       embed = {
         ...this.baseEmbed,
         color: Colors.Green,
-        description: `Votre fin de service a été validée à ${dayjs().format(
-          "HH:mm"
-        )}\n\n**Temps de travail cette semaine:** ${pad(
+        description: `Votre fin de service a été validée à <t:${Math.floor(
+          Date.now() / 1000
+        )}:t>\n\n**Temps de travail cette semaine:** ${pad(
           Math.floor(totalWorktime / 1000 / 60 / 60),
           2
         )}h${pad(
@@ -229,9 +229,9 @@ class WorktimeController {
         .catch((e) => Log.error(user, e));
 
       Log.info(
-        `✅ - Fin de service validée à ${dayjs().format("HH:mm")} par **${
-          user.username
-        }#${user.discriminator}** - ${pad(
+        `✅ - Fin de service validée à <t:${Math.floor(
+          Date.now() / 1000
+        )}:t> par **${user.username}#${user.discriminator}** - ${pad(
           Math.floor(totalWorktime / 1000 / 60 / 60),
           2
         )}h${pad(Math.floor((totalWorktime / 1000 / 60) % 60), 2)}min - ${
@@ -829,12 +829,12 @@ class WorktimeController {
       title: `${this.baseEmbed.title} - Informations`,
       description: `Voici les informations concernant ${
         me ? "votre profil" : `<@${user.id}>`
-      }\n\n**Dernière prise de service**\n${dayjs(lastStartWorktime).format(
-        "DD/MM/YYYY à HH:mm"
-      )}\n\n**Dernière fin de service**\n${
+      }\n\n**Dernière prise de service**\n<t:${Math.floor(
+        lastStartWorktime.getTime() / 1000
+      )}:R>\n\n**Dernière fin de service**\n${
         currentlyWorking
           ? "En cours"
-          : dayjs(lastEndWorktime).format("DD/MM/YYYY à HH:mm")
+          : `<t:${Math.floor(lastEndWorktime.getTime() / 1000)}:R>`
       }\n\n**Temps de travail cette semaine**\n${pad(
         Math.floor(totalWorktime / 1000 / 60 / 60),
         2
