@@ -201,9 +201,44 @@ Dimanche: ?h - ?h_`,
     instructions: `Comme son nom l'indique dans ce ticket vous pourrez nous faire part de vos idées/suggestions que nous pourrions possiblement mettre en place afin d'améliorer l'hôpital et son fonctionnement.
     N'hésitez pas, il n'y a pas de mauvaises idées, nous étudierons toutes les propositions.`,
   },
+  [TicketType.Internship]: {
+    emoji: "📝",
+    name: "Stage",
+    description:
+      "Rendez-vous pour effectuer un stage inter-hôpitaux, réservé aux personnels soignants des hopitaux Pillbox et Océan.",
+    instructions: `》Si vous avez décidé de prendre rendez-vous avec nous c’est que vous êtes membre des personnels soignants de l’hôpital Pillbox ou Océan. Nous vous remercions de votre confiance et nous vous souhaitons la bienvenue parmi nous.
+
+*__》Afin de réaliser votre stage, merci de suivre les étapes suivantes: __*
+
+**__Dans un premier temps:__** 
+- Veuillez vous renommer
+- Veuillez faire une demande de rôle dans le salon correspondant:
+<#${CHANNELS.INFORMATIONS.DEMANDES_ROLES}>
+
+*__Ensuite, nous renseigner: __*
+- Votre grade 
+- Votre hopital d'appartenance
+- Votre nom et prénom
+- Votre numéro de téléphone
+
+》Puis, veuillez indiquer vos disponibilités afin que nous puissions convenir d'un rendez-vous, veillez à prendre en compte que le stage sera d'une durée de 2h minimum.
+
+_Exemple:
+Lundi: ?h - ?h 
+Mardi: ?h - ?h 
+Mercredi: ?h - ?h
+Jeudi: ?h - ?h 
+Vendredi: ?h - ?h 
+Samedi: ?h - ?h 
+Dimanche: ?h - ?h_
+
+Enfin, veuillez consulter le document suivant afin de prendre connaissance des règles et du déroulement à respecter durant votre stage:
+https://docs.google.com/document/d/1_kDci6culEZ5_TLFqoFNlMY_sqSD_4Sxzjk4DtPXBrs/edit?usp=sharing`,
+    parent: CHANNELS.TICKETS_RESSOURCES_HUMAINES._ID,
+  },
   [TicketType.HumanResources]: {
     emoji: "📝",
-    name: "Ressources Humaines",
+    name: "RH",
     description: "Rendez-vous réservés aux personnels soignants.",
     instructions: `》Nous avons bien pris note de votre demande de rendez-vous. Un membre de la direction ne manquera pas de vous contacter dans les plus brefs délais.
 

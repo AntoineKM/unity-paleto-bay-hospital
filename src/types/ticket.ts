@@ -13,5 +13,6 @@ export enum TicketType {
   Gynecology = "meeting_gynecology",
   Radiography = "meeting_radiography",
   Events = "meeting_events",
+  Internship = "meeting_internship",
   HumanResources = "meeting_human_resources",
 }
