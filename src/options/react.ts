@@ -17,11 +17,23 @@ const dixtPluginReactOptions: DixtPluginReactOptions = {
     {
       id: CHANNELS.INFORMATIONS_EMS.ANNONCES,
       emoji: EMOJIS.UNVERIFIED,
-      matchs: ["réunion"],
+      matchs: ["réunion", "besoin"],
     },
     {
       id: CHANNELS.INFORMATIONS_EMS.CLASSEMENT,
       emoji: "👏",
+    },
+    {
+      id: CHANNELS.DIRECTION.TACHES,
+      emoji: EMOJIS.VERIFIED,
+    },
+    {
+      id: CHANNELS.INFORMATIONS.ANNONCES,
+      emoji: EMOJIS.VERIFIED,
+    },
+    {
+      id: CHANNELS.SALLE_DE_PAUSE.CR_REUNION,
+      emoji: EMOJIS.VERIFIED,
     },
   ],
 };
