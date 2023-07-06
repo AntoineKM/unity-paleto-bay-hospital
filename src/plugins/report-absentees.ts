@@ -8,7 +8,7 @@ import { DiscordPlugin } from "../types/plugin";
 import { getTextChannel } from "../utils/discord";
 
 const ReportAbsenteesPlugin: DiscordPlugin = (client) => {
-  schedule.scheduleJob("0 12 * * 2-7", async () => {
+  schedule.scheduleJob("59 11 * * 2-7", async () => {
     // schedule.scheduleJob("* * * * *", async () => {
     const reportChannel = await getTextChannel(
       client,
