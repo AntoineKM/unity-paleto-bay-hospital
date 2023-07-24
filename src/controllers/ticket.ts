@@ -121,24 +121,24 @@ class TicketController {
     await guild.channels.fetch();
 
     await member.fetch();
-    if (
-      type === TicketType.Recruitment &&
-      !member.roles.cache.has(ROLES.CANDIDATURE_ACCEPTEE)
-    ) {
-      embed = {
-        ...this.baseEmbed,
-        color: Colors.Red,
-        description:
-          "Votre candidature n'est pas encore acceptée, vous ne pouvez pas créer de ticket de recrutement.",
-      };
+    // if (
+    //   type === TicketType.Recruitment &&
+    //   !member.roles.cache.has(ROLES.CANDIDATURE_ACCEPTEE)
+    // ) {
+    //   embed = {
+    //     ...this.baseEmbed,
+    //     color: Colors.Red,
+    //     description:
+    //       "Votre candidature n'est pas encore acceptée, vous ne pouvez pas créer de ticket de recrutement.",
+    //   };
 
-      user
-        .send({
-          embeds: [embed],
-        })
-        .catch((e) => Log.error(user, e));
-      return embed;
-    }
+    //   user
+    //     .send({
+    //       embeds: [embed],
+    //     })
+    //     .catch((e) => Log.error(user, e));
+    //   return embed;
+    // }
     if (
       type === TicketType.HumanResources &&
       !member.roles.cache.has(ROLES.EMERGENCY)
