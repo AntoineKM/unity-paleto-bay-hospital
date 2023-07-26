@@ -139,6 +139,7 @@ class TicketController {
     //     .catch((e) => Log.error(user, e));
     //   return embed;
     // }
+    
     if (
       type === TicketType.HumanResources &&
       !member.roles.cache.has(ROLES.EMERGENCY)
@@ -185,6 +186,25 @@ class TicketController {
 
     const parent = TicketTypeData[type].parent || CHANNELS.TICKETS_AUTRES._ID;
     const category = guild.channels.cache.get(parent) as CategoryChannel;
+
+    // check if the category got 50 or over 50 channels
+
+    if (category.children.cache.size >= 50) {
+      embed = {
+        ...this.baseEmbed,
+        color: Colors.Red,
+        description: `Il semblerait qu'il y'ai trop de tickets ouverts dans la catégorie ${TicketTypeData[
+          type
+        ].name.toLowerCase()}. Veuillez réessayer plus tard.`,
+      };
+      user
+        .send({
+          embeds: [embed],
+        })
+        .catch((e) => Log.error(user, e));
+      return embed;
+    }
+
     const channel = await guild.channels.create({
       name: `${TicketTypeData[type].emoji}┊${member.nickname || user.username}`,
       topic: `Ticket ${TicketTypeData[type].name.toLowerCase()} de ${user}`,
