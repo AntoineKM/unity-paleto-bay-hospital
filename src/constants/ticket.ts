@@ -179,7 +179,7 @@ Dimanche: ?h - ?h_`,
 - Votre nom et prénom (IG)
 - Objet du rendez-vous
 - Vos disponibilités`,
-    parent: CHANNELS.TICKETS_RADIOGRAPHIE._ID,
+    parent: CHANNELS.TICKETS_TOXICOLOGIE._ID,
   },
   [TicketType.Events]: {
     emoji: "🎉",
