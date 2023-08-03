@@ -155,9 +155,9 @@ Dimanche: ?h - ?h_`,
 - Vos disponibilités`,
     parent: CHANNELS.TICKETS_GYNECOLOGIE._ID,
   },
-  [TicketType.Radiography]: {
+  [TicketType.Radiology]: {
     emoji: "🩻",
-    name: "Radiographie",
+    name: "Radiologie",
     description:
       "Examen radiologique principalement pour les personnes sentant des douleurs internes.",
     instructions: `》Nous avons bien pris note de votre demande de rendez-vous. Un membre de la direction ne manquera pas de vous contacter dans les plus brefs délais.
