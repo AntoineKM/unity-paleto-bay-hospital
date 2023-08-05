@@ -166,7 +166,7 @@ Dimanche: ?h - ?h_`,
 - Votre nom et prénom (IG)
 - Objet du rendez-vous
 - Vos disponibilités`,
-    parent: CHANNELS.TICKETS_AUTRES._ID,
+    parent: CHANNELS.TICKETS_RADIOLOGIE._ID,
   },
   [TicketType.Medical]: {
     emoji: "🩺",
