@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 export enum TicketType {
-  Recruitment = "support_recruitment",
   Support = "support_support",
   Complaint = "support_complaint",
   Partnership = "support_partnership",

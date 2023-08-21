@@ -43,35 +43,6 @@ Nous étudierons votre demande et reviendrons vers vous dans les plus brefs dél
     instructions:
       "Comment pouvons-nous vous aider ? N'hésitez pas à nous fournir toutes les informations nécessaires pour que nous puissions vous aider au mieux.",
   },
-  [TicketType.Recruitment]: {
-    emoji: "📥",
-    name: "Recrutement",
-    description:
-      "Une fois votre candidature acceptée, vous pourrez créer un ticket de recrutement si celui-ci n'est pas déjà ouvert.",
-    instructions: `》Félicitation vous avez passé la première étape du recrutement pour rejoindre nos équipes, avez-vous pu prendre connaissance des différents règlements ainsi que du code pénal? Si la réponse est négative, je vous prie de consulter ces différents documents. 
-
-- Règlement des EMS: https://docs.google.com/document/d/1V_Lh7Nd4kmFmHGlRSmOOsK1weNYGhCKOTd_q4snvQzk/edit?usp=sharing
-- Règlement de la ville Unity: https://docs.google.com/document/d/1y2MusPhXNmzqbABOVHBAMyIXbhMudF2pbo4dre8ICm4/edit?usp=sharing
-- Code pénal: https://wiki.unityrp.io/books/le-gouvernement/page/code-penal-los-santos
-- Formation EMS: https://youtube.com/playlist?list=PLsVujxf7yJmTr-MACHiIADTaj58ULTmTe
-
-*__Ensuite, veuillez nous renseigner: __*
-- Votre nom et prénom (IG)
-
-》Et enfin, veuillez indiquer vos disponibilités afin que nous puissions convenir d’un rendez-vous ? 
-
-_Exemple:
-Lundi: ?h - ?h 
-Mardi: ?h - ?h 
-Mercredi: ?h - ?h
-Jeudi: ?h - ?h 
-Vendredi: ?h - ?h 
-Samedi: ?h - ?h 
-Dimanche: ?h - ?h_
-
-Attention: *Si vous occupez actuellement un poste dans l'illégal veuillez nous le signaler au plus vite car un délai d'une semaine entre le moment ou vous quittez l'illégal et le moment ou vous pouvez intégrer nos équipes est obligatoire.*`,
-    parent: CHANNELS.TICKETS_RECRUTEMENTS._ID,
-  },
   [TicketType.PPA]: {
     emoji: "🔫",
     name: "PPA",
