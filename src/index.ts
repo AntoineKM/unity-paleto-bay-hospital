@@ -9,6 +9,7 @@ import dotenv from "dotenv-flow";
 import fs from "fs";
 import mongoose from "mongoose";
 import path from "path";
+import fastify from "fastify";
 
 import dixtPluginAffixOptions from "./options/affix";
 import dixtPluginJoinOptions from "./options/join";
@@ -19,6 +20,7 @@ import { ClientWithCommands } from "./types/command";
 import Log from "./utils/log";
 
 const main = async () => {
+  
   dotenv.config({
     default_node_env: "development",
     silent: true,
@@ -45,6 +47,13 @@ const main = async () => {
 
   const client: ClientWithCommands = instance.client;
 
+  const app = fastify();
+  app.get("/health", async () => {
+    return {
+      health: "ok",
+    };
+  });
+
   try {
     await mongoose.connect(databaseUri);
     Log.ready("connected to mongodb");
@@ -69,6 +78,12 @@ const main = async () => {
       });
 
     instance.start();
+
+    const address = await app.listen(
+      process.env.PORT || 8000,
+      process.env.NODE_ENV === "production" ? "0.0.0.0" : "localhost"
+    );
+    Log.ready(`started server on ${address}`);
   } catch (error) {
     Log.error(error);
   }
