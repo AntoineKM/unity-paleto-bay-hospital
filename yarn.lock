@@ -891,12 +891,12 @@ dixt-plugin-affix@^1.0.3:
     dixt "2.1.9"
 
 dixt-plugin-join@^2.1.7:
-  version "2.1.10"
-  resolved "https://registry.yarnpkg.com/dixt-plugin-join/-/dixt-plugin-join-2.1.10.tgz#cccb74fb2a16085d6bcb54f3b3f8a69084963e43"
-  integrity sha512-FgxhVvCWjnPuXpNwPi+0Trcaj8eZRYtcg3wzQJhnOUllRz4V6kDowkxDiKbJFlx47J0pCAcFHupN/IoHai7jmA==
+  version "2.1.11"
+  resolved "https://registry.yarnpkg.com/dixt-plugin-join/-/dixt-plugin-join-2.1.11.tgz#5a7c839295d968d27d3c4bed67e49c1a1f3eda43"
+  integrity sha512-j2TRiLBHvV5ccSLFXM4EbXbkv4dABn3KfMj7q2oGYF1TnUJ3qefhrBYAoSIDX5WX9qdwqwwwvB7lzSXHzY4FPQ==
   dependencies:
     discord.js "^14.9.0"
-    dixt "2.1.8"
+    dixt "2.1.9"
     dotenv-flow "^3.2.0"
     urlcat "^3.1.0"
 
