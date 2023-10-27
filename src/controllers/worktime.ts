@@ -815,7 +815,7 @@ class WorktimeController {
       0
     );
     const lastStartWorktime = worktimes[worktimes.length - 1].startAt;
-    const lastEndWorktime = worktimes[worktimes.length - 1].endAt;
+    const lastEndWorktime = worktimes[worktimes.length - 1].endAt!;
     const currentlyWorking = !worktimes[worktimes.length - 1].endAt;
 
     const degree = await WorktimeController.getDegree(user);
