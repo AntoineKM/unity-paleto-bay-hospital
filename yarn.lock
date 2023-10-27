@@ -1069,21 +1069,10 @@ dixt-plugin-twitch@^1.1.10:
     dixt "2.1.9"
     dotenv-flow "^3.2.0"
 
-dixt@2.1.9:
+dixt@2.1.9, dixt@^2.1.8:
   version "2.1.9"
   resolved "https://registry.yarnpkg.com/dixt/-/dixt-2.1.9.tgz#328fc71aabf576fc4812bd016aa68ac32c7abe15"
   integrity sha512-KSpROXDuhCR4ICL8NtRnUraIylUHSy4bn4KwtCtuH83kRLpm0ZCTR2uyJFceoEn/9jkjlBT0g/bbijxBcssVUQ==
-  dependencies:
-    chalk "4.1.2"
-    discord.js "^14.9.0"
-    dotenv-flow "^3.2.0"
-    lodash "^4.17.21"
-    mongoose "^7.0.3"
-
-dixt@^2.1.8:
-  version "2.1.8"
-  resolved "https://registry.yarnpkg.com/dixt/-/dixt-2.1.8.tgz#5bd8ad461484eaf4ccdceef60dada997af9ff191"
-  integrity sha512-g1VsY5U0oKSIKZIRIJ8oewj3hEg441HiviEf9aaqyKucIye4MIPNFwxq0UGY6tDoRdLqctnfWueipgwVm8UraQ==
   dependencies:
     chalk "4.1.2"
     discord.js "^14.9.0"
