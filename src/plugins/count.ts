@@ -10,13 +10,13 @@ const MemberCountPlugin: DiscordPlugin = (client) => {
   schedule.scheduleJob("*/10 * * * *", () => {
     client.guilds.cache.forEach(async (guild) => {
       const membersCountchannel = (await guild.channels.fetch(
-        CHANNELS.COUNT_MEMBERS
+        CHANNELS.COUNT_MEMBERS,
       )) as VoiceChannel;
       const playersCountchannel = (await guild.channels.fetch(
-        CHANNELS.COUNT_PLAYERS
+        CHANNELS.COUNT_PLAYERS,
       )) as VoiceChannel;
       const emsCountchannel = (await guild.channels.fetch(
-        CHANNELS.COUNT_EMS
+        CHANNELS.COUNT_EMS,
       )) as VoiceChannel;
 
       if (!membersCountchannel || !playersCountchannel || !emsCountchannel) {

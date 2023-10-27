@@ -11,7 +11,7 @@ class CountController {
   }
 
   public static async getPlayersCount(
-    member: GuildMember
+    member: GuildMember,
   ): Promise<number | null> {
     if (!member) return null;
     const presence = await member.presence;
@@ -28,7 +28,7 @@ class CountController {
   }
 
   public static async getMaxPlayersCount(
-    member: GuildMember
+    member: GuildMember,
   ): Promise<number | null> {
     if (!member) return null;
     const presence = await member.presence;
@@ -61,7 +61,7 @@ class CountController {
 
   public static async updateMembersCountChannel(
     guild: Guild,
-    channel: VoiceChannel
+    channel: VoiceChannel,
   ): Promise<void> {
     const memberCount = await this.getMembersCount(guild);
     if (!channel.name.includes("(") || !channel.name.includes(")")) {
@@ -70,7 +70,7 @@ class CountController {
       const channelName = channel.name;
       const newChannelName = channelName.replace(
         /\(([^)]+)\)/,
-        `(${memberCount})`
+        `(${memberCount})`,
       );
       if (channelName !== newChannelName) {
         await channel.setName(newChannelName);
@@ -80,20 +80,20 @@ class CountController {
 
   public static async updatePlayersCountChannel(
     guild: Guild,
-    channel: VoiceChannel
+    channel: VoiceChannel,
   ): Promise<void> {
     const bot = await guild.members.fetch(CLIENTS.UNITYRP_GTA_RP_BOT);
     const playersCount = (await this.getPlayersCount(bot)) || "-";
     const maxPlayersCount = (await this.getMaxPlayersCount(bot)) || "-";
     if (!channel.name.includes("(") || !channel.name.includes(")")) {
       await channel.setName(
-        `${channel.name} (${playersCount}/${maxPlayersCount})`
+        `${channel.name} (${playersCount}/${maxPlayersCount})`,
       );
     } else {
       const channelName = channel.name;
       const newChannelName = channelName.replace(
         /\(([^)]+)\)/,
-        `(${playersCount}/${maxPlayersCount})`
+        `(${playersCount}/${maxPlayersCount})`,
       );
       if (channelName !== newChannelName) {
         await channel.setName(newChannelName);
@@ -103,7 +103,7 @@ class CountController {
 
   public static async updateEMSCountChannel(
     guild: Guild,
-    channel: VoiceChannel
+    channel: VoiceChannel,
   ): Promise<void> {
     // channel name gonna be "<custom name> (<member count>/<max member count>)"
     const emsCount = (await this.getEMSCount()) || "-";
@@ -115,7 +115,7 @@ class CountController {
       const channelName = channel.name;
       const newChannelName = channelName.replace(
         /\(([^)]+)\)/,
-        `(${emsCount}/${maxEmsCount})`
+        `(${emsCount}/${maxEmsCount})`,
       );
       if (channelName !== newChannelName) {
         await channel.setName(newChannelName);

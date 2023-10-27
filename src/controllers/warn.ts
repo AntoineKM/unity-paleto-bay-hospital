@@ -29,7 +29,7 @@ class WarnController {
     moderator: User,
     interaction?:
       | ChatInputCommandInteraction<"cached">
-      | ButtonInteraction<CacheType>
+      | ButtonInteraction<CacheType>,
   ) {
     await Warn.create({ userId: target.id, reason, createdAt: new Date() });
 
@@ -59,13 +59,13 @@ class WarnController {
       guilds.map(async (guild) => {
         const channel = await guild.fetch();
         return channel;
-      })
+      }),
     );
     // get the CHANNELS.ONRUNTIME.TEAM.INFORMATION.WARN channel
     const channel = channels.find(
       (channel) =>
         channel.id === CHANNELS.INFORMATIONS_EMS.AVERTISSEMENTS &&
-        channel.type === ChannelType.GuildText
+        channel.type === ChannelType.GuildText,
     ) as TextChannel;
 
     const warnEmbed = {
@@ -78,7 +78,7 @@ class WarnController {
     await channel.send({ embeds: [warnEmbed] });
 
     Log.info(
-      `**${moderator.username}#${moderator.discriminator}** warned **${target.username}#${target.discriminator}** for "${reason}"`
+      `**${moderator.username}#${moderator.discriminator}** warned **${target.username}#${target.discriminator}** for "${reason}"`,
     );
 
     target
@@ -96,7 +96,7 @@ class WarnController {
   public static async list(
     interaction?:
       | ChatInputCommandInteraction<"cached">
-      | ButtonInteraction<CacheType>
+      | ButtonInteraction<CacheType>,
   ) {
     const warns = await Warn.find({});
 
@@ -113,7 +113,7 @@ class WarnController {
                 (warn, i) =>
                   `${i + 1}. **<@${warn.userId}>** - ${
                     warn.reason
-                  } - <t:${Math.floor(warn.createdAt.getTime() / 1000)}:R>`
+                  } - <t:${Math.floor(warn.createdAt.getTime() / 1000)}:R>`,
               )
               .join("\n")}`,
           },
@@ -128,7 +128,7 @@ class WarnController {
     moderator: User,
     interaction?:
       | ChatInputCommandInteraction<"cached">
-      | ButtonInteraction<CacheType>
+      | ButtonInteraction<CacheType>,
   ) {
     await Warn.deleteMany({ userId: target.id });
 
@@ -145,7 +145,7 @@ class WarnController {
     }
 
     Log.info(
-      `**${moderator.username}#${moderator.discriminator}** à réinitialisé les avertissements de **${target.username}#${target.discriminator}**`
+      `**${moderator.username}#${moderator.discriminator}** à réinitialisé les avertissements de **${target.username}#${target.discriminator}**`,
     );
 
     target

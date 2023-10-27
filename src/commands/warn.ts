@@ -26,20 +26,20 @@ const WarnCommand: DiscordCommand = {
           {
             value: "list",
             name: "Liste des avertissements en cours",
-          }
-        )
+          },
+        ),
     )
     .addUserOption((option) =>
       option
         .setName("target")
         .setDescription("Le membre à qui appliquer la commande")
-        .setRequired(false)
+        .setRequired(false),
     )
     .addStringOption((option) =>
       option
         .setName("reason")
         .setDescription("La raison de l'avertissement")
-        .setRequired(false)
+        .setRequired(false),
     ),
   async execute(interaction) {
     const command = interaction.options.getString("command");
@@ -57,7 +57,7 @@ const WarnCommand: DiscordCommand = {
           if (
             !interaction.member.roles.cache.has(ROLES.DIRECTION) &&
             !interaction.memberPermissions?.has(
-              PermissionFlagsBits.Administrator
+              PermissionFlagsBits.Administrator,
             )
           ) {
             await interaction.reply({
@@ -74,7 +74,7 @@ const WarnCommand: DiscordCommand = {
                 target,
                 reason,
                 interaction.user,
-                interaction
+                interaction,
               );
             } else {
               await interaction.reply({
@@ -93,7 +93,7 @@ const WarnCommand: DiscordCommand = {
           if (
             !interaction.member.roles.cache.has(ROLES.DIRECTION) &&
             !interaction.memberPermissions?.has(
-              PermissionFlagsBits.Administrator
+              PermissionFlagsBits.Administrator,
             )
           ) {
             await interaction.reply({
@@ -109,7 +109,7 @@ const WarnCommand: DiscordCommand = {
               await WarnController.remove(
                 target,
                 interaction.user,
-                interaction
+                interaction,
               );
             } else {
               await interaction.reply({
@@ -128,7 +128,7 @@ const WarnCommand: DiscordCommand = {
           if (
             !interaction.member.roles.cache.has(ROLES.DIRECTION) &&
             !interaction.memberPermissions?.has(
-              PermissionFlagsBits.Administrator
+              PermissionFlagsBits.Administrator,
             )
           ) {
             await interaction.reply({

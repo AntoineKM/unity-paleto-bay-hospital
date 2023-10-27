@@ -16,8 +16,8 @@ const search = (list: Player[], query: string) => {
         query
           .toLowerCase()
           .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-      )
+          .replace(/[\u0300-\u036f]/g, ""),
+      ),
   );
   results.sort((a, b) => {
     if (a.name < b.name) {
@@ -49,14 +49,14 @@ const ServerCommand = {
           {
             value: "find",
             name: "Chercher un joueur (en ligne)",
-          }
-        )
+          },
+        ),
     )
     .addStringOption((option) =>
       option
         .setName("query")
         .setDescription("Phrase to search for")
-        .setAutocomplete(true)
+        .setAutocomplete(true),
     ),
   async autocomplete(interaction) {
     // handle the autocompletion response (more on how to do that below)
@@ -71,7 +71,7 @@ const ServerCommand = {
           "User-Agent":
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36",
         },
-      }
+      },
     ).then((res) => res.json());
 
     const players = data.Data.players as Player[];
@@ -79,7 +79,7 @@ const ServerCommand = {
     await interaction.respond(
       filtered.slice(0, 25).map((choice) => {
         return { name: choice.name, value: choice.id.toString() };
-      })
+      }),
     );
   },
   async execute(interaction) {
@@ -95,7 +95,7 @@ const ServerCommand = {
           "User-Agent":
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36",
         },
-      }
+      },
     ).then((res) => res.json());
 
     switch (command) {
@@ -183,17 +183,17 @@ ${result.identifiers
 
 **Staff(s) en ligne (${
             data.Data.players.filter((player: any) =>
-              player.name.includes("[A]")
+              player.name.includes("[A]"),
             ).length
           }):**\n ${
             data.Data.players.filter((player: any) =>
-              player.name.includes("[A]")
+              player.name.includes("[A]"),
             ).length > 0
               ? data.Data.players
                   .filter((player: any) => player.name.includes("[A]"))
                   .map(
                     (player: any) =>
-                      `- ${player.name.replace("[A]", "").trim()}`
+                      `- ${player.name.replace("[A]", "").trim()}`,
                   )
                   .join("\n")
               : "Aucun"
@@ -201,17 +201,17 @@ ${result.identifiers
 
 **Support(s) en ligne (${
             data.Data.players.filter((player: any) =>
-              player.name.includes("[S]")
+              player.name.includes("[S]"),
             ).length
           }):**\n ${
             data.Data.players.filter((player: any) =>
-              player.name.includes("[S]")
+              player.name.includes("[S]"),
             ).length > 0
               ? data.Data.players
                   .filter((player: any) => player.name.includes("[S]"))
                   .map(
                     (player: any) =>
-                      `- ${player.name.replace("[S]", "").trim()}`
+                      `- ${player.name.replace("[S]", "").trim()}`,
                   )
                   .join("\n")
               : "Aucun"

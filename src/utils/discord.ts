@@ -14,7 +14,7 @@ export const getTextChannel = (client: Client, channelID: string) => {
 
 export const getMembersWithRole = async (
   client: Client,
-  roleID: string
+  roleID: string,
 ): Promise<GuildMember[]> => {
   await client.guilds.fetch();
   const guilds = client.guilds.cache;

@@ -15,7 +15,7 @@ const WarnAutoRemovePlugin: DiscordPlugin = (client) => {
     // we want that if a member of the warn list doesn't have the emergency role, we remove it from the warn list
     // so we filter the warn list to keep only the members that have the emergency role
     const filteredWarns = warns.filter((warn) =>
-      emergencyMembers.find((member) => member.id === warn.userId)
+      emergencyMembers.find((member) => member.id === warn.userId),
     );
     // we remove the members that have the emergency role from the warn list
     await Warn.deleteMany({
@@ -26,7 +26,7 @@ const WarnAutoRemovePlugin: DiscordPlugin = (client) => {
       Log.info(
         `**${warns.length - filteredWarns.length}** avertissement${
           warns.length - filteredWarns.length > 1 ? "s" : ""
-        } ont été supprimés.`
+        } ont été supprimés.`,
       );
     }
   });

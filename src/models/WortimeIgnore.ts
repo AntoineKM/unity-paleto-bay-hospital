@@ -7,7 +7,7 @@ const worktimeIgnoreReminderSchema = new Schema({
 
 const WorktimeIgnoreReminder = model(
   "WorktimeIgnoreReminder",
-  worktimeIgnoreReminderSchema
+  worktimeIgnoreReminderSchema,
 );
 
 export default WorktimeIgnoreReminder;

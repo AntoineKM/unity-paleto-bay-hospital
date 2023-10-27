@@ -39,20 +39,20 @@ const WorktimeCommand: DiscordCommand = {
           {
             name: "Ignorer les rappels",
             value: "ignore",
-          }
-        )
+          },
+        ),
     )
     .addUserOption((option) =>
       option
         .setName("target")
         .setDescription("Le membre à qui appliquer la commande")
-        .setRequired(false)
+        .setRequired(false),
     )
     .addStringOption((option) =>
       option
         .setName("duration")
         .setDescription("La durée du service")
-        .setRequired(false)
+        .setRequired(false),
     ),
   async execute(interaction) {
     const command = interaction.options.getString("command");
@@ -127,7 +127,7 @@ const WorktimeCommand: DiscordCommand = {
           if (
             !interaction.member.roles.cache.has(ROLES.DIRECTION) &&
             !interaction.memberPermissions?.has(
-              PermissionFlagsBits.Administrator
+              PermissionFlagsBits.Administrator,
             )
           ) {
             await interaction.reply({
@@ -138,11 +138,11 @@ const WorktimeCommand: DiscordCommand = {
               if (await WorktimeController.isWorking(target)) {
                 await WorktimeController.cancel(target, interaction.user);
                 await interaction.reply(
-                  `✅ - Le service de ${target} a été annulée.`
+                  `✅ - Le service de ${target} a été annulée.`,
                 );
               } else {
                 await interaction.reply(
-                  `❌ - ${target} n'a pas de service en cours.`
+                  `❌ - ${target} n'a pas de service en cours.`,
                 );
               }
             } else {
@@ -162,7 +162,7 @@ const WorktimeCommand: DiscordCommand = {
               embeds: [
                 await WorktimeController.getInformationEmbed(
                   target || interaction.user,
-                  !target || interaction.user.id === target?.id
+                  !target || interaction.user.id === target?.id,
                 ),
               ],
               ephemeral: true,
@@ -174,7 +174,7 @@ const WorktimeCommand: DiscordCommand = {
           if (
             !interaction.member.roles.cache.has(ROLES.DIRECTION) &&
             !interaction.memberPermissions?.has(
-              PermissionFlagsBits.Administrator
+              PermissionFlagsBits.Administrator,
             )
           ) {
             await interaction.reply({
@@ -195,7 +195,7 @@ const WorktimeCommand: DiscordCommand = {
                           (await (
                             await WorktimeController.getInformationEmbed(
                               target,
-                              false
+                              false,
                             )
                           ).description),
                       },
@@ -245,7 +245,7 @@ Simple example: \`1d 10h 2m 30s\``,
           if (
             !interaction.member.roles.cache.has(ROLES.DIRECTION) &&
             !interaction.memberPermissions?.has(
-              PermissionFlagsBits.Administrator
+              PermissionFlagsBits.Administrator,
             )
           ) {
             await interaction.reply({
@@ -266,7 +266,7 @@ Simple example: \`1d 10h 2m 30s\``,
                           (await (
                             await WorktimeController.getInformationEmbed(
                               target,
-                              false
+                              false,
                             )
                           ).description),
                       },

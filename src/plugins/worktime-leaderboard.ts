@@ -11,7 +11,7 @@ const WorktimeLeadboardPlugin: DiscordPlugin = (client) => {
   schedule.scheduleJob("0 12 * * 0", async () => {
     // send the leaderboard embed to CHANNELS.ONRUNTIME.TEAM.INFORMATION.LEADERBOARD
     const channel = client.channels.cache.get(
-      CHANNELS.INFORMATIONS_EMS.CLASSEMENT
+      CHANNELS.INFORMATIONS_EMS.CLASSEMENT,
     );
 
     if (!channel) return;

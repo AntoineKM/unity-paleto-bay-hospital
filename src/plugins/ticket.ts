@@ -9,10 +9,10 @@ import { TicketType } from "../types/ticket";
 const TicketPlugin: DiscordPlugin = (client) => {
   client.on(Events.ClientReady, async () => {
     const supportChannel = await client.channels.cache.get(
-      CHANNELS.INFORMATIONS.SUPPORT
+      CHANNELS.INFORMATIONS.SUPPORT,
     );
     const meetingChannel = await client.channels.cache.get(
-      CHANNELS.INFORMATIONS.RENDEZ_VOUS
+      CHANNELS.INFORMATIONS.RENDEZ_VOUS,
     );
     if (!supportChannel || !meetingChannel) return;
 
@@ -30,7 +30,7 @@ const TicketPlugin: DiscordPlugin = (client) => {
       await interaction.deferReply();
       await TicketController.closeTicket(
         interaction.user,
-        interaction.channel as TextChannel
+        interaction.channel as TextChannel,
       );
       return;
     }
@@ -41,8 +41,8 @@ const TicketPlugin: DiscordPlugin = (client) => {
         interaction.member as GuildMember,
         // remove the prefix before the first "_" from the interaction.customId but do not split because after the first "_" there is the ticket type which can contain "_"
         interaction.customId.slice(
-          interaction.customId.indexOf("_") + 1
-        ) as TicketType
+          interaction.customId.indexOf("_") + 1,
+        ) as TicketType,
       );
 
       await interaction.reply({
@@ -66,13 +66,13 @@ const TicketPlugin: DiscordPlugin = (client) => {
   client.on(Events.GuildMemberRemove, async (member) => {
     const ticketsChannels = await TicketController.getUserTicketsChannels(
       member.guild,
-      member.user
+      member.user,
     );
 
     await Promise.all(
       ticketsChannels.map(async (channel) => {
         await TicketController.closeTicket(member.user, channel);
-      })
+      }),
     );
   });
 };

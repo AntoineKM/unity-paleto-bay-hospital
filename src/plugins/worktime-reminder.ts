@@ -11,9 +11,8 @@ import Log from "../utils/log";
 
 const WorktimeReminderPlugin: DiscordPlugin = (client) => {
   schedule.scheduleJob("*/10 * * * *", async () => {
-    const members = await WorktimeController.getMembersInWorkVoiceChannel(
-      client
-    );
+    const members =
+      await WorktimeController.getMembersInWorkVoiceChannel(client);
     const worktimeReminderIgnoreList = await WorktimeIgnoreReminder.find();
     await Promise.all(
       members.map(async (member) => {
@@ -29,7 +28,7 @@ const WorktimeReminderPlugin: DiscordPlugin = (client) => {
           });
           if (!worktime) {
             Log.info(
-              `Sent reminder to ${member.user.username}#${member.user.discriminator} for not starting worktime`
+              `Sent reminder to ${member.user.username}#${member.user.discriminator} for not starting worktime`,
             );
             try {
               member
@@ -48,14 +47,13 @@ const WorktimeReminderPlugin: DiscordPlugin = (client) => {
             }
           }
         }
-      })
+      }),
     );
   });
 
   schedule.scheduleJob("*/10 * * * *", async () => {
-    const members = await WorktimeController.getMembersInWorkVoiceChannel(
-      client
-    );
+    const members =
+      await WorktimeController.getMembersInWorkVoiceChannel(client);
     const membersId = members.map((member) => member.user.id);
     const worktimes = await Worktime.find({
       endAt: null,
@@ -67,7 +65,7 @@ const WorktimeReminderPlugin: DiscordPlugin = (client) => {
           if (!user) return;
           await WorktimeController.end(user);
         }
-      })
+      }),
     );
   });
 };

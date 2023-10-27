@@ -9,12 +9,12 @@ const ServerPlugin: DiscordPlugin = (client) => {
       // command handling
     } else if (interaction.isAutocomplete()) {
       const command = (interaction.client as ClientWithCommands).commands?.get(
-        interaction.commandName
+        interaction.commandName,
       );
 
       if (!command) {
         console.error(
-          `No command matching ${interaction.commandName} was found.`
+          `No command matching ${interaction.commandName} was found.`,
         );
         return;
       }

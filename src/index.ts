@@ -6,10 +6,10 @@ import dixtPluginLogs from "dixt-plugin-logs";
 import dixtPluginReact from "dixt-plugin-react";
 import dixtPluginTwitch from "dixt-plugin-twitch";
 import dotenv from "dotenv-flow";
+import fastify from "fastify";
 import fs from "fs";
 import mongoose from "mongoose";
 import path from "path";
-import fastify from "fastify";
 
 import dixtPluginAffixOptions from "./options/affix";
 import dixtPluginJoinOptions from "./options/join";
@@ -20,7 +20,6 @@ import { ClientWithCommands } from "./types/command";
 import Log from "./utils/log";
 
 const main = async () => {
-  
   dotenv.config({
     default_node_env: "development",
     silent: true,
@@ -81,7 +80,7 @@ const main = async () => {
 
     const address = await app.listen(
       process.env.PORT || 8000,
-      process.env.NODE_ENV === "production" ? "0.0.0.0" : "localhost"
+      process.env.NODE_ENV === "production" ? "0.0.0.0" : "localhost",
     );
     Log.ready(`started server on ${address}`);
   } catch (error) {

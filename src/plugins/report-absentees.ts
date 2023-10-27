@@ -12,7 +12,7 @@ const ReportAbsenteesPlugin: DiscordPlugin = (client) => {
     // schedule.scheduleJob("* * * * *", async () => {
     const reportChannel = await getTextChannel(
       client,
-      CHANNELS.DIRECTION.REPORTS
+      CHANNELS.DIRECTION.REPORTS,
     );
 
     const absentees = await WorktimeController.getAbsentees(client);

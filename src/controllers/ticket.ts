@@ -32,7 +32,7 @@ class TicketController {
 
   public static async initialize(
     channel: Channel,
-    type: "support" | "meeting"
+    type: "support" | "meeting",
   ): Promise<void> {
     if (channel?.type !== ChannelType.GuildText) return;
 
@@ -71,16 +71,16 @@ class TicketController {
             ? supportEmbed.description
             : meetingEmbed.description) &&
         message.embeds[0]?.title ===
-          (type === "support" ? supportEmbed.title : meetingEmbed.title)
+          (type === "support" ? supportEmbed.title : meetingEmbed.title),
     );
     if (messagesWithSameContent.size === 0) {
       // add buttons to the embed message
       await Promise.all(
-        messages.map(async (message) => await message.delete())
+        messages.map(async (message) => await message.delete()),
       );
 
       const ticketValues = Object.values(TicketType).filter((t) =>
-        t.startsWith(type === "support" ? "support_" : "meeting_")
+        t.startsWith(type === "support" ? "support_" : "meeting_"),
       );
 
       // components can contain up to 5 action rows and 5 buttons per row, so we need to split the buttons into multiple rows, depending on TicketValues
@@ -112,7 +112,7 @@ class TicketController {
   public static async createTicket(
     guild: Guild,
     member: GuildMember,
-    type: TicketType
+    type: TicketType,
   ): Promise<APIEmbed> {
     let embed: APIEmbed = {
       ...this.baseEmbed,
@@ -139,7 +139,7 @@ class TicketController {
     //     .catch((e) => Log.error(user, e));
     //   return embed;
     // }
-    
+
     if (
       type === TicketType.HumanResources &&
       !member.roles.cache.has(ROLES.EMERGENCY)
@@ -163,7 +163,7 @@ class TicketController {
       (channel) =>
         channel.type === ChannelType.GuildText &&
         channel.name.startsWith(`${TicketTypeData[type].emoji}┊`) &&
-        channel.topic?.includes(user.id)
+        channel.topic?.includes(user.id),
     );
 
     if (tickets.size > 0) {
@@ -263,7 +263,7 @@ class TicketController {
 
     Log.info(
       `**${guild.name}**`,
-      `ticket ${TicketTypeData[type].name.toLowerCase()} créé pour ${user}`
+      `ticket ${TicketTypeData[type].name.toLowerCase()} créé pour ${user}`,
     );
 
     return embed;
@@ -271,18 +271,18 @@ class TicketController {
 
   public static async closeTicket(
     user: User,
-    channel: TextChannel | GuildTextBasedChannel
+    channel: TextChannel | GuildTextBasedChannel,
   ) {
     Log.info(
       `**${channel.guild.name}**`,
-      `ticket ${channel.name} fermé par **${user.username}#${user.discriminator}**`
+      `ticket ${channel.name} fermé par **${user.username}#${user.discriminator}**`,
     );
     await channel.delete();
   }
 
   public static async changePrefix(
     channel: GuildTextBasedChannel,
-    prefix: string
+    prefix: string,
   ): Promise<void> {
     const parts = channel.name.split("┊");
     if (parts.length >= 2) {
@@ -293,16 +293,16 @@ class TicketController {
 
   public static async getUserTicketsChannels(
     guild: Guild,
-    user: User
+    user: User,
   ): Promise<TextChannel[]> {
     await guild.channels.fetch();
     const tickets = guild.channels.cache.filter(
       (channel) =>
         channel.type === ChannelType.GuildText &&
         Object.values(TicketType).some((type) =>
-          channel.name.startsWith(`${TicketTypeData[type].emoji}┊`)
+          channel.name.startsWith(`${TicketTypeData[type].emoji}┊`),
         ) &&
-        channel.topic?.includes(user.id)
+        channel.topic?.includes(user.id),
     );
 
     return tickets.map((channel) => channel as TextChannel);
@@ -312,7 +312,7 @@ class TicketController {
     return !!(
       ticket.type === ChannelType.GuildText &&
       Object.values(TicketType).some((type) =>
-        ticket.name.startsWith(`${TicketTypeData[type].emoji}`)
+        ticket.name.startsWith(`${TicketTypeData[type].emoji}`),
       ) &&
       ticket.topic?.includes("Ticket")
     );

@@ -23,7 +23,7 @@ const ReportLinkPlugin: DiscordPlugin = (client) => {
 
     const reportChannel = await getTextChannel(
       client,
-      CHANNELS.DIRECTION.REPORTS
+      CHANNELS.DIRECTION.REPORTS,
     );
 
     await reportChannel.send({

@@ -8,7 +8,7 @@ const HelpCommand: DiscordCommand = {
   data: new SlashCommandBuilder()
     .setName("help")
     .setDescription(
-      "Liste toutes les commandes ou donne des informations sur une commande spécifique."
+      "Liste toutes les commandes ou donne des informations sur une commande spécifique.",
     )
     .addStringOption((option) => {
       return option.setName("command").setDescription("La commande à exécuter");
@@ -38,7 +38,7 @@ const HelpCommand: DiscordCommand = {
               (option) =>
                 `\`/${slashCommand.data.name} <${option.toJSON().name}>\` - ${
                   option.toJSON().description
-                }`
+                }`,
             )
             .join("\n")}`,
         };
@@ -61,7 +61,7 @@ const HelpCommand: DiscordCommand = {
                 (command) =>
                   `\`/${(command as any).data.name}\` - ${
                     (command as any).data.description
-                  }`
+                  }`,
               )
               .join("\n")
           : "No commands found."

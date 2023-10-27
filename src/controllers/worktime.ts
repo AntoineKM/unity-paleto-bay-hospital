@@ -72,12 +72,12 @@ class WorktimeController {
     const messagesWithSameContent = messages.filter(
       (message) =>
         message.embeds[0]?.description === instructionEmbed.description &&
-        message.embeds[0]?.title === instructionEmbed.title
+        message.embeds[0]?.title === instructionEmbed.title,
     );
 
     if (messagesWithSameContent.size === 0) {
       await Promise.all(
-        messages.map(async (message) => await message.delete())
+        messages.map(async (message) => await message.delete()),
       );
 
       await channel.send({
@@ -120,7 +120,7 @@ class WorktimeController {
         ...this.baseEmbed,
         color: Colors.Red,
         description: `Vous avez déjà commencé votre service à <t:${Math.floor(
-          currentWorktime.startAt.getTime() / 1000
+          currentWorktime.startAt.getTime() / 1000,
         )}:t>`,
       };
 
@@ -139,7 +139,7 @@ class WorktimeController {
         ...this.baseEmbed,
         color: Colors.Green,
         description: `Votre prise de service a été validée à <t:${Math.floor(
-          Date.now() / 1000
+          Date.now() / 1000,
         )}:t>`,
       };
 
@@ -151,8 +151,8 @@ class WorktimeController {
 
       Log.info(
         `✅ - Prise de service validée à <t:${Math.floor(
-          Date.now() / 1000
-        )}:t> par **${user.username}#${user.discriminator}**`
+          Date.now() / 1000,
+        )}:t> par **${user.username}#${user.discriminator}**`,
       );
     }
 
@@ -208,13 +208,13 @@ class WorktimeController {
         ...this.baseEmbed,
         color: Colors.Green,
         description: `Votre fin de service a été validée à <t:${Math.floor(
-          Date.now() / 1000
+          Date.now() / 1000,
         )}:t>\n\n**Temps de travail cette semaine:** ${pad(
           Math.floor(totalWorktime / 1000 / 60 / 60),
-          2
+          2,
         )}h${pad(
           Math.floor((totalWorktime / 1000 / 60) % 60),
-          2
+          2,
         )}\n**Progression:** ${
           degree
             ? progressIndicator(percentage)
@@ -230,16 +230,16 @@ class WorktimeController {
 
       Log.info(
         `✅ - Fin de service validée à <t:${Math.floor(
-          Date.now() / 1000
+          Date.now() / 1000,
         )}:t> par **${user.username}#${user.discriminator}** - ${pad(
           Math.floor(totalWorktime / 1000 / 60 / 60),
-          2
+          2,
         )}h${pad(Math.floor((totalWorktime / 1000 / 60) % 60), 2)}min - ${
           // percentage of total work based on totalWorktime and QUOTAS[getUserStatus(user)],
           degree
             ? progressIndicator(percentage)
             : "Vous n'avez pas de rôle d'employé, pensez à le demander."
-        }`
+        }`,
       );
 
       // check if the current worktime is less than 30 minutes
@@ -249,7 +249,7 @@ class WorktimeController {
       ) {
         const reportChannel = await getTextChannel(
           user.client,
-          CHANNELS.DIRECTION.REPORTS
+          CHANNELS.DIRECTION.REPORTS,
         );
 
         reportChannel.send({
@@ -260,7 +260,7 @@ class WorktimeController {
                 (currentWorktime.endAt.getTime() -
                   currentWorktime.startAt.getTime()) /
                   1000 /
-                  60
+                  60,
               )} minutes voulez vous lui supprimer ?`,
             },
           ],
@@ -316,14 +316,14 @@ class WorktimeController {
 
       if (sender) {
         Log.info(
-          `✅ - La prise de service de **${target.username}#${target.discriminator}** a été annulée par **${sender.username}#${sender.discriminator}**.`
+          `✅ - La prise de service de **${target.username}#${target.discriminator}** a été annulée par **${sender.username}#${sender.discriminator}**.`,
         );
         sender
           .send(`✅ - La prise de service de ${target.username} a été annulée.`)
           .catch((e) => Log.error(sender, e));
       } else {
         Log.info(
-          `✅ - La prise de service de **${target.username}#${target.discriminator}** a été annulée.`
+          `✅ - La prise de service de **${target.username}#${target.discriminator}** a été annulée.`,
         );
       }
     } else {
@@ -348,7 +348,7 @@ class WorktimeController {
     Log.info(
       `✅ - ${duration} ${
         durationInSeconds >= 0 ? "ajouté" : "retiré"
-      } au temps de travail de **${target.username}#${target.discriminator}**.`
+      } au temps de travail de **${target.username}#${target.discriminator}**.`,
     );
   }
 
@@ -374,12 +374,12 @@ class WorktimeController {
               color: Colors.Red,
               description:
                 `Le service du <t:${Math.floor(
-                  worktime.startAt.getTime() / 1000
+                  worktime.startAt.getTime() / 1000,
                 )}:f>
                  (${Math.floor(
                    (worktime.endAt.getTime() - worktime.startAt.getTime()) /
                      1000 /
-                     60
+                     60,
                  )} min) a été supprimé.\n\nSi vous pensez que c'est une erreur veuillez contacter la direction.\n\n` +
                 (await (
                   await this.getInformationEmbed(target, true)
@@ -391,14 +391,14 @@ class WorktimeController {
 
       Log.info(
         `✅ - Le service du ${dayjs(worktime.startAt).format(
-          "DD/MM/YYYY à HH:mm"
-        )} de **${target.username}#${target.discriminator}** a été supprimé.`
+          "DD/MM/YYYY à HH:mm",
+        )} de **${target.username}#${target.discriminator}** a été supprimé.`,
       );
     }
   }
 
   public static async isInWorkVoiceChannel(
-    member: GuildMember
+    member: GuildMember,
   ): Promise<boolean> {
     const { guild } = member;
     const channels = await guild.channels.fetch();
@@ -425,7 +425,7 @@ class WorktimeController {
         const m = members.get(member.id);
         if (m) return true;
         return false;
-      })
+      }),
     );
     return results.includes(true);
   }
@@ -442,7 +442,7 @@ class WorktimeController {
   }
 
   public static async getMembersInWorkVoiceChannel(
-    client: Client<boolean>
+    client: Client<boolean>,
   ): Promise<GuildMember[]> {
     await client.guilds.fetch();
     const guilds = client.guilds.cache;
@@ -457,7 +457,7 @@ class WorktimeController {
           (channel) =>
             (channel.type === ChannelType.GuildVoice ||
               channel.type === ChannelType.GuildStageVoice) &&
-            workChannelNames.some((name) => channel.name.includes(name))
+            workChannelNames.some((name) => channel.name.includes(name)),
         );
         if (!workChannels) return;
 
@@ -467,9 +467,9 @@ class WorktimeController {
             members.map((member) => {
               if (!results.includes(member)) results.push(member);
             });
-          })
+          }),
         );
-      })
+      }),
     );
 
     return results;
@@ -535,7 +535,7 @@ class WorktimeController {
             result = await guild.roles.fetch(ROLES.STAGIAIRE);
           }
         }
-      })
+      }),
     );
     return result;
   }
@@ -556,7 +556,7 @@ class WorktimeController {
     });
 
     const firstWorktime = worktimes.sort(
-      (a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime()
+      (a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime(),
     )[0];
     const firstWorktimeTimestamp = new Date(firstWorktime.startAt).getTime();
 
@@ -568,21 +568,21 @@ class WorktimeController {
         const totalWorktime = worktimeMap.get(worktime.userId) || 0;
         worktimeMap.set(
           worktime.userId,
-          totalWorktime + dayjs(worktime.endAt).diff(dayjs(worktime.startAt))
+          totalWorktime + dayjs(worktime.endAt).diff(dayjs(worktime.startAt)),
         );
-      })
+      }),
     );
 
     // sort the map by total worktime
     const sortedWorktimeMap = new Map(
-      [...worktimeMap.entries()].sort((a, b) => b[1] - a[1])
+      [...worktimeMap.entries()].sort((a, b) => b[1] - a[1]),
     );
 
     // calculate additional statistics
     const statsWorktimesCount = worktimes.length;
     const statsWorktimesDuration = [...worktimeMap.values()].reduce(
       (a, b) => a + b,
-      0
+      0,
     );
 
     // create a map of the number of users working at each hour
@@ -601,12 +601,12 @@ class WorktimeController {
     const statsBusiestHour = dayjs(
       `1970-01-01T${
         [...hourMap.entries()].sort((a, b) => b[1] - a[1])[0][0]
-      }:00.000`
+      }:00.000`,
     ).format("HH:mm");
     const statsQuietestHour = dayjs(
       `1970-01-01T${
         [...hourMap.entries()].sort((a, b) => a[1] - b[1])[0][0]
-      }:00.000`
+      }:00.000`,
     ).format("HH:mm");
 
     // create a map of the number of users working on each day
@@ -618,10 +618,10 @@ class WorktimeController {
 
     // find the busiest and quietest day
     const statsBusiestDay = dayjs(
-      [...dayMap.entries()].sort((a, b) => b[1] - a[1])[0][0]
+      [...dayMap.entries()].sort((a, b) => b[1] - a[1])[0][0],
     ).format("dddd");
     const statsQuietestDay = dayjs(
-      [...dayMap.entries()].sort((a, b) => a[1] - b[1])[0][0]
+      [...dayMap.entries()].sort((a, b) => a[1] - b[1])[0][0],
     ).format("dddd");
 
     const totalHours =
@@ -731,11 +731,11 @@ class WorktimeController {
             ([userId, totalWorktime], index) =>
               `\`${pad(index + 1, 2)}. ${pad(
                 Math.floor(totalWorktime / 1000 / 60 / 60),
-                2
+                2,
               )}h${pad(
                 Math.floor((totalWorktime / 1000 / 60) % 60),
-                2
-              )}\` - <@${userId}>`
+                2,
+              )}\` - <@${userId}>`,
           )
           .join("\n") +
         "\n\n**Statistiques**",
@@ -750,7 +750,7 @@ class WorktimeController {
           inline: true,
           value: `${pad(
             Math.floor(statsWorktimesDuration / 1000 / 60 / 60),
-            2
+            2,
           )}h${pad(Math.floor((statsWorktimesDuration / 1000 / 60) % 60), 2)}`,
         },
         {
@@ -789,7 +789,7 @@ class WorktimeController {
 
   public static async getInformationEmbed(
     user: User,
-    me = false
+    me = false,
   ): Promise<APIEmbed> {
     const worktimes = await Worktime.find({
       userId: user.id,
@@ -812,7 +812,7 @@ class WorktimeController {
         (worktime.endAt
           ? worktime.endAt.getTime() - worktime.startAt.getTime()
           : Date.now() - worktime.startAt.getTime()),
-      0
+      0,
     );
     const lastStartWorktime = worktimes[worktimes.length - 1].startAt;
     const lastEndWorktime = worktimes[worktimes.length - 1].endAt!;
@@ -831,17 +831,17 @@ class WorktimeController {
       description: `Voici les informations concernant ${
         me ? "votre profil" : `<@${user.id}>`
       }\n\n**Dernière prise de service**\n<t:${Math.floor(
-        lastStartWorktime.getTime() / 1000
+        lastStartWorktime.getTime() / 1000,
       )}:f>\n\n**Dernière fin de service**\n${
         currentlyWorking
           ? "En cours"
           : `<t:${Math.floor(lastEndWorktime.getTime() / 1000)}:f>`
       }\n\n**Temps de travail cette semaine**\n${pad(
         Math.floor(totalWorktime / 1000 / 60 / 60),
-        2
+        2,
       )}h${pad(
         Math.floor((totalWorktime / 1000 / 60) % 60),
-        2
+        2,
       )}\n\n**Progression**\n${
         degree
           ? progressIndicator(percentage)
@@ -855,7 +855,7 @@ class WorktimeController {
   // list of users absent for the last x days
   public static async getAbsentees(
     client: Client,
-    days = 2
+    days = 2,
   ): Promise<GuildMember[] | null> {
     const members = await getMembersWithRole(client, ROLES.EMERGENCY);
 
@@ -885,11 +885,11 @@ class WorktimeController {
         }
 
         return null;
-      })
+      }),
     );
 
     const result = absentees.filter(
-      (member) => member !== null
+      (member) => member !== null,
     ) as GuildMember[];
 
     return result;

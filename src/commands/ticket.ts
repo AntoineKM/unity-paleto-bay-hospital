@@ -26,14 +26,14 @@ const TicketCommand: DiscordCommand = {
           {
             value: "prefix",
             name: "Changer le préfixe d'un ticket",
-          }
-        )
+          },
+        ),
     )
     .addStringOption((option) =>
       option
         .setName("prefix")
         .setDescription("Le nouveau préfixe du ticket")
-        .setRequired(false)
+        .setRequired(false),
     ),
   async execute(interaction) {
     const command = interaction.options.getString("command");
@@ -56,7 +56,7 @@ const TicketCommand: DiscordCommand = {
             setTimeout(async () => {
               await TicketController.closeTicket(
                 interaction.user,
-                interaction.channel as GuildTextBasedChannel
+                interaction.channel as GuildTextBasedChannel,
               );
             }, 5000);
           } else {
@@ -79,12 +79,12 @@ const TicketCommand: DiscordCommand = {
               ) {
                 await TicketController.changePrefix(
                   interaction.channel as GuildTextBasedChannel,
-                  prefix
+                  prefix,
                 );
                 await interaction.reply("✅ - Prefix du ticket mis à jour");
               } else {
                 interaction.reply(
-                  MESSAGES.ERROR.COMMAND_NOT_AVAILABLE_IN_CHANNEL
+                  MESSAGES.ERROR.COMMAND_NOT_AVAILABLE_IN_CHANNEL,
                 );
               }
             }

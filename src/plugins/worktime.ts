@@ -8,7 +8,7 @@ import { DiscordPlugin } from "../types/plugin";
 const WorktimePlugin: DiscordPlugin = (client) => {
   client.on(Events.ClientReady, async () => {
     const worktimeChannel = await client.channels.cache.get(
-      CHANNELS.SERVICE.POINTEUSE
+      CHANNELS.SERVICE.POINTEUSE,
     );
     if (!worktimeChannel) return;
 
@@ -46,12 +46,12 @@ const WorktimePlugin: DiscordPlugin = (client) => {
       case "worktime_start":
         if (
           await WorktimeController.isInWorkVoiceChannel(
-            interaction.member as GuildMember
+            interaction.member as GuildMember,
           )
         ) {
           try {
             const embed = await WorktimeController.start(
-              interaction.member.user as User
+              interaction.member.user as User,
             );
             await interaction.reply({
               embeds: [embed],
@@ -85,7 +85,7 @@ const WorktimePlugin: DiscordPlugin = (client) => {
       case "worktime_end":
         try {
           const embed = await WorktimeController.end(
-            interaction.member.user as User
+            interaction.member.user as User,
           );
           await interaction.reply({
             embeds: [embed],
