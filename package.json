@@ -28,7 +28,7 @@
     "dotenv-flow": "^3.2.0",
     "fastify": "^4.23.2",
     "fs": "^0.0.1-security",
-    "mongoose": "^7.0.3",
+    "mongoose": "^8.0.0",
     "node-schedule": "^2.1.1",
     "path": "^0.12.7",
     "simple-duration": "^1.1.0"
