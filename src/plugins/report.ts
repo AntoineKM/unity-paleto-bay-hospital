@@ -9,10 +9,12 @@ const ReportPlugin: DiscordPlugin = (client) => {
     if (!interaction.guild) return;
     if (!interaction.member || !interaction.member.user) return;
 
+    await interaction.deferReply({ ephemeral: true });
+
     switch (interaction.customId) {
       case "report_cancel":
-        await interaction.deferReply();
         await interaction.message.delete();
+        await interaction.deleteReply();
         break;
     }
 

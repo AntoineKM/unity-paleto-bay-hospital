@@ -36,7 +36,7 @@ class WarnController {
     const warns = await WarnController.get(target.id);
 
     if (interaction) {
-      await interaction.reply({
+      await interaction.editReply({
         embeds: [
           {
             ...this.baseEmbed,
@@ -47,7 +47,6 @@ class WarnController {
               .join("\n")}`,
           },
         ],
-        ephemeral: true,
       });
     }
 
@@ -101,7 +100,7 @@ class WarnController {
     const warns = await Warn.find({});
 
     if (interaction) {
-      await interaction.reply({
+      await interaction.editReply({
         embeds: [
           {
             ...this.baseEmbed,
@@ -133,7 +132,7 @@ class WarnController {
     await Warn.deleteMany({ userId: target.id });
 
     if (interaction) {
-      await interaction.reply({
+      await interaction.editReply({
         embeds: [
           {
             ...this.baseEmbed,
