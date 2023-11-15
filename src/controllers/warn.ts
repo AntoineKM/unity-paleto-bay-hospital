@@ -117,7 +117,6 @@ class WarnController {
               .join("\n")}`,
           },
         ],
-        ephemeral: true,
       });
     }
   }
@@ -139,7 +138,6 @@ class WarnController {
             description: `**${target}** a été réinitialisé.`,
           },
         ],
-        ephemeral: true,
       });
     }
 
