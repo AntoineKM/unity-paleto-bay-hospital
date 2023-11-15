@@ -26,8 +26,9 @@ const TicketPlugin: DiscordPlugin = (client) => {
     if (!interaction.guild) return;
     if (!interaction.member || !interaction.member.user) return;
 
+    await interaction.deferReply({ ephemeral: true });
+
     if (interaction.customId === "ticket_close") {
-      await interaction.deferReply();
       await TicketController.closeTicket(
         interaction.user,
         interaction.channel as TextChannel,
@@ -45,12 +46,11 @@ const TicketPlugin: DiscordPlugin = (client) => {
         ) as TicketType,
       );
 
-      await interaction.reply({
+      await interaction.editReply({
         embeds: [embed],
-        ephemeral: true,
       });
     } catch (e) {
-      await interaction.reply({
+      await interaction.editReply({
         embeds: [
           {
             ...TicketController.baseEmbed,
@@ -58,7 +58,6 @@ const TicketPlugin: DiscordPlugin = (client) => {
             description: MESSAGES.ERROR.DM_BLOCKED,
           },
         ],
-        ephemeral: true,
       });
     }
   });
