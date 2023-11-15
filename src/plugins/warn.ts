@@ -10,6 +10,8 @@ const WarnPlugin: DiscordPlugin = (client) => {
     if (!interaction.guild) return;
     if (!interaction.member || !interaction.member.user) return;
 
+    await interaction.deferReply({ ephemeral: true });
+
     if (interaction.customId.startsWith("warn_add")) {
       const reason = "Absence de plus de 2 jours non justifiée";
       const [, userId] = interaction.customId.split(":");

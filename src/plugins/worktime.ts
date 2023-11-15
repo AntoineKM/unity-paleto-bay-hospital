@@ -21,12 +21,14 @@ const WorktimePlugin: DiscordPlugin = (client) => {
     if (!interaction.guild) return;
     if (!interaction.member || !interaction.member.user) return;
 
+    await interaction.deferReply({ ephemeral: true });
+
     if (interaction.customId.startsWith("worktime_delete")) {
       const [, userId, worktimeId] = interaction.customId.split(":");
       const member = await interaction.guild.members.fetch(userId);
       if (!member) return;
       await WorktimeController.delete(member.user, worktimeId);
-      await interaction.reply({
+      await interaction.editReply({
         embeds: [
           {
             ...WorktimeController.baseEmbed,
@@ -53,12 +55,11 @@ const WorktimePlugin: DiscordPlugin = (client) => {
             const embed = await WorktimeController.start(
               interaction.member.user as User,
             );
-            await interaction.reply({
+            await interaction.editReply({
               embeds: [embed],
-              ephemeral: true,
             });
           } catch (e) {
-            await interaction.reply({
+            await interaction.editReply({
               embeds: [
                 {
                   ...WorktimeController.baseEmbed,
@@ -66,11 +67,10 @@ const WorktimePlugin: DiscordPlugin = (client) => {
                   description: `${interaction.member}, ${MESSAGES.ERROR.DM_BLOCKED}`,
                 },
               ],
-              ephemeral: true,
             });
           }
         } else {
-          await interaction.reply({
+          await interaction.editReply({
             embeds: [
               {
                 ...WorktimeController.baseEmbed,
@@ -78,7 +78,6 @@ const WorktimePlugin: DiscordPlugin = (client) => {
                 color: Colors.Red,
               },
             ],
-            ephemeral: true,
           });
         }
         break;
@@ -87,12 +86,11 @@ const WorktimePlugin: DiscordPlugin = (client) => {
           const embed = await WorktimeController.end(
             interaction.member.user as User,
           );
-          await interaction.reply({
+          await interaction.editReply({
             embeds: [embed],
-            ephemeral: true,
           });
         } catch (e) {
-          await interaction.reply({
+          await interaction.editReply({
             embeds: [
               {
                 ...WorktimeController.baseEmbed,
@@ -100,7 +98,6 @@ const WorktimePlugin: DiscordPlugin = (client) => {
                 description: `${interaction.member}, ${MESSAGES.ERROR.DM_BLOCKED}`,
               },
             ],
-            ephemeral: true,
           });
         }
         break;
