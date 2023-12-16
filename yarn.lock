@@ -1056,7 +1056,7 @@ dixt-plugin-logs@^2.1.7:
     dotenv-flow "^3.2.0"
     p-queue "6.6.2"
 
-dixt-plugin-react@^2.1.5:
+dixt-plugin-react@^2.1.9:
   version "2.1.9"
   resolved "https://registry.yarnpkg.com/dixt-plugin-react/-/dixt-plugin-react-2.1.9.tgz#a93e1d9542dd4b91916ef552eb4bf0481ffb36de"
   integrity sha512-JWHM484tFZPveuatUc3EiZaujG7b5SdcX9v/lsqk4X5uFL0Xzt+PZVkHASy/K/0y8rII0tEPp+kv0tgqzsWyoA==
@@ -1066,7 +1066,7 @@ dixt-plugin-react@^2.1.5:
     dixt "2.1.9"
     dotenv-flow "^3.2.0"
 
-dixt-plugin-twitch@^1.1.10:
+dixt-plugin-twitch@^1.1.14:
   version "1.1.14"
   resolved "https://registry.yarnpkg.com/dixt-plugin-twitch/-/dixt-plugin-twitch-1.1.14.tgz#7e98c929780d3dccdddabf6c1920c9972677cecb"
   integrity sha512-bLB0BfLHt+Ez5jMNhrTA9YUQBUkp+VpW1d8jdrVbV1HA7NtEkKBqHtpmOgHH8xWmDZJ1A5r4gqOTlgxx/NZ4vw==
