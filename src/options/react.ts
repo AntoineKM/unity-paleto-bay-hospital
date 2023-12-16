@@ -35,6 +35,18 @@ const dixtPluginReactOptions: DixtPluginReactOptions = {
       id: CHANNELS.SALLE_DE_PAUSE.CR_REUNION,
       emoji: EMOJIS.VERIFIED,
     },
+    {
+      id: CHANNELS.DIRECTION.REUNIONS,
+      emoji: EMOJIS.VERIFIED,
+    },
+    {
+      id: CHANNELS.DIRECTION.REUNIONS,
+      emoji: EMOJIS.SUPPORT,
+    },
+    {
+      id: CHANNELS.DIRECTION.REUNIONS,
+      emoji: EMOJIS.UNVERIFIED,
+    },
   ],
 };
 
