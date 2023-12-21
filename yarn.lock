@@ -1043,12 +1043,12 @@ discord.js@^14.9.0:
     ws "8.14.2"
 
 dixt-plugin-affix@^1.0.3:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/dixt-plugin-affix/-/dixt-plugin-affix-1.0.7.tgz#625d49a0c4b02400598cd1f0ea24e55baf209bf3"
-  integrity sha512-Xu49iTnV76EJJGE4eKFGLWpj6cquhcZmA+oXsbK1gzr5GGRuc90sN8QziDznBmiXtMknNVQIy1oAdEYPuBfOrw==
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/dixt-plugin-affix/-/dixt-plugin-affix-1.0.8.tgz#da2fff465e44a1ebcf7d9df123f62f42a014b5d8"
+  integrity sha512-DQ6OQNnNPJjJHQqXUFOtv6wg3C0WPcpz9SHM1uItIPqr2N+Lpo/rjAKJe8aAX3C/wIReAzsYkZYdojlNKoAuKw==
   dependencies:
     discord.js "^14.9.0"
-    dixt "2.1.9"
+    dixt "2.1.10"
 
 dixt-plugin-join@^2.1.7:
   version "2.1.11"
@@ -1089,6 +1089,17 @@ dixt-plugin-twitch@^1.1.14:
     discord.js "^14.9.0"
     dixt "2.1.9"
     dotenv-flow "^3.2.0"
+
+dixt@2.1.10:
+  version "2.1.10"
+  resolved "https://registry.yarnpkg.com/dixt/-/dixt-2.1.10.tgz#75dd2aecb27d65cb97bb7ad284a0bdd5b8d9f0e5"
+  integrity sha512-8jBqSS/bj9D/XzI0I3V0R3CFXixda8io6JCto9tqVqQIX3vmd17NqFUW1YIof07nssF1rlI/JoNAK2aNx/0/WA==
+  dependencies:
+    chalk "4.1.2"
+    discord.js "^14.9.0"
+    dotenv-flow "^3.2.0"
+    lodash "^4.17.21"
+    mongoose "^8.0.0"
 
 dixt@2.1.9, dixt@^2.1.8:
   version "2.1.9"
