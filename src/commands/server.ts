@@ -104,7 +104,7 @@ const ServerCommand = {
         const result = players.find((player) => player.id === parseInt(query));
 
         if (!result) {
-          interaction.reply({
+          interaction.editReply({
             embed: [
               {
                 title: "Recherche de joueur",
@@ -115,7 +115,6 @@ const ServerCommand = {
                 },
               },
             ],
-            ephemeral: true,
           });
 
           return;
@@ -161,9 +160,8 @@ ${result.identifiers
           },
         };
 
-        interaction.reply({
+        interaction.editReply({
           embeds: [embed],
-          ephemeral: true,
         });
 
         break;
@@ -224,9 +222,8 @@ ${result.identifiers
             icon_url: APP.LOGO,
           },
         };
-        interaction.reply({
+        interaction.editReply({
           embeds: [embed],
-          ephemeral: true,
         });
         break;
       }

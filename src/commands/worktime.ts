@@ -60,7 +60,7 @@ const WorktimeCommand: DiscordCommand = {
     const duration = interaction.options.getString("duration");
 
     if (!interaction.inCachedGuild()) {
-      interaction.reply({
+      interaction.editReply({
         content: MESSAGES.ERROR.COMMAND_NOT_AVAILABLE_IN_DM,
       });
       setTimeout(async () => {
@@ -79,7 +79,7 @@ const WorktimeCommand: DiscordCommand = {
             await WorktimeIgnoreReminder.deleteOne({
               userId: interaction.user.id,
             });
-            await interaction.reply({
+            await interaction.editReply({
               embeds: [
                 {
                   title: "✅ - Rappels activés",
@@ -88,13 +88,12 @@ const WorktimeCommand: DiscordCommand = {
                   color: Colors.Green,
                 },
               ],
-              ephemeral: true,
             });
           } else {
             await WorktimeIgnoreReminder.create({
               userId: interaction.user.id,
             });
-            await interaction.reply({
+            await interaction.editReply({
               embeds: [
                 {
                   title: "✅ - Rappels désactivés",
@@ -103,7 +102,6 @@ const WorktimeCommand: DiscordCommand = {
                   color: Colors.Green,
                 },
               ],
-              ephemeral: true,
             });
           }
           return;
@@ -112,13 +110,12 @@ const WorktimeCommand: DiscordCommand = {
         case "leaderboard":
           // check if user has the role ROLES.EMERGENCY
           if (!interaction.member.roles.cache.has(ROLES.EMERGENCY)) {
-            await interaction.reply({
+            await interaction.editReply({
               content: MESSAGES.ERROR.COMMAND_NO_PERMISSION,
             });
           } else {
-            await interaction.reply({
+            await interaction.editReply({
               embeds: [await WorktimeController.getLeaderboardEmbed()],
-              ephemeral: true,
             });
             return;
           }
@@ -130,23 +127,23 @@ const WorktimeCommand: DiscordCommand = {
               PermissionFlagsBits.Administrator,
             )
           ) {
-            await interaction.reply({
+            await interaction.editReply({
               content: MESSAGES.ERROR.COMMAND_NO_PERMISSION,
             });
           } else {
             if (target) {
               if (await WorktimeController.isWorking(target)) {
                 await WorktimeController.cancel(target, interaction.user);
-                await interaction.reply(
+                await interaction.editReply(
                   `✅ - Le service de ${target} a été annulée.`,
                 );
               } else {
-                await interaction.reply(
+                await interaction.editReply(
                   `❌ - ${target} n'a pas de service en cours.`,
                 );
               }
             } else {
-              await interaction.reply({
+              await interaction.editReply({
                 content: MESSAGES.ERROR.COMMAND_NO_TARGET,
               });
             }
@@ -154,18 +151,17 @@ const WorktimeCommand: DiscordCommand = {
           break;
         case "info":
           if (!interaction.member.roles.cache.has(ROLES.EMERGENCY)) {
-            await interaction.reply({
+            await interaction.editReply({
               content: MESSAGES.ERROR.COMMAND_NO_PERMISSION,
             });
           } else {
-            interaction.reply({
+            interaction.editReply({
               embeds: [
                 await WorktimeController.getInformationEmbed(
                   target || interaction.user,
                   !target || interaction.user.id === target?.id,
                 ),
               ],
-              ephemeral: true,
             });
             return;
           }
@@ -177,7 +173,7 @@ const WorktimeCommand: DiscordCommand = {
               PermissionFlagsBits.Administrator,
             )
           ) {
-            await interaction.reply({
+            await interaction.editReply({
               content: MESSAGES.ERROR.COMMAND_NO_PERMISSION,
             });
           } else {
@@ -185,8 +181,7 @@ const WorktimeCommand: DiscordCommand = {
               if (duration) {
                 try {
                   await WorktimeController.add(target, duration);
-                  await interaction.reply({
-                    ephemeral: true,
+                  await interaction.editReply({
                     embeds: [
                       {
                         ...WorktimeController.baseEmbed,
@@ -203,7 +198,7 @@ const WorktimeCommand: DiscordCommand = {
                   });
                   return;
                 } catch (error) {
-                  await interaction.reply({
+                  await interaction.editReply({
                     embeds: [
                       {
                         ...WorktimeController.baseEmbed,
@@ -224,7 +219,7 @@ Simple example: \`1d 10h 2m 30s\``,
                   });
                 }
               } else {
-                await interaction.reply({
+                await interaction.editReply({
                   embeds: [
                     {
                       ...WorktimeController.baseEmbed,
@@ -235,7 +230,7 @@ Simple example: \`1d 10h 2m 30s\``,
                 });
               }
             } else {
-              await interaction.reply({
+              await interaction.editReply({
                 content: MESSAGES.ERROR.COMMAND_NO_TARGET,
               });
             }
@@ -248,7 +243,7 @@ Simple example: \`1d 10h 2m 30s\``,
               PermissionFlagsBits.Administrator,
             )
           ) {
-            await interaction.reply({
+            await interaction.editReply({
               content: MESSAGES.ERROR.COMMAND_NO_PERMISSION,
             });
           } else {
@@ -256,8 +251,7 @@ Simple example: \`1d 10h 2m 30s\``,
               if (duration) {
                 try {
                   await WorktimeController.remove(target, duration);
-                  await interaction.reply({
-                    ephemeral: true,
+                  await interaction.editReply({
                     embeds: [
                       {
                         ...WorktimeController.baseEmbed,
@@ -274,7 +268,7 @@ Simple example: \`1d 10h 2m 30s\``,
                   });
                   return;
                 } catch (error) {
-                  await interaction.reply({
+                  await interaction.editReply({
                     embeds: [
                       {
                         ...WorktimeController.baseEmbed,
@@ -295,7 +289,7 @@ Simple example: \`1d 10h 2m 30s\``,
                   });
                 }
               } else {
-                await interaction.reply({
+                await interaction.editReply({
                   embeds: [
                     {
                       ...WorktimeController.baseEmbed,
@@ -306,7 +300,7 @@ Simple example: \`1d 10h 2m 30s\``,
                 });
               }
             } else {
-              await interaction.reply({
+              await interaction.editReply({
                 content: MESSAGES.ERROR.COMMAND_NO_TARGET,
               });
             }

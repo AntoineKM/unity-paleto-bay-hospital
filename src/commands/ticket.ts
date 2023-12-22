@@ -40,7 +40,7 @@ const TicketCommand: DiscordCommand = {
     const prefix = interaction.options.getString("prefix");
 
     if (!interaction.inCachedGuild()) {
-      interaction.reply({
+      interaction.editReply({
         content: MESSAGES.ERROR.COMMAND_NOT_AVAILABLE_IN_DM,
       });
     } else {
@@ -52,7 +52,7 @@ const TicketCommand: DiscordCommand = {
             interaction.channel.type === ChannelType.GuildText &&
             (await TicketController.isTicket(interaction.channel))
           ) {
-            interaction.reply("✅ - Fermeture du ticket dans 5 secondes");
+            interaction.editReply("✅ - Fermeture du ticket dans 5 secondes");
             setTimeout(async () => {
               await TicketController.closeTicket(
                 interaction.user,
@@ -60,17 +60,19 @@ const TicketCommand: DiscordCommand = {
               );
             }, 5000);
           } else {
-            interaction.reply(MESSAGES.ERROR.COMMAND_NOT_AVAILABLE_IN_CHANNEL);
+            interaction.editReply(
+              MESSAGES.ERROR.COMMAND_NOT_AVAILABLE_IN_CHANNEL,
+            );
           }
           return;
         case "prefix":
           if (!interaction.member.roles.cache.has(ROLES.EMERGENCY)) {
-            interaction.reply({
+            interaction.editReply({
               content: MESSAGES.ERROR.COMMAND_NO_PERMISSION,
             });
           } else {
             if (!prefix) {
-              interaction.reply("❌ - Vous devez spécifier un `prefix`");
+              interaction.editReply("❌ - Vous devez spécifier un `prefix`");
             } else {
               if (
                 interaction.channel &&
@@ -81,9 +83,9 @@ const TicketCommand: DiscordCommand = {
                   interaction.channel as GuildTextBasedChannel,
                   prefix,
                 );
-                await interaction.reply("✅ - Prefix du ticket mis à jour");
+                await interaction.editReply("✅ - Prefix du ticket mis à jour");
               } else {
-                interaction.reply(
+                interaction.editReply(
                   MESSAGES.ERROR.COMMAND_NOT_AVAILABLE_IN_CHANNEL,
                 );
               }

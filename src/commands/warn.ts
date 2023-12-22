@@ -47,9 +47,8 @@ const WarnCommand: DiscordCommand = {
     const reason = interaction.options.getString("reason") || "Privée";
 
     if (!interaction.inCachedGuild()) {
-      interaction.reply({
+      interaction.editReply({
         content: MESSAGES.ERROR.COMMAND_NOT_AVAILABLE_IN_DM,
-        ephemeral: true,
       });
     } else {
       switch (command) {
@@ -60,7 +59,7 @@ const WarnCommand: DiscordCommand = {
               PermissionFlagsBits.Administrator,
             )
           ) {
-            await interaction.reply({
+            await interaction.editReply({
               embeds: [
                 {
                   ...WarnController.baseEmbed,
@@ -77,7 +76,7 @@ const WarnCommand: DiscordCommand = {
                 interaction,
               );
             } else {
-              await interaction.reply({
+              await interaction.editReply({
                 embeds: [
                   {
                     ...WarnController.baseEmbed,
@@ -96,7 +95,7 @@ const WarnCommand: DiscordCommand = {
               PermissionFlagsBits.Administrator,
             )
           ) {
-            await interaction.reply({
+            await interaction.editReply({
               embeds: [
                 {
                   ...WarnController.baseEmbed,
@@ -112,7 +111,7 @@ const WarnCommand: DiscordCommand = {
                 interaction,
               );
             } else {
-              await interaction.reply({
+              await interaction.editReply({
                 embeds: [
                   {
                     ...WarnController.baseEmbed,
@@ -131,7 +130,7 @@ const WarnCommand: DiscordCommand = {
               PermissionFlagsBits.Administrator,
             )
           ) {
-            await interaction.reply({
+            await interaction.editReply({
               embeds: [
                 {
                   ...WarnController.baseEmbed,

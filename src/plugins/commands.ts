@@ -11,13 +11,16 @@ const CommandsPlugin: DiscordPlugin = async (client) => {
 
     if (!command) return;
 
+    await interaction.deferReply({
+      ephemeral: true,
+    });
+
     try {
       await (command as any).execute(interaction);
     } catch (error) {
       console.error(error);
-      await interaction.reply({
+      await interaction.editReply({
         content: "There was an error while executing this command!",
-        ephemeral: true,
       });
     }
   });

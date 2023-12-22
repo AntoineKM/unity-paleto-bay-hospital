@@ -69,7 +69,7 @@ const HelpCommand: DiscordCommand = {
       };
     }
 
-    await interaction.reply({ embeds: [baseEmbed] });
+    await interaction.editReply({ embeds: [baseEmbed] });
   },
 };
 
