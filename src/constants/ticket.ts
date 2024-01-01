@@ -72,7 +72,7 @@ Jeudi: ?h - ?h
 Vendredi: ?h - ?h 
 Samedi: ?h - ?h 
 Dimanche: ?h - ?h_`,
-    parent: CHANNELS.TICKETS_PPA._ID,
+    parent: CHANNELS.TICKETS_PSYCOLOGIE._ID,
   },
   [TicketType.Psychology]: {
     emoji: "🧠",
@@ -150,7 +150,7 @@ Dimanche: ?h - ?h_`,
 - Votre nom et prénom (IG)
 - Objet du rendez-vous
 - Vos disponibilités`,
-    parent: CHANNELS.TICKETS_TOXICOLOGIE._ID,
+    parent: CHANNELS.TICKETS_MEDECINE_GENERALISTE._ID,
   },
   [TicketType.Events]: {
     emoji: "🎉",
