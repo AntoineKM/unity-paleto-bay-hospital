@@ -1,5 +1,6 @@
 import {
   APIEmbed,
+  APIInteractionGuildMember,
   ButtonStyle,
   CategoryChannel,
   Channel,
@@ -111,16 +112,16 @@ class TicketController {
 
   public static async createTicket(
     guild: Guild,
-    member: GuildMember,
+    member: GuildMember | APIInteractionGuildMember,
     type: TicketType,
   ): Promise<APIEmbed> {
     let embed: APIEmbed = {
       ...this.baseEmbed,
     };
-    const { user } = member;
     await guild.channels.fetch();
+    const { user } = member;
+    const guildMember = await guild.members.fetch(member.user.id);
 
-    await member.fetch();
     // if (
     //   type === TicketType.Recruitment &&
     //   !member.roles.cache.has(ROLES.CANDIDATURE_ACCEPTEE)
@@ -142,7 +143,7 @@ class TicketController {
 
     if (
       type === TicketType.HumanResources &&
-      !member.roles.cache.has(ROLES.EMERGENCY)
+      !guildMember.roles.cache.has(ROLES.EMERGENCY)
     ) {
       embed = {
         ...this.baseEmbed,
@@ -151,7 +152,7 @@ class TicketController {
           "Vous ne faite pas partie du personnel soignant, vous ne pouvez pas créer de ticket RH.",
       };
 
-      user
+      guildMember
         .send({
           embeds: [embed],
         })
@@ -176,7 +177,7 @@ class TicketController {
           type
         ].name.toLowerCase()} ouvert dans le salon ${channel}.`,
       };
-      user
+      guildMember
         .send({
           embeds: [embed],
         })
@@ -197,7 +198,7 @@ class TicketController {
           type
         ].name.toLowerCase()}. Veuillez réessayer plus tard.`,
       };
-      user
+      guildMember
         .send({
           embeds: [embed],
         })
@@ -206,7 +207,9 @@ class TicketController {
     }
 
     const channel = await guild.channels.create({
-      name: `${TicketTypeData[type].emoji}┊${member.nickname || user.username}`,
+      name: `${TicketTypeData[type].emoji}┊${
+        guildMember.nickname || user.username
+      }`,
       topic: `Ticket ${TicketTypeData[type].name.toLowerCase()} de ${user}`,
       parent,
       type: ChannelType.GuildText,
@@ -255,7 +258,7 @@ class TicketController {
       ].name.toLowerCase()} a été créé dans le salon ${channel}.`,
     };
 
-    user
+    guildMember
       .send({
         embeds: [embed],
       })

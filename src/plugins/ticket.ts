@@ -1,4 +1,4 @@
-import { Colors, Events, GuildMember, TextChannel } from "discord.js";
+import { ChannelType, Colors, Events } from "discord.js";
 
 import CHANNELS from "../constants/channels";
 import MESSAGES from "../constants/messages";
@@ -28,19 +28,19 @@ const TicketPlugin: DiscordPlugin = (client) => {
 
     await interaction.deferReply({ ephemeral: true });
 
-    if (interaction.customId === "ticket_close") {
-      await TicketController.closeTicket(
-        interaction.user,
-        interaction.channel as TextChannel,
-      );
+    if (
+      interaction.channel &&
+      interaction.channel.type === ChannelType.GuildText &&
+      interaction.customId === "ticket_close"
+    ) {
+      await TicketController.closeTicket(interaction.user, interaction.channel);
       return;
     }
 
     try {
       const embed = await TicketController.createTicket(
         interaction.guild,
-        interaction.member as GuildMember,
-        // remove the prefix before the first "_" from the interaction.customId but do not split because after the first "_" there is the ticket type which can contain "_"
+        interaction.member,
         interaction.customId.slice(
           interaction.customId.indexOf("_") + 1,
         ) as TicketType,
