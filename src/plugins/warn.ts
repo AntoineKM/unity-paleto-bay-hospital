@@ -20,10 +20,8 @@ const WarnPlugin: DiscordPlugin = (client) => {
       if (!member) return;
       await WarnController.add(target, reason, interaction.user, interaction);
 
-      setTimeout(async () => {
-        await interaction.deleteReply();
-        await interaction.message.delete();
-      }, 5000);
+      await interaction.deleteReply();
+      await interaction.message.delete();
     }
   });
 };
