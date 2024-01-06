@@ -16,7 +16,9 @@ import {
   GuildChannel,
   GuildMember,
   Role,
+  StageChannel,
   User,
+  VoiceChannel,
 } from "discord.js";
 import * as sd from "simple-duration";
 
@@ -452,23 +454,29 @@ class WorktimeController {
       guilds.map(async (guild) => {
         await guild.channels.fetch();
         const channels = guild.channels.cache;
-        if (!channels) return;
-        const workChannels = channels.filter(
-          (channel) =>
-            (channel.type === ChannelType.GuildVoice ||
-              channel.type === ChannelType.GuildStageVoice) &&
-            workChannelNames.some((name) => channel.name.includes(name)),
-        );
-        if (!workChannels) return;
 
-        await Promise.all(
-          workChannels.map(async (channel) => {
-            const members = channel.members as Collection<string, GuildMember>;
-            members.map((member) => {
-              if (!results.includes(member)) results.push(member);
-            });
-          }),
-        );
+        if (channels instanceof Collection) {
+          const workChannels = channels.filter(
+            (channel) =>
+              (channel.type === ChannelType.GuildVoice ||
+                channel.type === ChannelType.GuildStageVoice) &&
+              workChannelNames.some((name) => channel.name.includes(name)),
+          );
+
+          await Promise.all(
+            workChannels.map(async (channel) => {
+              if (
+                channel instanceof VoiceChannel ||
+                channel instanceof StageChannel
+              ) {
+                const members = channel.members;
+                members.map((member) => {
+                  if (!results.includes(member)) results.push(member);
+                });
+              }
+            }),
+          );
+        }
       }),
     );
 
