@@ -452,15 +452,14 @@ class WorktimeController {
 
     await Promise.all(
       guilds.map(async (guild) => {
-        await guild.channels.fetch();
-        const channels = guild.channels.cache;
+        const channels = await guild.channels.fetch();
 
         if (channels instanceof Collection) {
           const workChannels = channels.filter(
             (channel) =>
-              (channel.type === ChannelType.GuildVoice ||
-                channel.type === ChannelType.GuildStageVoice) &&
-              workChannelNames.some((name) => channel.name.includes(name)),
+              (channel?.type === ChannelType.GuildVoice ||
+                channel?.type === ChannelType.GuildStageVoice) &&
+              workChannelNames.some((name) => channel?.name.includes(name)),
           );
 
           await Promise.all(
