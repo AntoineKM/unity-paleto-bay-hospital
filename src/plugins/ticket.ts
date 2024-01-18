@@ -1,4 +1,5 @@
 import { ChannelType, Colors, Events } from "discord.js";
+import { Log } from "dixt";
 
 import CHANNELS from "../constants/channels";
 import MESSAGES from "../constants/messages";
@@ -50,6 +51,7 @@ const TicketPlugin: DiscordPlugin = (client) => {
         embeds: [embed],
       });
     } catch (e) {
+      Log.error(e);
       await interaction.editReply({
         embeds: [
           {

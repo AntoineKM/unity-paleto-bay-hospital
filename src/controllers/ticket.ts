@@ -122,25 +122,6 @@ class TicketController {
     const { user } = member;
     const guildMember = await guild.members.fetch(member.user.id);
 
-    // if (
-    //   type === TicketType.Recruitment &&
-    //   !member.roles.cache.has(ROLES.CANDIDATURE_ACCEPTEE)
-    // ) {
-    //   embed = {
-    //     ...this.baseEmbed,
-    //     color: Colors.Red,
-    //     description:
-    //       "Votre candidature n'est pas encore acceptée, vous ne pouvez pas créer de ticket de recrutement.",
-    //   };
-
-    //   user
-    //     .send({
-    //       embeds: [embed],
-    //     })
-    //     .catch((e) => Log.error(user, e));
-    //   return embed;
-    // }
-
     if (
       type === TicketType.HumanResources &&
       !guildMember.roles.cache.has(ROLES.EMERGENCY)
@@ -186,9 +167,27 @@ class TicketController {
     }
 
     const parent = TicketTypeData[type].parent || CHANNELS.TICKETS_AUTRES._ID;
-    const category = guild.channels.cache.get(parent) as CategoryChannel;
+    let category = guild.channels.cache.get(parent);
 
-    // check if the category got 50 or over 50 channels
+    if (!category || category.type !== ChannelType.GuildCategory) {
+      embed = {
+        ...this.baseEmbed,
+        color: Colors.Red,
+        description: `La catégorie ${TicketTypeData[
+          type
+        ].name.toLowerCase()} n'existe pas.`,
+      };
+      guildMember
+        .send({
+          embeds: [embed],
+        })
+        .catch((e) => Log.error(user, e));
+      return embed;
+    }
+
+    if (category.children.cache.size >= 50) {
+      category = await this.getReplica(guild, category);
+    }
 
     if (category.children.cache.size >= 50) {
       embed = {
@@ -211,7 +210,7 @@ class TicketController {
         guildMember.nickname || user.username
       }`,
       topic: `Ticket ${TicketTypeData[type].name.toLowerCase()} de ${user}`,
-      parent,
+      parent: category,
       type: ChannelType.GuildText,
       permissionOverwrites: [
         {
@@ -272,6 +271,47 @@ class TicketController {
     return embed;
   }
 
+  public static async getReplica(
+    guild: Guild,
+    baseCategory: CategoryChannel,
+  ): Promise<CategoryChannel> {
+    console.log("getting replicas...");
+    const replicas = await guild.channels.cache.filter(
+      (channel) =>
+        channel.type === ChannelType.GuildCategory &&
+        channel.name === baseCategory.name,
+    );
+
+    const availableReplicas = replicas.filter(
+      (channel) =>
+        channel.type === ChannelType.GuildCategory &&
+        channel.children.cache.size < 50,
+    );
+
+    let replica = availableReplicas.first();
+
+    if (replica && replica.type === ChannelType.GuildCategory) {
+      console.log("replica found");
+      return replica;
+    } else {
+      console.log("creating replica...");
+      replica = await guild.channels.create({
+        name: baseCategory.name,
+        type: ChannelType.GuildCategory,
+        permissionOverwrites: baseCategory.permissionOverwrites.cache.map(
+          (overwrite) => ({
+            id: overwrite.id,
+            allow: overwrite.allow.toArray(),
+            deny: overwrite.deny.toArray(),
+          }),
+        ),
+        position: baseCategory.position,
+      });
+
+      return replica;
+    }
+  }
+
   public static async closeTicket(
     user: User,
     channel: TextChannel | GuildTextBasedChannel,
@@ -280,6 +320,23 @@ class TicketController {
       `**${channel.guild.name}**`,
       `ticket ${channel.name} fermé par **${user.username}#${user.discriminator}**`,
     );
+
+    const parent = channel.parent;
+    if (parent && parent.type === ChannelType.GuildCategory) {
+      const ticketCategories = Object.keys(TicketTypeData).map(
+        (type) => TicketTypeData[type as TicketType].parent,
+      );
+
+      if (
+        !ticketCategories.includes(parent.id) &&
+        parent.children.cache.size === 1
+      ) {
+        await parent.delete();
+        await channel.delete();
+        return;
+      }
+    }
+
     await channel.delete();
   }
 
