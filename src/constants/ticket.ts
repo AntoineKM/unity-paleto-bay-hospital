@@ -79,7 +79,7 @@ Dimanche: ?h - ?h_`,
     name: "Psychologie",
     description:
       "Examen psychologique pour les personnes principalement en détresse ou en souffrance psychologique.",
-    instructions: `》Nous avons bien pris note de votre demande de rendez-vous. Un membre de la direction ne manquera pas de vous contacter dans les plus brefs délais.
+    instructions: `》Nous avons bien pris note de votre demande de rendez-vous. Un médecin ne manquera pas de vous contacter dans les plus brefs délais.
 
 *__En attendant merci de nous indiquer: __*
 - Votre nom et prénom (IG)
@@ -92,7 +92,7 @@ Dimanche: ?h - ?h_`,
     name: "Toxicologie",
     description:
       "Examen toxicologique pour les personnes qui rencontrent des problèmes de toxicomanie.",
-    instructions: `》Nous avons bien pris note de votre demande de rendez-vous. Un membre de la direction ne manquera pas de vous contacter dans les plus brefs délais.
+    instructions: `》Nous avons bien pris note de votre demande de rendez-vous. Un médecin ne manquera pas de vous contacter dans les plus brefs délais.
 
 *__En attendant merci de nous indiquer: __*
 - Votre nom et prénom (IG)
@@ -105,7 +105,7 @@ Dimanche: ?h - ?h_`,
     name: "Chirurgie",
     description:
       "Examen chirurgical pour les personnes qui rencontrent des problèmes de santé ou souhaitent subir une modification corporelle.",
-    instructions: `》Nous avons bien pris note de votre demande de rendez-vous. Un membre de la direction ne manquera pas de vous contacter dans les plus brefs délais.
+    instructions: `》Nous avons bien pris note de votre demande de rendez-vous.  Un médecin ne manquera pas de vous contacter dans les plus brefs délais.
 
 *__En attendant merci de nous indiquer: __*
 - Votre nom et prénom (IG)
@@ -118,7 +118,7 @@ Dimanche: ?h - ?h_`,
     name: "Gynécologie",
     description:
       "Examen gynécologique principalement pour les femmes enceintes et les dépistages de MST.",
-    instructions: `》Nous avons bien pris note de votre demande de rendez-vous. Un membre de la direction ne manquera pas de vous contacter dans les plus brefs délais.
+    instructions: `》Nous avons bien pris note de votre demande de rendez-vous.  Un médecin ne manquera pas de vous contacter dans les plus brefs délais.
 
 *__En attendant merci de nous indiquer: __*
 - Votre nom et prénom (IG)
@@ -131,7 +131,7 @@ Dimanche: ?h - ?h_`,
     name: "Radiologie",
     description:
       "Examen radiologique principalement pour les personnes sentant des douleurs internes.",
-    instructions: `》Nous avons bien pris note de votre demande de rendez-vous. Un membre de la direction ne manquera pas de vous contacter dans les plus brefs délais.
+    instructions: `》Nous avons bien pris note de votre demande de rendez-vous. Un médecin ne manquera pas de vous contacter dans les plus brefs délais.
 
 *__En attendant merci de nous indiquer: __*
 - Votre nom et prénom (IG)
@@ -144,7 +144,7 @@ Dimanche: ?h - ?h_`,
     name: "Visite médicale",
     description:
       "Examen médical pour les personnes qui rencontrent des problèmes de santé.",
-    instructions: `》Nous avons bien pris note de votre demande de rendez-vous. Un membre de la direction ne manquera pas de vous contacter dans les plus brefs délais.
+    instructions: `》Nous avons bien pris note de votre demande de rendez-vous. Un médecin ne manquera pas de vous contacter dans les plus brefs délais.
 
 *__En attendant merci de nous indiquer: __*
 - Votre nom et prénom (IG)
@@ -210,12 +210,9 @@ https://docs.google.com/document/d/1_kDci6culEZ5_TLFqoFNlMY_sqSD_4Sxzjk4DtPXBrs/
   [TicketType.HumanResources]: {
     emoji: "📝",
     name: "RH",
-    description: "Rendez-vous réservés aux personnels soignants.",
-    instructions: `》Nous avons bien pris note de votre demande de rendez-vous. Un membre de la direction ne manquera pas de vous contacter dans les plus brefs délais.
-
-*__En attendant merci de nous indiquer: __*
-- Objet du rendez-vous
-- Vos disponibilités`,
+    description: "Réservé aux personnels soignants.",
+    instructions:
+      "Comment pouvons-nous vous aider ? N'hésitez pas à nous fournir toutes les informations nécessaires pour que nous puissions vous aider au mieux.",
     parent: CHANNELS.TICKETS_RESSOURCES_HUMAINES._ID,
   },
 };
