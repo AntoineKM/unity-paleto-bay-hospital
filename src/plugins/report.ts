@@ -14,7 +14,6 @@ const ReportPlugin: DiscordPlugin = (client) => {
     switch (interaction.customId) {
       case "report_cancel":
         await interaction.message.delete();
-        await interaction.deleteReply();
         break;
     }
 
