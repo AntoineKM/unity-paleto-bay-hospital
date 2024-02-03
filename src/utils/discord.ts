@@ -15,6 +15,7 @@ export const getTextChannel = (client: Client, channelID: string) => {
 export const getMembersWithRole = async (
   client: Client,
   roleID: string,
+  blacklistedRolesIDs: string[] = [],
 ): Promise<GuildMember[]> => {
   await client.guilds.fetch();
   const guilds = client.guilds.cache;
@@ -32,6 +33,23 @@ export const getMembersWithRole = async (
   }
 
   const members = Array.from(role.members.values());
+
+  if (blacklistedRolesIDs.length > 0) {
+    for (const blacklistedRoleID of blacklistedRolesIDs) {
+      const blacklistedRole = guild.roles.cache.get(blacklistedRoleID);
+      if (blacklistedRole) {
+        const blacklistedMembers = Array.from(blacklistedRole.members.values());
+        for (const blacklistedMember of blacklistedMembers) {
+          const index = members.findIndex(
+            (member) => member.id === blacklistedMember.id,
+          );
+          if (index !== -1) {
+            members.splice(index, 1);
+          }
+        }
+      }
+    }
+  }
 
   return members;
 };

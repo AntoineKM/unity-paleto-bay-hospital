@@ -1,4 +1,5 @@
 import CHANNELS from "./channels";
+import ROLES from "./roles";
 import { TicketType } from "../types/ticket";
 
 export const TicketTypeData: Record<
@@ -9,6 +10,7 @@ export const TicketTypeData: Record<
     description: string;
     instructions: string;
     parent?: string;
+    manager?: string;
   }
 > = {
   [TicketType.Complaint]: {
@@ -73,6 +75,7 @@ Vendredi: ?h - ?h
 Samedi: ?h - ?h 
 Dimanche: ?h - ?h_`,
     parent: CHANNELS.TICKETS_PSYCOLOGIE._ID,
+    manager: ROLES.PSYCHOLOGUE,
   },
   [TicketType.Psychology]: {
     emoji: "🧠",
@@ -86,6 +89,7 @@ Dimanche: ?h - ?h_`,
 - Objet du rendez-vous
 - Vos disponibilités`,
     parent: CHANNELS.TICKETS_PSYCOLOGIE._ID,
+    manager: ROLES.PSYCHOLOGUE,
   },
   [TicketType.Toxicology]: {
     emoji: "💉",
@@ -99,6 +103,7 @@ Dimanche: ?h - ?h_`,
 - Objet du rendez-vous
 - Vos disponibilités`,
     parent: CHANNELS.TICKETS_TOXICOLOGIE._ID,
+    manager: ROLES.TOXICOLOGUE,
   },
   [TicketType.Surgery]: {
     emoji: "🦾",
@@ -112,6 +117,7 @@ Dimanche: ?h - ?h_`,
 - Objet du rendez-vous
 - Vos disponibilités`,
     parent: CHANNELS.TICKETS_CHIRURGIE._ID,
+    manager: ROLES.CHIRURGIEN,
   },
   [TicketType.Gynecology]: {
     emoji: "🔍",
@@ -125,6 +131,7 @@ Dimanche: ?h - ?h_`,
 - Objet du rendez-vous
 - Vos disponibilités`,
     parent: CHANNELS.TICKETS_GYNECOLOGIE._ID,
+    manager: ROLES.GYNECOLOGUE,
   },
   [TicketType.Radiology]: {
     emoji: "🩻",
@@ -138,6 +145,7 @@ Dimanche: ?h - ?h_`,
 - Objet du rendez-vous
 - Vos disponibilités`,
     parent: CHANNELS.TICKETS_RADIOLOGIE._ID,
+    manager: ROLES.RADIOLOGUE,
   },
   [TicketType.Medical]: {
     emoji: "🩺",
@@ -151,6 +159,7 @@ Dimanche: ?h - ?h_`,
 - Objet du rendez-vous
 - Vos disponibilités`,
     parent: CHANNELS.TICKETS_MEDECINE_GENERALISTE._ID,
+    manager: ROLES.GENERALISTE,
   },
   [TicketType.Events]: {
     emoji: "🎉",

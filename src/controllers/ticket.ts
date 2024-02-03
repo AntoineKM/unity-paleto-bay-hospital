@@ -19,6 +19,7 @@ import CHANNELS from "../constants/channels";
 import ROLES from "../constants/roles";
 import { TicketTypeData } from "../constants/ticket";
 import { TicketType } from "../types/ticket";
+import { getMembersWithRole } from "../utils/discord";
 import Log from "../utils/log";
 
 class TicketController {
@@ -233,7 +234,21 @@ class TicketController {
       description: `Bonjour ${user} !\n\n` + TicketTypeData[type].instructions,
     };
 
+    const manager = TicketTypeData[type].manager;
+    let content;
+    if (manager) {
+      const managers = await getMembersWithRole(guild.client, manager, [
+        ROLES.DIRECTION,
+        ROLES.CADRE_SANTE,
+        ROLES.CHEF_DE_SERVICE,
+      ]);
+      content = `Prise en charge par ${
+        managers[Math.floor(Math.random() * managers.length)]
+      }`;
+    }
+
     await channel.send({
+      content,
       embeds: [instructionEmbed],
       components: [
         {
