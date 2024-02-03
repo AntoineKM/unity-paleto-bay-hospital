@@ -241,6 +241,7 @@ class TicketController {
         ROLES.DIRECTION,
         ROLES.CADRE_SANTE,
         ROLES.CHEF_DE_SERVICE,
+        ROLES.INTERIMAIRE,
       ]);
       content = `Prise en charge par ${
         managers[Math.floor(Math.random() * managers.length)]
