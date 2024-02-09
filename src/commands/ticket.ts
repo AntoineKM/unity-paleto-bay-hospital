@@ -119,6 +119,8 @@ const TicketCommand: DiscordCommand = {
                 ],
               );
 
+              await interaction.deleteReply();
+
               if (managers.length === 0) {
                 interaction.editReply({
                   embeds: [
@@ -134,7 +136,7 @@ const TicketCommand: DiscordCommand = {
               const manager =
                 managers[Math.floor(Math.random() * managers.length)];
 
-              interaction.channel.send(
+              await interaction.channel.send(
                 `La prise en charge a été réattribué à ${manager}`,
               );
             } else {
