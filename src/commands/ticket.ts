@@ -8,6 +8,7 @@ import MESSAGES from "../constants/messages";
 import ROLES from "../constants/roles";
 import TicketController from "../controllers/ticket";
 import { DiscordCommand } from "../types/command";
+import { getMembersWithRole } from "../utils/discord";
 
 const TicketCommand: DiscordCommand = {
   data: new SlashCommandBuilder()
@@ -27,6 +28,10 @@ const TicketCommand: DiscordCommand = {
             value: "prefix",
             name: "Changer le préfixe d'un ticket",
           },
+          {
+            value: "reroll",
+            name: "Réattribuer le ticket",
+          },
         ),
     )
     .addStringOption((option) =>
@@ -34,10 +39,17 @@ const TicketCommand: DiscordCommand = {
         .setName("prefix")
         .setDescription("Le nouveau préfixe du ticket")
         .setRequired(false),
+    )
+    .addRoleOption((option) =>
+      option
+        .setName("role")
+        .setDescription("Le rôle de la personne")
+        .setRequired(false),
     ),
   async execute(interaction) {
     const command = interaction.options.getString("command");
     const prefix = interaction.options.getString("prefix");
+    const role = interaction.options.getRole("role");
 
     if (!interaction.inCachedGuild()) {
       interaction.editReply({
@@ -63,6 +75,73 @@ const TicketCommand: DiscordCommand = {
             interaction.editReply(
               MESSAGES.ERROR.COMMAND_NOT_AVAILABLE_IN_CHANNEL,
             );
+          }
+          return;
+        case "reroll":
+          if (!interaction.member.roles.cache.has(ROLES.EMERGENCY)) {
+            interaction.editReply({
+              content: MESSAGES.ERROR.COMMAND_NO_PERMISSION,
+            });
+          } else {
+            if (
+              interaction.channel &&
+              interaction.channel.type === ChannelType.GuildText &&
+              (await TicketController.isTicket(interaction.channel))
+            ) {
+              if (!role) {
+                interaction.editReply({
+                  embeds: [
+                    {
+                      ...TicketController.baseEmbed,
+                      description: "❌ - Vous devez spécifier un rôle",
+                    },
+                  ],
+                });
+                return;
+              }
+              interaction.editReply({
+                embeds: [
+                  {
+                    ...TicketController.baseEmbed,
+                    description: "Réattribution du ticket...",
+                  },
+                ],
+              });
+
+              const managers = await getMembersWithRole(
+                interaction.client,
+                role.id,
+                [
+                  ROLES.DIRECTION,
+                  ROLES.CADRE_SANTE,
+                  ROLES.CHEF_DE_SERVICE,
+                  ROLES.INTERIMAIRE,
+                ],
+              );
+
+              if (managers.length === 0) {
+                interaction.editReply({
+                  embeds: [
+                    {
+                      ...TicketController.baseEmbed,
+                      description: "❌ - Aucun manager trouvé",
+                    },
+                  ],
+                });
+                return;
+              }
+
+              const manager =
+                managers[Math.floor(Math.random() * managers.length)];
+
+              interaction.channel.send(
+                `La prise en charge a été réattribué à ${manager}`,
+              );
+            } else {
+              interaction.editReply(
+                MESSAGES.ERROR.COMMAND_NOT_AVAILABLE_IN_CHANNEL,
+              );
+            }
           }
           return;
         case "prefix":
