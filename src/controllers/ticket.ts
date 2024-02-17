@@ -334,7 +334,7 @@ class TicketController {
   ) {
     Log.info(
       `**${channel.guild.name}**`,
-      `ticket ${channel.name} fermé par **${user.username}#${user.discriminator}**`,
+      `ticket ${channel.name} fermé par ${user}`,
     );
 
     const parent = channel.parent;

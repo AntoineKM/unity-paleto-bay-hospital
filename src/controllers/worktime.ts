@@ -154,7 +154,7 @@ class WorktimeController {
       Log.info(
         `✅ - Prise de service validée à <t:${Math.floor(
           Date.now() / 1000,
-        )}:t> par **${user.username}#${user.discriminator}**`,
+        )}:t> par ${user}`,
       );
     }
 
@@ -233,7 +233,7 @@ class WorktimeController {
       Log.info(
         `✅ - Fin de service validée à <t:${Math.floor(
           Date.now() / 1000,
-        )}:t> par **${user.username}#${user.discriminator}** - ${pad(
+        )}:t> par ${user} - ${pad(
           Math.floor(totalWorktime / 1000 / 60 / 60),
           2,
         )}h${pad(Math.floor((totalWorktime / 1000 / 60) % 60), 2)}min - ${
@@ -318,15 +318,13 @@ class WorktimeController {
 
       if (sender) {
         Log.info(
-          `✅ - La prise de service de **${target.username}#${target.discriminator}** a été annulée par **${sender.username}#${sender.discriminator}**.`,
+          `✅ - La prise de service de ${target} a été annulée par ${sender}.`,
         );
         sender
           .send(`✅ - La prise de service de ${target.username} a été annulée.`)
           .catch((e) => Log.error(sender, e));
       } else {
-        Log.info(
-          `✅ - La prise de service de **${target.username}#${target.discriminator}** a été annulée.`,
-        );
+        Log.info(`✅ - La prise de service de ${target} a été annulée.`);
       }
     } else {
       if (sender) {
@@ -350,7 +348,7 @@ class WorktimeController {
     Log.info(
       `✅ - ${duration} ${
         durationInSeconds >= 0 ? "ajouté" : "retiré"
-      } au temps de travail de **${target.username}#${target.discriminator}**.`,
+      } au temps de travail de ${target}.`,
     );
   }
 
@@ -394,7 +392,7 @@ class WorktimeController {
       Log.info(
         `✅ - Le service du ${dayjs(worktime.startAt).format(
           "DD/MM/YYYY à HH:mm",
-        )} de **${target.username}#${target.discriminator}** a été supprimé.`,
+        )} de ${target} a été supprimé.`,
       );
     }
   }
