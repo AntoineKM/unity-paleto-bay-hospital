@@ -479,6 +479,8 @@ class WorktimeController {
       }),
     );
 
+    Log.info("Members in work voice channel", results.map((member) => `<@${member.id}>`).join(', '));
+
     return results;
   }
 
