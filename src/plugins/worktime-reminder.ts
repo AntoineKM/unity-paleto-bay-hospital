@@ -16,8 +16,6 @@ const WorktimeReminderPlugin: DiscordPlugin = (client) => {
     const worktimeReminderIgnoreList = await WorktimeIgnoreReminder.find();
     await Promise.all(
       members.map(async (member) => {
-        await member.fetch();
-        // check if the member as emergency role and is not in the ignore list
         if (
           member.roles.cache.has(ROLES.EMERGENCY) &&
           !worktimeReminderIgnoreList.find((m) => m.userId === member.user.id)
@@ -28,7 +26,7 @@ const WorktimeReminderPlugin: DiscordPlugin = (client) => {
           });
           if (!worktime) {
             Log.info(
-              `Sent reminder to ${member.user.username}#${member.user.discriminator} for not starting worktime`,
+              `Sent reminder to ${member.user} for not starting worktime`,
             );
             try {
               member
