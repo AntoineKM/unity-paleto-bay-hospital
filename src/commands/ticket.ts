@@ -111,12 +111,7 @@ const TicketCommand: DiscordCommand = {
               const managers = await getMembersWithRole(
                 interaction.client,
                 role.id,
-                [
-                  ROLES.DIRECTION,
-                  ROLES.CADRE_SANTE,
-                  ROLES.CHEF_DE_SERVICE,
-                  ROLES.INTERIMAIRE,
-                ],
+                [ROLES.CADRE_SANTE, ROLES.CHEF_DE_SERVICE, ROLES.INTERIMAIRE],
               );
 
               await interaction.deleteReply();

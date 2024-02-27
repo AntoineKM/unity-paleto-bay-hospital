@@ -238,7 +238,6 @@ class TicketController {
     let content;
     if (manager) {
       const managers = await getMembersWithRole(guild.client, manager, [
-        ROLES.DIRECTION,
         ROLES.CADRE_SANTE,
         ROLES.CHEF_DE_SERVICE,
         ROLES.INTERIMAIRE,
