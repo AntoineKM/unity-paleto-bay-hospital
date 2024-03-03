@@ -238,7 +238,6 @@ class TicketController {
     let content;
     if (manager) {
       const managers = await getMembersWithRole(guild.client, manager, [
-        ROLES.DIRECTION,
         ROLES.CADRE_SANTE,
         ROLES.CHEF_DE_SERVICE,
         ROLES.INTERIMAIRE,
@@ -334,7 +333,7 @@ class TicketController {
   ) {
     Log.info(
       `**${channel.guild.name}**`,
-      `ticket ${channel.name} fermé par **${user.username}#${user.discriminator}**`,
+      `ticket ${channel.name} fermé par ${user}`,
     );
 
     const parent = channel.parent;

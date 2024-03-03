@@ -76,9 +76,7 @@ class WarnController {
 
     await channel.send({ embeds: [warnEmbed] });
 
-    Log.info(
-      `**${moderator.username}#${moderator.discriminator}** warned **${target.username}#${target.discriminator}** for "${reason}"`,
-    );
+    Log.info(`${moderator} warned ${target} for "${reason}."`);
 
     target
       .send({
@@ -141,9 +139,7 @@ class WarnController {
       });
     }
 
-    Log.info(
-      `**${moderator.username}#${moderator.discriminator}** à réinitialisé les avertissements de **${target.username}#${target.discriminator}**`,
-    );
+    Log.info(`${moderator} à réinitialisé les avertissements de ${target}.`);
 
     target
       .send({
