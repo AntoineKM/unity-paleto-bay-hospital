@@ -517,6 +517,10 @@ class WorktimeController {
             result = await guild.roles.fetch(ROLES.MEDECIN_CHEF);
             return;
           }
+          if (roles.has(ROLES.RESIDENT)) {
+            result = await guild.roles.fetch(ROLES.RESIDENT);
+            return;
+          }
           if (roles.has(ROLES.MEDECIN)) {
             result = await guild.roles.fetch(ROLES.MEDECIN);
             return;
@@ -525,8 +529,16 @@ class WorktimeController {
             result = await guild.roles.fetch(ROLES.ASSITANT_MEDECIN);
             return;
           }
+          if (roles.has(ROLES.CLINICIEN)) {
+            result = await guild.roles.fetch(ROLES.CLINICIEN);
+            return;
+          }
           if (roles.has(ROLES.INTERNE)) {
             result = await guild.roles.fetch(ROLES.INTERNE);
+            return;
+          }
+          if (roles.has(ROLES.EXTERNE)) {
+            result = await guild.roles.fetch(ROLES.EXTERNE);
             return;
           }
           if (roles.has(ROLES.INFIRMIER)) {
@@ -539,6 +551,10 @@ class WorktimeController {
           }
           if (roles.has(ROLES.AMBULANCIER)) {
             result = await guild.roles.fetch(ROLES.AMBULANCIER);
+            return;
+          }
+          if (roles.has(ROLES.SECOURISTE)) {
+            result = await guild.roles.fetch(ROLES.SECOURISTE);
             return;
           }
           if (roles.has(ROLES.STAGIAIRE)) {
